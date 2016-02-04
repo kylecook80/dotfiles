@@ -4,6 +4,7 @@
     ~/.aliases: aliases
     ~/.gdbinit: gdbinit
     ~/.gitconfig: gitconfig
+    ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
     ~/.zsh: zsh/
     ~/.zshrc: zshrc
