@@ -1,0 +1,14 @@
+- clean: ['~']
+
+- link:
+    ~/.aliases: aliases
+    ~/.gdbinit: gdbinit
+    ~/.gitconfig: gitconfig
+    ~/.vimrc: vimrc
+    ~/.zsh: zsh/
+    ~/.zshrc: zshrc
+    ~/.zshenv: zshenv
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+

@@ -1,0 +1,35 @@
+#
+# A information theme used for ruby and node development.
+#
+# Authors:
+#   Kyle Cook <kylecook80@gmail.com>
+#
+
+function prompt_cook_precmd {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  vcs_info
+}
+
+function prompt_cook_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  # Add hook for calling vcs_info before each command.
+  add-zsh-hook precmd prompt_cook_precmd
+
+  zstyle ':vcs_info:git:*' formats '%F{green}[%b%f%F{red}%m%c%u%f%F{green}]%f'
+  zstyle ':vcs_info:git:*' check-for-changes true
+  zstyle ':vcs_info:git:*' stagedstr ' *'
+  zstyle ':vcs_info:git:*' unstagedstr ' !'
+
+  PROMPT=$'%F{blue}${PWD/#$HOME/~}%f ${vcs_info_msg_0_} %F{white}[%n@%m]%f %F{white}[%T]%f\n%F{white}>%f '
+}
+
+prompt_cook_setup "$@"
+
