@@ -1,3 +1,5 @@
+#alias ls="ls --color=auto"
+alias auu="sudo apt-get update && sudo apt-get -y upgrade"
 alias be="bundle exec"
 alias bu="be unicorn -c config/unicorn.rb"
 alias dir_size="du -d 1 -m . | sort -nr | head -n 20"
