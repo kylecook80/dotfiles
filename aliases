@@ -6,3 +6,35 @@ alias dir_size="du -d 1 -m . | sort -nr | head -n 20"
 alias finder_hide_files="defaults write com.apple.finder AppleShowAllFiles NO;killall Finder"
 alias finder_show_files="defaults write com.apple.finder AppleShowAllFiles YES;killall Finder"
 alias flushdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed"
+
+dec2hex() {
+  echo "ibase=10;obase=16;$1" | bc
+}
+
+hex2dec() {
+  echo 'ibase=16;obase=10;$1' | bc
+}
+
+dec2bin() {
+  echo 'ibase=10;obase=2;$1' | bc
+}
+
+bin2dec() {
+  echo 'ibase=2;obase=10;$1' | bc
+}
+
+bin2hex() {
+  echo 'ibase=2;obase=16;$1' | bc
+}
+
+hex2bin() {
+  echo 'ibase=16;obase=2;$1' | bc
+}
+
+alias d2h="dec2hex"
+alias h2d="hex2dec"
+alias d2b="dec2bin"
+alias b2d="bin2dec"
+alias b2h="bin2hex"
+alias h2b="hex2bin"
+

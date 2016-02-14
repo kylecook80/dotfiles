@@ -1,7 +1,5 @@
 # Add local path to custom themes and functions
-[[ -d /usr/local/share/zsh/zsh-completions ]] && fpath=(/usr/local/share/zsh/zsh-completions $fpath)
 fpath=(~/.zsh/site-functions $fpath)
-fpath=(~/.zsh/completions $fpath)
 
 # ZSH Configuration
 autoload -U compinit complist promptinit
@@ -12,6 +10,9 @@ prompt cook
 # Enable arrow keys in auto-complete
 zstyle ':completion:*' menu select
 setopt completealiases
+
+# Enable ssh hosts for completion
+zstyle ':completion:*' hosts
 
 # Color setup
 autoload -U colors
@@ -56,6 +57,9 @@ fi
 if which archey &>/dev/null ; then
   archey
 fi
+
+# ZSH Plugins
+[[ -f ~/.sh/scripts/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/scripts/zsh-completions/zsh-completions.plugin.zsh
 
 [[ -f ~/.zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

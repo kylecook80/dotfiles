@@ -4,3 +4,9 @@
 [submodule "zsh/scripts/zsh-syntax-highlighting"]
 	path = zsh/scripts/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/scripts/zsh-completions"]
+	path = zsh/scripts/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
+[submodule "zsh/scripts/liquidprompt"]
+	path = zsh/scripts/liquidprompt
+	url = https://github.com/nojhan/liquidprompt
