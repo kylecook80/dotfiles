@@ -1,6 +1,9 @@
 # Add local path to custom themes and functions
 fpath=(~/.zsh/site-functions $fpath)
 
+# LiquidPrompt
+#[[ $- = *i* ]] && source .zsh/scripts/liquidprompt/liquidprompt
+
 # ZSH Configuration
 autoload -U compinit complist promptinit
 compinit
@@ -31,6 +34,7 @@ DIRSTACKSIZE=5
 
 # Globbing
 setopt extendedglob
+autoload -U zmv
 
 # Not sure yet...
 unsetopt nomatch
@@ -63,3 +67,4 @@ fi
 
 [[ -f ~/.zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
