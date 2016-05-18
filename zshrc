@@ -1,8 +1,8 @@
 # Add local path to custom themes and functions
-fpath=(~/.zsh/site-functions $fpath)
-
-# LiquidPrompt
-#[[ $- = *i* ]] && source .zsh/scripts/liquidprompt/liquidprompt
+fpath=(
+    ~/.zsh/site-functions
+    $fpath
+)
 
 # ZSH Configuration
 autoload -U compinit complist promptinit
@@ -29,17 +29,17 @@ HISTSIZE=4096
 SAVEHIST=4096
 
 # CD stuff
-setopt autocd autopushd pushdsilent pushdtohome
-DIRSTACKSIZE=5
+#setopt autocd autopushd pushdsilent pushdtohome
+#DIRSTACKSIZE=5
 
 # Globbing
 setopt extendedglob
 autoload -U zmv
 
-# Not sure yet...
+# Don't give an error if a match is not found
 unsetopt nomatch
 
-# Vi or Emacs
+# Emacs bindings for shell
 bindkey -e
 
 # Percol setup
@@ -57,14 +57,6 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
-# Display pretty picture at the end :)
-if which archey &>/dev/null ; then
-  archey
-fi
-
 # ZSH Plugins
-[[ -f ~/.sh/scripts/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/scripts/zsh-completions/zsh-completions.plugin.zsh
-
-[[ -f ~/.zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+[[ -f ~/.zsh/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
+[[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

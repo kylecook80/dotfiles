@@ -1,0 +1,8 @@
+#!/bin/sh
+
+LINKS="aliases gdbinit gitconfig vimrc zshenv zshrc zsh"
+
+for item in $LINKS
+do
+	rm $HOME/.$item
+done
