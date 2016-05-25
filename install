@@ -3,7 +3,7 @@
 shopt -s nullglob nocaseglob
 shopt -s nocasematch
 
-DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc tmux.conf vimrc zshenv zshrc zsh"
+DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc screenrc tmux.conf vimrc zshenv zshrc zsh"
 LINKED=()
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
