@@ -1,11 +1,18 @@
 #!/bin/bash
 
 DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc screenrc tmux.conf vimrc zshenv zshrc zsh"
+OTHER_FILES="zcompdump zhistory"
 
 for item in $DEFAULT_FILES; do
   if [[ -d "$item" ]]; then
     rm -rf $HOME/.$item
   else
 	  rm $HOME/.$item
+  fi
+done
+
+for item in $OTHER_FILES; do
+  if [[ -e "$HOME/.$item" ]]; then
+    rm "$HOME/.$item"
   fi
 done
