@@ -27,6 +27,7 @@ for item in $LINKED; do
     # printf "no_regex: %s\n" "$HOME/.$item"
   	# ln -s ".dotfiles/$item" "$HOME/.$item"
     if [[ -d "$item" ]]; then
+      rm -rf "$HOME/.$item"
       cp -r "$item" "$HOME/.$item"
     else
       cp "$item" "$HOME/.$item"
