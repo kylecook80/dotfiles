@@ -1,0 +1,18 @@
+# Homebrew Github API Token
+[[ -r ~/.homebrew_token ]] && . ~/.homebrew_token
+
+# PATH
+path=(
+  $HOME/bin
+  /usr/local/bin
+  /usr/bin
+  /bin
+  /usr/sbin
+  /sbin
+  /usr/local/MacGPG2/bin
+)
+
+# export CPATH=/opt/X11/include
+# export LIBRARY_PATH=/opt/X11/lib
+# export LD_LIBRARY_PATH=/opt/X11/lib
+export MACOSX_DEPLOYMENT_TARGET=10.11

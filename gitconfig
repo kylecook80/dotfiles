@@ -1,8 +1,6 @@
 [user]
 	name = Kyle Cook
 	email = kylecook80@gmail.com
-[credential]
-	helper = osxkeychain
 [core]
 	excludesfile = /Users/kyle/.gitignore
 	editor = vim 

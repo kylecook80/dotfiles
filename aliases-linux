@@ -1,0 +1,2 @@
+alias ls="ls --color=auto"
+alias auu="sudo apt-get update && sudo apt-get -y upgrade"

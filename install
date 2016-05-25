@@ -1,8 +1,39 @@
 #!/bin/sh
 
-LINKS="aliases gdbinit gitconfig vimrc zshenv zshrc zsh"
+shopt -s nullglob nocaseglob
+shopt -s nocasematch
 
-for item in $LINKS
-do
-	ln -s .dotfiles/$item $HOME/.$item
+DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc tmux.conf vimrc zshenv zshrc zsh"
+LINKED=()
+
+OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+printf "OS: %s\n" "${OS}"
+
+for item in $DEFAULT_FILES; do
+  if [[ -e "$item-$OS" ]]; then
+    LINKED+="$item-$OS "
+  else
+    LINKED+="$item "
+  fi
 done
+
+regex="(.*)-$OS"
+for item in $LINKED; do
+  if [[ $item =~ $regex ]]; then
+    # printf "regex: %s\n" "$HOME/.${BASH_REMATCH[1]}"
+    # ln -s ".dotfiles/$item" "$HOME/.${BASH_REMATCH[1]}"
+    cat "${BASH_REMATCH[1]}" "$item" > "$HOME/.${BASH_REMATCH[1]}"
+  else
+    # printf "no_regex: %s\n" "$HOME/.$item"
+  	# ln -s ".dotfiles/$item" "$HOME/.$item"
+    if [[ -d "$item" ]]; then
+      cp -r "$item" "$HOME/.$item"
+    else
+      cp "$item" "$HOME/.$item"
+    fi
+  fi
+done
+
+# for item in $DEFAULT_FILES; do
+#   ln -s .dotfiles/$item $HOME/.$item
+# done

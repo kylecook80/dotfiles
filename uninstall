@@ -1,8 +1,11 @@
 #!/bin/sh
 
-LINKS="aliases gdbinit gitconfig vimrc zshenv zshrc zsh"
+DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc tmux.conf vimrc zshenv zshrc zsh"
 
-for item in $LINKS
-do
-	rm $HOME/.$item
+for item in $DEFAULT_FILES; do
+  if [[ -d "$item" ]]; then
+    rm -rf $HOME/.$item
+  else
+	  rm $HOME/.$item
+  fi
 done

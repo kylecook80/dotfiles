@@ -4,18 +4,16 @@ fpath=(
     $fpath
 )
 
-# ZSH Configuration
-autoload -U compinit complist promptinit
+# ZSH prompt and modules
+autoload -U compinit complist promptinit zmv
 compinit
 promptinit
 prompt cook
 
-# Enable arrow keys in auto-complete
-zstyle ':completion:*' menu select
+# Tab Completion
 setopt completealiases
-
-# Enable ssh hosts for completion
-zstyle ':completion:*' hosts
+zstyle ':completion:*' menu select  # Arrow keys
+zstyle ':completion:*' hosts        # SSH hosts
 
 # Color setup
 autoload -U colors
@@ -34,9 +32,6 @@ SAVEHIST=4096
 
 # Globbing
 setopt extendedglob
-autoload -U zmv
-
-# Don't give an error if a match is not found
 unsetopt nomatch
 
 # Emacs bindings for shell
