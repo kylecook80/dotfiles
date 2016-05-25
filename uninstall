@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc tmux.conf vimrc zshenv zshrc zsh"
 
