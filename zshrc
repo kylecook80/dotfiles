@@ -55,3 +55,4 @@ fi
 # ZSH Plugins
 [[ -f ~/.zsh/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
 [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh

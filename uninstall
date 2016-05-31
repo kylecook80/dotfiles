@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEFAULT_FILES="aliases gdbinit gemrc gitconfig pryrc screenrc tmux.conf vimrc zshenv zshrc zsh"
+DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf vimrc zshenv zshrc zsh"
 OTHER_FILES="zcompdump zhistory"
 
 for item in $DEFAULT_FILES; do

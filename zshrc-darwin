@@ -1,0 +1,3 @@
+# gcloud scripts
+[[ -f ~/bin/google-cloud-sdk/path.zsh.inc ]] && . ~/bin/google-cloud-sdk/path.zsh.inc
+[[ -f ~/bin/google-cloud-sdk/completion.zsh.inc ]] && . ~/bin/google-cloud-sdk/completion.zsh.inc
