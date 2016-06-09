@@ -1,3 +1,5 @@
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
 # gcloud scripts
 [[ -f ~/bin/google-cloud-sdk/path.zsh.inc ]] && . ~/bin/google-cloud-sdk/path.zsh.inc
 [[ -f ~/bin/google-cloud-sdk/completion.zsh.inc ]] && . ~/bin/google-cloud-sdk/completion.zsh.inc
