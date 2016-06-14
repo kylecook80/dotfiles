@@ -55,7 +55,13 @@ fi
 # ZSH Plugins
 [[ -f ~/.zsh/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
 [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+# autojump
+if [[ ! `type "brew"` > /dev/null ]]; then
+  [[ -x $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/    etc/profile.d/autojump.sh
+else
+  [[ -x /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojum    p.zsh
+fi
 
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
