@@ -34,8 +34,8 @@ SAVEHIST=4096
 setopt extendedglob
 unsetopt nomatch
 
-# Emacs bindings for shell
-bindkey -e
+# keybindings for shell
+bindkey -v
 
 # Percol setup
 function exists { which $1 &> /dev/null }
@@ -58,4 +58,4 @@ fi
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # Fortune Cowsay
-fortune -o | cowsay | lolcat
+# fortune -o | cowsay | lolcat
