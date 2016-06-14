@@ -1,0 +1,11 @@
+path=(
+  $HOME/bin
+  /usr/local/bin
+  /usr/bin
+  /bin
+  /usr/local/games
+  /usr/games
+)
+
+export CPATH="/usr/include/postgresql:$CPATH"
+
