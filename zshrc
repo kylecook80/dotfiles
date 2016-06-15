@@ -34,8 +34,8 @@ SAVEHIST=4096
 setopt extendedglob
 unsetopt nomatch
 
-# Emacs bindings for shell
-bindkey -e
+# keybindings for shell
+bindkey -v
 
 # Percol setup
 function exists { which $1 &> /dev/null }
@@ -55,4 +55,14 @@ fi
 # ZSH Plugins
 [[ -f ~/.zsh/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
 [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# autojump
+if [[ ! `type "brew"` > /dev/null ]]; then
+  [[ -x $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/    etc/profile.d/autojump.sh
+else
+  [[ -x /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojum    p.zsh
+fi
+
+# Fortune Cowsay
+# fortune -o | cowsay | lolcat
 
