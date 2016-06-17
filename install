@@ -6,6 +6,8 @@ shopt -s nocasematch
 DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf vimrc zshenv zshrc zsh"
 LINKED=()
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 printf "OS: %s\n" "${OS}"
 
@@ -33,6 +35,11 @@ for item in $LINKED; do
       cp "$item" "$HOME/.$item"
     fi
   fi
+done
+
+mkdir -p $HOME/bin
+for item in $DIR/scripts/*.sh; do
+    ln -s $item $HOME/bin
 done
 
 # for item in $DEFAULT_FILES; do

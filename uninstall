@@ -16,3 +16,8 @@ for item in $OTHER_FILES; do
     rm "$HOME/.$item"
   fi
 done
+
+for item in $DIR/scripts/*.sh; do
+    rm $HOME/bin/${item##*/}
+done
+
