@@ -5,20 +5,36 @@ fpath=(
 )
 
 # ZSH prompt and modules
-autoload -U compinit complist promptinit zmv
-compinit
-promptinit
-prompt cook
+autoload -Uz colors compinit complist promptinit zmv
 
 # Tab Completion
 setopt completealiases
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate # Approximate matching
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' menu select  # Arrow keys
 zstyle ':completion:*' hosts        # SSH hosts
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+#zstyle ':completion:*' original true
+#zstyle ':completion:*' prompt '%e'
+#zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+#zstyle ':completion:*' auto-description '%d'
+#zstyle ':completion:*' format '%d'
+#zstyle ':completion:*' group-name ''
+compinit
 
-# Color setup
-autoload -U colors
+# Color
 colors
 export CLICOLOR=1
+
+# Terminal Color Scheme
+~/.zsh/base16-shell/base16-tomorrow.dark.sh
+
+# Prompt
+promptinit
+prompt cook
 
 # History setup
 setopt hist_ignore_all_dups inc_append_history
@@ -35,7 +51,7 @@ setopt extendedglob
 unsetopt nomatch
 
 # keybindings for shell
-bindkey -v
+bindkey -e
 
 # Percol setup
 function exists { which $1 &> /dev/null }

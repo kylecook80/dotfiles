@@ -1,47 +1,23 @@
 #!/bin/bash
 
-shopt -s nullglob nocaseglob
-shopt -s nocasematch
+DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+. "$DIR/scripts/installer_util.sh"
 
-DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf vimrc zshenv zshrc zsh"
-LINKED=()
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
-printf "OS: %s\n" "${OS}"
-
-for item in $DEFAULT_FILES; do
-  if [[ -e "$item-$OS" ]]; then
-    LINKED+="$item-$OS "
-  else
-    LINKED+="$item "
-  fi
+SAFE=0
+while getopts "u" o; do
+    case "${o}" in
+    u)
+        SAFE=1
+        ;;
+    esac
 done
 
-regex="(.*)-$OS"
-for item in $LINKED; do
-  if [[ $item =~ $regex ]]; then
-    # printf "regex: %s\n" "$HOME/.${BASH_REMATCH[1]}"
-    # ln -s ".dotfiles/$item" "$HOME/.${BASH_REMATCH[1]}"
-    cat "${BASH_REMATCH[1]}" "$item" > "$HOME/.${BASH_REMATCH[1]}"
-  else
-    # printf "no_regex: %s\n" "$HOME/.$item"
-  	# ln -s ".dotfiles/$item" "$HOME/.$item"
-    if [[ -d "$item" ]]; then
-      rm -rf "$HOME/.$item"
-      cp -r "$item" "$HOME/.$item"
-    else
-      cp "$item" "$HOME/.$item"
-    fi
-  fi
-done
+if [[ SAFE ]]; then
+    install_apps
+else
+    install_apps "update"
+fi
 
-mkdir -p $HOME/bin
-for item in $DIR/scripts/*.sh; do
-    ln -s $item $HOME/bin
-done
-
-# for item in $DEFAULT_FILES; do
-#   ln -s .dotfiles/$item $HOME/.$item
-# done
+install_scripts
+install_dotfiles

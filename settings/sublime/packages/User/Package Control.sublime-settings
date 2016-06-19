@@ -1,0 +1,31 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"All Autocomplete",
+		"Base16 Color Schemes",
+		"BracketHighlighter",
+		"C++11",
+		"CMake",
+		"CTags",
+		"EditorConfig",
+		"EditorConfigSnippets",
+		"Generic Config",
+		"Git",
+		"GitGutter",
+		"Gitignore",
+		"Markdown Preview",
+		"Package Control",
+		"Puppet",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-annotations",
+		"SublimeLinter-contrib-clang",
+		"SublimeLinter-cppcheck",
+		"Theme - SoDaReloaded",
+		"VimL"
+	]
+}
