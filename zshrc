@@ -4,7 +4,7 @@ fpath=(
     $fpath
 )
 
-PLUGINS="~/.zsh/plugins"
+PLUGINS="$HOME/.zsh/plugins"
 
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
