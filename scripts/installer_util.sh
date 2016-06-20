@@ -9,8 +9,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 printf "DIR: %s\n" $DIR
 
 function install_apps {
-    APPS="vim git zsh sudo"
+    APPS="vim zsh sudo"
     INSTALL=()
+
+    printf "Installing applications: "
 
     case $OS in
     "linux")
@@ -22,6 +24,11 @@ function install_apps {
 
         if [[ ${#INSTALL[@]} -gt 0 ]]; then
             sudo apt-get -y install $INSTALL &> /dev/null
+            if [[ $? ]]; then
+                printf "%s\n" "Success"
+            else
+                printf "%s\n" "Error during installation"
+            fi
         fi
         ;;
     esac
@@ -69,36 +76,80 @@ function install_dotfiles {
 function install_scripts {
     mkdir -p $HOME/bin
     for item in $DIR/scripts/*.sh; do
+        printf "Installing %s: " $(basename $item)
         if [[ "$SAFE" = false || ! -L "$HOME/bin/$(basename $item)" ]]; then
             ln -sf $item $HOME/bin
+            printf "Success\n"
+        else
+            printf "Already exists\n"
         fi
     done
 }
 
 function install_plugins {
-    if [[ ! -e "zsh/zsh-syntax-highlighting" ]]; then
+    printf "Cloning %s" "zsh-syntax-highlighting"
+    if [[ ! -e "zsh/plugins/zsh-syntax-highlighting" ]]; then
         mkdir -p zsh/
         git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/zsh-syntax-highlighting
+        if [[ $? ]]; then
+            printf "Success\n"
+        else
+            printf "Error cloning\n"
+        fi
+    else
+        printf "Already cloned\n"
     fi
 
-    if [[ ! -e "zsh/zsh-completions" ]]; then
+    printf "Cloning %s" "zsh-completions"
+    if [[ ! -e "zsh/plugins/zsh-completions" ]]; then
         mkdir -p zsh/
         git clone https://github.com/zsh-users/zsh-completions zsh/zsh-completions
+        if [[ $? ]]; then
+            printf "Success\n"
+        else
+            printf "Error cloning\n"
+        fi
+    else
+        printf "Already cloned\n"
     fi
 
+    printf "Cloning %s" "base16-shell"
+    if [[ ! -e "zsh/plugins/base16-shell" ]]; then
+        mkdir -p zsh/
+        git clone https://github.com/chriskempson/base16-shell zsh/base16-shell
+        if [[ $? ]]; then
+            printf "Success\n"
+        else
+            printf "Error cloning\n"
+        fi
+    else
+        printf "Already cloned\n"
+    fi
+
+    printf "Cloning %s" "Vundle.vim"
     if [[ ! -e "vim/bundle/Vundle.vim" ]]; then
         mkdir -p vim/bundle
         git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim
+        if [[ $? ]]; then
+            printf "Success\n"
+        else
+            printf "Error cloning\n"
+        fi
+    else
+        printf "Already cloned\n"
     fi
 
+    printf "Cloning %s" "tpm"
     if [[ ! -e "tmux/tpm" ]]; then
         mkdir -p tmux/
         git clone https://github.com/tmux-plugins/tpm tmux/tpm
-    fi
-
-    if [[ ! -e "zsh/base16-shell" ]]; then
-        mkdir -p zsh/
-        git clone https://github.com/chriskempson/base16-shell zsh/base16-shell
+        if [[ $? ]]; then
+            printf "Success\n"
+        else
+            printf "Error cloning\n"
+        fi
+    else
+        printf "Already cloned\n"
     fi
 }
     

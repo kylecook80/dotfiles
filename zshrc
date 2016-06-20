@@ -4,6 +4,8 @@ fpath=(
     $fpath
 )
 
+PLUGINS="~/.zsh/plugins"
+
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
 
@@ -30,7 +32,7 @@ colors
 export CLICOLOR=1
 
 # Terminal Color Scheme
-~/.zsh/base16-shell/base16-tomorrow.dark.sh
+$PLUGINS/base16-shell/base16-tomorrow.dark.sh
 
 # Prompt
 promptinit
@@ -69,14 +71,14 @@ if exists percol; then
 fi
 
 # ZSH Plugins
-[[ -f ~/.zsh/zsh-completions/zsh-completions.plugin.zsh ]] && . ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
-[[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f $PLUGINS/zsh-completions/zsh-completions.plugin.zsh ]] && . $PLUGINS/zsh-completions/zsh-completions.plugin.zsh
+[[ -f $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # autojump
 if [[ ! `type "brew"` > /dev/null ]]; then
-  [[ -x $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/    etc/profile.d/autojump.sh
+  [[ -x $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 else
-  [[ -x /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojum    p.zsh
+  [[ -x /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
 fi
 
 # Fortune Cowsay
