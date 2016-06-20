@@ -16,3 +16,4 @@ done
 install_apps
 install_scripts
 install_dotfiles $SAFE
+install_plugins

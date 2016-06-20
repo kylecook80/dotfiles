@@ -21,16 +21,13 @@ function install_apps {
         done
 
         if [[ ${#INSTALL[@]} -gt 0 ]]; then
-            sudo apt-get -y install $INSTALL
+            sudo apt-get -y install $INSTALL &> /dev/null
         fi
         ;;
     esac
 }
 
-function install_dotfiles {    
-    printf "Arg: %s\n" $1
-    printf "SAFE: %s\n" $SAFE
-
+function install_dotfiles {
     DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"
     LINKED=()
 
@@ -67,8 +64,6 @@ function install_dotfiles {
             fi
         fi
     done
-
-    #git submodule update --init
 }
 
 function install_scripts {
@@ -80,6 +75,33 @@ function install_scripts {
     done
 }
 
+function install_plugins {
+    if [[ ! -e "zsh/zsh-syntax-highlighting" ]]; then
+        mkdir -p zsh/
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/zsh-syntax-highlighting
+    fi
+
+    if [[ ! -e "zsh/zsh-completions" ]]; then
+        mkdir -p zsh/
+        git clone https://github.com/zsh-users/zsh-completions zsh/zsh-completions
+    fi
+
+    if [[ ! -e "vim/bundle/Vundle.vim" ]]; then
+        mkdir -p vim/bundle
+        git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim
+    fi
+
+    if [[ ! -e "tmux/tpm" ]]; then
+        mkdir -p tmux/
+        git clone https://github.com/tmux-plugins/tpm tmux/tpm
+    fi
+
+    if [[ ! -e "zsh/base16-shell" ]]; then
+        mkdir -p zsh/
+        git clone https://github.com/chriskempson/base16-shell zsh/base16-shell
+    fi
+}
+    
 # for item in $DEFAULT_FILES; do
 #     ln -s .dotfiles/$item $HOME/.$item
 # done
