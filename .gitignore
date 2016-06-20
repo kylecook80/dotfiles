@@ -1,1 +1,7 @@
 Package\ Control.*
+
+tmux/
+vim/
+zsh/base16-shell/
+zsh/zsh-completions/
+zsh/zsh-syntax-highlighting/
