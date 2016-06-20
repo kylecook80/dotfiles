@@ -87,10 +87,10 @@ function install_scripts {
 }
 
 function install_plugins {
-    printf "Cloning %s" "zsh-syntax-highlighting"
+    printf "Cloning %s: " "zsh-syntax-highlighting"
     if [[ ! -e "zsh/plugins/zsh-syntax-highlighting" ]]; then
         mkdir -p zsh/
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/zsh-syntax-highlighting
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting  &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -100,10 +100,10 @@ function install_plugins {
         printf "Already cloned\n"
     fi
 
-    printf "Cloning %s" "zsh-completions"
+    printf "Cloning %s: " "zsh-completions"
     if [[ ! -e "zsh/plugins/zsh-completions" ]]; then
         mkdir -p zsh/
-        git clone https://github.com/zsh-users/zsh-completions zsh/zsh-completions
+        git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions  &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -113,10 +113,10 @@ function install_plugins {
         printf "Already cloned\n"
     fi
 
-    printf "Cloning %s" "base16-shell"
+    printf "Cloning %s: " "base16-shell"
     if [[ ! -e "zsh/plugins/base16-shell" ]]; then
         mkdir -p zsh/
-        git clone https://github.com/chriskempson/base16-shell zsh/base16-shell
+        git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell  &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -126,10 +126,10 @@ function install_plugins {
         printf "Already cloned\n"
     fi
 
-    printf "Cloning %s" "Vundle.vim"
+    printf "Cloning %s: " "Vundle.vim"
     if [[ ! -e "vim/bundle/Vundle.vim" ]]; then
         mkdir -p vim/bundle
-        git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim
+        git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim  &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -139,10 +139,10 @@ function install_plugins {
         printf "Already cloned\n"
     fi
 
-    printf "Cloning %s" "tpm"
+    printf "Cloning %s: " "tpm"
     if [[ ! -e "tmux/tpm" ]]; then
         mkdir -p tmux/
-        git clone https://github.com/tmux-plugins/tpm tmux/tpm
+        git clone https://github.com/tmux-plugins/tpm tmux/tpm &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
