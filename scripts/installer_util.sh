@@ -29,6 +29,8 @@ function install_apps {
             else
                 printf "%s\n" "Error during installation"
             fi
+        else
+            printf "%s\n" "Already installed"
         fi
         ;;
     esac
