@@ -12,19 +12,19 @@ OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function install_apps {
-    APPS="vim git zsh sudo build-essential"
+    APPS="vim git zsh sudo"
     INSTALL=()
 
     case $OS in
     "linux")
         for app in $APPS; do
-            if [[ `type "$app"` > /dev/null ]]; then
+            if [[ `dpkg -s $app` > /dev/null ]]; then
                 INSTALL+="$app "
             fi
         done
 
         if [ ${#INSTALL[@]} -gt 0 ]; then
-            sudo apt-get install $INSTALL
+            sudo apt-get -y install $INSTALL
         fi
         ;;
     esac
