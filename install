@@ -4,20 +4,16 @@ DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 . "$DIR/scripts/installer_util.sh"
 
-SAFE=0
+SAFE=true
 while getopts "u" o; do
-    case "${o}" in
+    case ${o} in
     u)
-        SAFE=1
+        SAFE=false
         ;;
     esac
 done
 
-if [[ SAFE ]]; then
-    install_apps
-else
-    install_apps "update"
-fi
-
+install_apps
 install_scripts
-install_dotfiles
+install_dotfiles $SAFE
+install_plugins
