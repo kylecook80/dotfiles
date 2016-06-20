@@ -143,8 +143,8 @@ function install_plugins {
 
     printf "Cloning %s: " "tpm"
     if [[ ! -e "tmux/tpm" ]]; then
-        mkdir -p tmux/
-        git clone https://github.com/tmux-plugins/tpm tmux/tpm &> /dev/null
+        mkdir -p tmux/plugins/
+        git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
