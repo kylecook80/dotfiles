@@ -75,10 +75,10 @@ fi
 [[ -f $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # autojump
-if [[ ! `type "brew"` > /dev/null ]]; then
-  [[ -x $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+if [[ `type "brew"` > /dev/null ]]; then
+    [[ -x $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 else
-  [[ -x /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
+    [[ -x /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
 fi
 
 # Fortune Cowsay
