@@ -75,7 +75,7 @@ fi
 [[ -f $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # autojump
-if [[ ! `type "brew"` > /dev/null ]]; then
+if type "brew" > /dev/null; then
     [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 else
     [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
