@@ -32,11 +32,11 @@ colors
 export CLICOLOR=1
 
 # Terminal Color Scheme
-#$PLUGINS/base16-shell/scripts/base16-tomorrow-night.sh
-BASE16_SHELL=$PLUGINS/base16-shell
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-base16_tomorrow-night
-
+. $PLUGINS/base16-shell/scripts/base16-tomorrow-night.sh
+#BASE16_SHELL=$PLUGINS/base16-shell
+#[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+#base16_tomorrow-night
+#
 # Prompt
 promptinit
 prompt cook
@@ -56,7 +56,7 @@ setopt extendedglob
 unsetopt nomatch
 
 # keybindings for shell
-bindkey -e
+bindkey -v
 
 # Percol setup
 function exists { which $1 &> /dev/null }
