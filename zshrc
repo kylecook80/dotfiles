@@ -47,6 +47,11 @@ HISTFILE=~/.zhistory
 HISTSIZE=4096
 SAVEHIST=4096
 
+# accept-line() { prev_mode=$KEYMAP; zle .accept-line }
+# zle -N accept-line
+zle-line-init() { zle -K ${prev_mode:-viins} }
+zle -N zle-line-init
+
 # CD stuff
 #setopt autocd autopushd pushdsilent pushdtohome
 #DIRSTACKSIZE=5
