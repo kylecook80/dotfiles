@@ -6,6 +6,7 @@ if [[ -z $1 ]] ;then
 fi
 
 OS=`uname | tr "[A-Z]" "[a-z]"`
+USER=`logname`
 
 case $OS in
 "darwin")
@@ -23,9 +24,14 @@ case $OS in
       mv /opt/sublime_text /opt/sublime_text.bak
     fi
 
-    tar xfvj /tmp/sublime.tar.bz2 -C /opt
+    tar xfvj /tmp/sublime.tar.bz2 -C /tmp
     rm /tmp/sublime.tar.bz2
-    mv /opt/sublime_text_3 /opt/sublime_text
+    mv /tmp/sublime_text_3 /opt/sublime_text
+    if [[ ! -e /usr/bin/subl ]]; then
+        ln -s /opt/sublime_text/sublime_text /usr/bin/subl
+    fi
+    sudo -u $USER mkdir -p /home/$USER/.config/sublime-text-3/Installed\ Packages/
+    sudo -u $USER wget -O /home/$USER/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package https://packagecontrol.io/Package%20Control.sublime-package
     ;;
 *)
     echo "Unsupported Operating System."
