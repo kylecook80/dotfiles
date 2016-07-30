@@ -35,7 +35,11 @@ set noswapfile
 
 let base16colorspace=256
 set background=dark
-colorscheme base16-default
+"colorscheme base16-default
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 
 set t_Co=256
 set number
@@ -47,6 +51,13 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set tags=./tags;/
+
+set splitbelow
+set splitright
+
+set textwidth=80
+set colorcolumn+=1
 
 set splitbelow
 set splitright
@@ -55,7 +66,7 @@ set textwidth=80
 set colorcolumn+=1
 
 set clipboard=unnamedplus
-set mouse=a
+"set mouse=a
 
 let mapleader = " "
 
@@ -70,4 +81,7 @@ noremap <C-K> <C-W><C-K>
 noremap <C-L> <C-W><C-L>
 
 noremap <Leader>nt :NERDTree<CR>
+noremap <Leader>tt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <Leader>tv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <Leader>r :so $MYVIMRC<CR>
 
