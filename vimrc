@@ -51,6 +51,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set tags=./tags;/
 
 set splitbelow
 set splitright
@@ -59,7 +60,7 @@ set textwidth=80
 set colorcolumn+=1
 
 set clipboard=unnamedplus
-set mouse=a
+"set mouse=a
 
 let mapleader = " "
 
@@ -74,4 +75,7 @@ noremap <C-K> <C-W><C-K>
 noremap <C-L> <C-W><C-L>
 
 noremap <Leader>nt :NERDTree<CR>
+noremap <Leader>tt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <Leader>tv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <Leader>r :so $MYVIMRC<CR>
 
