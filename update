@@ -1,7 +1,12 @@
 #!/bin/bash
 
-DIR="${BASH_SOURCE%/*}"
+#DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-. "$DIR/scripts/installer_util.sh"
-
+DIR="$PWD"
+REPOS=($DIR/zsh/plugins/* $DIR/vim/bundle/* $DIR/tmux/plugins/*)
+for repo in ${REPOS[@]}; do
+#    echo $repo
+    cd $repo
+    git pull origin master
+done
 
