@@ -33,10 +33,7 @@ export CLICOLOR=1
 
 # Terminal Color Scheme
 . $PLUGINS/base16-shell/scripts/base16-tomorrow-night.sh
-#BASE16_SHELL=$PLUGINS/base16-shell
-#[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-#base16_tomorrow-night
-#
+
 # Prompt
 promptinit
 prompt cook
@@ -47,10 +44,14 @@ HISTFILE=~/.zhistory
 HISTSIZE=4096
 SAVEHIST=4096
 
+# keybindings for shell
+bindkey -e
+
+# Remember vim mode (if using vim keybindings)
 # accept-line() { prev_mode=$KEYMAP; zle .accept-line }
 # zle -N accept-line
-zle-line-init() { zle -K ${prev_mode:-viins} }
-zle -N zle-line-init
+# zle-line-init() { zle -K ${prev_mode:-viins} }
+# zle -N zle-line-init
 
 # CD stuff
 #setopt autocd autopushd pushdsilent pushdtohome
@@ -59,9 +60,6 @@ zle -N zle-line-init
 # Globbing
 setopt extendedglob
 unsetopt nomatch
-
-# keybindings for shell
-bindkey -v
 
 # Percol setup
 function exists { which $1 &> /dev/null }

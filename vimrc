@@ -7,17 +7,10 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
-
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-
-Plugin 'tpope/vim-surround'
-Plugin 'kien/ctrlp.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'raimondi/delimitmate'
-Plugin 'powerline/powerline'
-
 Plugin 'chriskempson/base16-vim'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 
@@ -29,23 +22,27 @@ set showmatch
 set showmode
 set hidden
 
+" Project specific vimrc
+set exrc
+set secure
+
+" Don't use swapfiles
 set nobackup
 set nowritebackup
 set noswapfile
 
+" Color scheme
+set t_Co=256
 let base16colorspace=256
 set background=dark
-"colorscheme base16-default
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+colorscheme base16-tomorrow-night
 
-set t_Co=256
+" Line numbers and such
 set number
 set numberwidth=5
 syntax on
 
+" Keyboard rules
 set backspace=start,eol,indent
 set tabstop=4
 set softtabstop=4
@@ -53,22 +50,25 @@ set shiftwidth=4
 set expandtab
 set tags=./tags;/
 
+" Open new panes below and right
 set splitbelow
 set splitright
 
 set textwidth=80
-set colorcolumn+=1
-
-set splitbelow
-set splitright
-
-set textwidth=80
-set colorcolumn+=1
 
 set clipboard=unnamedplus
 "set mouse=a
 
 let mapleader = " "
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
 
 nnoremap <Left> :echoe "Fuck off"<CR>
 nnoremap <Up> :echoe "Fuck off"<CR>
@@ -84,4 +84,3 @@ noremap <Leader>nt :NERDTree<CR>
 noremap <Leader>tt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <Leader>tv :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <Leader>r :so $MYVIMRC<CR>
-
