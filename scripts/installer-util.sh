@@ -18,7 +18,8 @@ function install_apps {
     case $OS in
     "linux")
         for app in $APPS; do
-            if [[ `dpkg -s $app` > /dev/null ]]; then
+            dpkg -s $app &> /dev/null
+            if [[ ! $? ]]; then
                 INSTALL+="$app "
             fi
         done
@@ -45,9 +46,9 @@ function install_tools {
     case $OS in
     "linux")
         printf "\tPercol: "
-        type percol >/dev/null 2>&1
+        type percol &> /dev/null
         if [[ $? ]]; then
-            pip install percol
+            pip install percol &> /dev/null
             if [[ $? ]]; then
                 printf "Success\n"
             else
@@ -55,10 +56,10 @@ function install_tools {
             fi
         fi
 
-        type diff-so-fancy >/dev/null 2>&1
+        printf "\tDiff-so-fancy: "
+        type diff-so-fancy &> /dev/null
         if [[ $? ]]; then
-            printf "\tDiff-so-fancy: "
-            npm install diff-so-fancy
+            npm install diff-so-fancy &> /dev/null
             if [[ $? ]]; then
                 printf "Success\n"
             else
@@ -126,7 +127,7 @@ function install_plugins {
     printf "Cloning %s: " "zsh-syntax-highlighting"
     if [[ ! -e "zsh/plugins/zsh-syntax-highlighting" ]]; then
         mkdir -p zsh/
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting  &> /dev/null
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -139,7 +140,7 @@ function install_plugins {
     printf "Cloning %s: " "zsh-completions"
     if [[ ! -e "zsh/plugins/zsh-completions" ]]; then
         mkdir -p zsh/
-        git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions  &> /dev/null
+        git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -152,7 +153,7 @@ function install_plugins {
     printf "Cloning %s: " "base16-shell"
     if [[ ! -e "zsh/plugins/base16-shell" ]]; then
         mkdir -p zsh/
-        git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell  &> /dev/null
+        git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
@@ -165,7 +166,7 @@ function install_plugins {
     printf "Cloning %s: " "Vundle.vim"
     if [[ ! -e "vim/bundle/Vundle.vim" ]]; then
         mkdir -p vim/bundle
-        git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim  &> /dev/null
+        git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim &> /dev/null
         if [[ $? ]]; then
             printf "Success\n"
         else
