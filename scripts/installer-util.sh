@@ -6,10 +6,11 @@ shopt -s nocasematch
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
+printf "OS: %s\n" "${OS}"
 printf "DIR: %s\n" $DIR
 
 function install_apps {
-    APPS="vim zsh sudo"
+    APPS="vim zsh sudo nodejs npm python python-pip"
     INSTALL=()
 
     printf "Installing applications: "
@@ -33,14 +34,47 @@ function install_apps {
             printf "%s\n" "Already installed"
         fi
         ;;
+    "darwin")
+        printf "Operating System not supported\n"
+        ;;
+    esac
+}
+
+function install_tools {
+    printf "Installing tools: "
+    case $OS in
+    "linux")
+        printf "\tPercol: "
+        type percol >/dev/null 2>&1
+        if [[ $? ]]; then
+            pip install percol
+            if [[ $? ]]; then
+                printf "Success\n"
+            else
+                printf "Error installing\n"
+            fi
+        fi
+
+        type diff-so-fancy >/dev/null 2>&1
+        if [[ $? ]]; then
+            printf "\tDiff-so-fancy: "
+            npm install diff-so-fancy
+            if [[ $? ]]; then
+                printf "Success\n"
+            else
+                printf "Error installing\n"
+            fi
+        fi
+        ;;
+    *)
+        printf "Operating System not supported\n"
+        ;;
     esac
 }
 
 function install_dotfiles {
     DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"
     LINKED=()
-
-    printf "OS: %s\n" "${OS}"
 
     for item in $DEFAULT_FILES; do
         if [[ -e "$item-$OS" ]]; then
@@ -154,7 +188,3 @@ function install_plugins {
         printf "Already cloned\n"
     fi
 }
-    
-# for item in $DEFAULT_FILES; do
-#     ln -s .dotfiles/$item $HOME/.$item
-# done
