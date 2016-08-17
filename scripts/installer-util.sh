@@ -19,7 +19,7 @@ function install_apps {
     "linux")
         for app in $APPS; do
             dpkg -s $app &> /dev/null
-            if [[ ! $? ]]; then
+            if [[ $? ]]; then
                 INSTALL+="$app "
             fi
         done
@@ -45,10 +45,11 @@ function install_tools {
     printf "Installing tools: "
     case $OS in
     "linux")
+        printf "\n"
         printf "\tPercol: "
         type percol &> /dev/null
         if [[ $? ]]; then
-            pip install percol &> /dev/null
+            sudo pip install percol &> /dev/null
             if [[ $? ]]; then
                 printf "Success\n"
             else
@@ -59,7 +60,7 @@ function install_tools {
         printf "\tDiff-so-fancy: "
         type diff-so-fancy &> /dev/null
         if [[ $? ]]; then
-            npm install diff-so-fancy &> /dev/null
+            sudo npm install -g diff-so-fancy &> /dev/null
             if [[ $? ]]; then
                 printf "Success\n"
             else
