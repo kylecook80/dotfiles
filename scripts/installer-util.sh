@@ -35,7 +35,7 @@ function install_apps {
             printf "%s\n" "Already installed"
         fi
         ;;
-    "darwin")
+    *)
         printf "Operating System not supported\n"
         ;;
     esac
