@@ -2,7 +2,7 @@
 
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-. "$DIR/scripts/installer-util.sh"
+. "$DIR/lib/installer-util.sh"
 
 SAFE=true
 while getopts "u" o; do
