@@ -31,7 +31,9 @@ case $OS in
     export MACOSX_DEPLOYMENT_TARGET=10.11
     ;;
 "linux")
+    export JAVA_HOME=/opt/java/jdk1.8.0_102
     path=(
+      $JAVA_HOME/bin
       $HOME/bin
       /usr/local/sbin
       /usr/sbin
