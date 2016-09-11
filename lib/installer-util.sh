@@ -113,7 +113,7 @@ function install_dotfiles {
 
 function install_scripts {
     mkdir -p $HOME/bin
-    for item in $DIR/scripts/*.sh; do
+    for item in $DIR/scripts/*; do
         printf "Installing %s: " $(basename $item)
         if [[ "$SAFE" = false || ! -L "$HOME/bin/$(basename $item)" ]]; then
             ln -sf $item $HOME/bin
