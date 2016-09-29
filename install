@@ -14,7 +14,7 @@ while getopts "u" o; do
 done
 
 install_apps
-install_tools
-install_dotfiles $SAFE
-install_scripts
-install_plugins
+# install_tools
+# install_dotfiles $SAFE
+# install_scripts
+# install_plugins

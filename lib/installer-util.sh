@@ -10,7 +10,7 @@ echo "OS: $OS"
 echo "DIR: $DIR"
 
 function install_apps {
-    echo "Installing applications: "
+    echo -n "Installing applications: "
 
     case $OS in
     "linux")
@@ -18,68 +18,67 @@ function install_apps {
         local to_install=()
         local pkgmgr=""
         
-        if type pacman &> /dev/null; then
+        if (type "pacman" 2>&1) > /dev/null; then
             pkgmgr="pacman"
         fi
 
-        if type apt-get &> /dev/null; then
+        if (type "apt-get" 2>&1) > /dev/null; then
             pkgmgr="apt-get"
         fi
 
         case $pkgmgr in
         "apt-get")
             for app in $apps; do
-                dpkg -s $app &> /dev/null
-                if [[ $? ]]; then
-                    INSTALL+="$app "
-                fi
-            done
-
-            if [ ${#to_install[@]} -gt 0 ]; then
-                if sudo apt-get -y install $to_install &> /dev/null; then
-                    echo "Success."
-                else
-                    echo "Error during installation."
-                fi
-            else
-                echo "Already installed."
-            fi
-            ;;
-        "pacman")
-            for app in $apps; do
-                if pacman -Q $app &> /dev/null; then
+                if (dpkg -s $app 2>&1) > /dev/null; then
                     to_install+="$app "
                 fi
             done
 
             if [ ${#to_install[@]} -gt 0 ]; then
-                if sudo pacman -S $to_install &> /dev/null; then
-                    echo "Success."
+                if (apt-get -y install $to_install 2>&1) > /dev/null; then
+                    echo "Success"
                 else
-                    echo "Error during installation."
-                    exit 1
+                    echo "Error during installation"
                 fi
             else
-                echo "Already installed."
+                echo "Already installed"
+            fi
+            ;;
+        "pacman")
+            for app in $apps; do
+                if (pacman -Q $app 2>&1) > /dev/null; then
+                    to_install+="$app "
+                fi
+            done
+
+            if [ ${#to_install[@]} -gt 0 ]; then
+                if (pacman -S $to_install 2>&1) > /dev/null; then
+                    echo "Success"
+                else
+                    echo "Error during installation"
+                fi
+            else
+                echo "Already installed"
             fi
             ;;
         *)
-            echo "Package manager not supported."
-            exit 1
+            echo "Package manager not supported"
         esac
         ;;
     *)
-        echo "Operating System not supported."
+        echo "Operating System not supported"
         ;;
     esac
 }
 
 function install_tools {
+    echo -n "Installing Tools: "
+
     case $OS in
     "linux")
         echo -n "Installing Percol: "
-        if type percol &> /dev/null; then
-            if sudo pip install percol &> /dev/null; then
+        if (type percol 2>&1) > /dev/null; then
+            if (pip install percol 2>&1) > /dev/null; then
                 echo "Success"
             else
                 echo "Error installing"
@@ -87,8 +86,8 @@ function install_tools {
         fi
 
         echo -n "Installing Diff-so-fancy: "
-        if type diff-so-fancy &> /dev/null; then
-            if sudo npm install -g diff-so-fancy &> /dev/null; then
+        if (type diff-so-fancy 2>&1) > /dev/null; then
+            if (npm install -g diff-so-fancy 2>&1) > /dev/null; then
                 echo "Success"
             else
                 echo "Error installing"
@@ -154,7 +153,7 @@ function install_scripts {
 function install_plugins {
     echo -n "Cloning zsh-syntax-highlighting: "
     if [ ! -e "zsh/plugins/zsh-syntax-highlighting" ]; then
-        if git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting &> /dev/null; then
+        if (git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting 2>&1) > /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -165,7 +164,7 @@ function install_plugins {
 
     echo -n "Cloning zsh-completions: "
     if [ ! -e "zsh/plugins/zsh-completions" ]; then
-        if git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions &> /dev/null; then
+        if (git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions 2>&1) > /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -176,7 +175,7 @@ function install_plugins {
 
     echo -n "Cloning base16-shell: "
     if [ ! -e "zsh/plugins/base16-shell" ]; then
-        if git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell &> /dev/null; then
+        if (git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell 2>&1) > /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -187,7 +186,7 @@ function install_plugins {
 
     echo -n "Cloning Vundle.vim: "
     if [ ! -e "vim/bundle/Vundle.vim" ]; then
-        if git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim &> /dev/null; then
+        if (git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim 2>&1) > /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -198,7 +197,7 @@ function install_plugins {
 
     echo -n "Cloning tpm: "
     if [ ! -e "tmux/plugins/tpm" ]; then
-        if git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm &> /dev/null; then
+        if (git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm 2>&1) > /dev/null; then
             echo "Success"
         else
             echo "Error cloning"

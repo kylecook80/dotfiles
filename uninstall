@@ -15,7 +15,7 @@ for item in $OTHER_FILES; do
     fi
 done
 
-for item in $DIR/scripts/*.sh; do
+for item in $DIR/scripts/*; do
     if [[ -L "$HOME/bin/${item##*/}" ]]; then
         rm $HOME/bin/${item##*/}
     fi
