@@ -3,7 +3,7 @@
 DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"
 OTHER_FILES="viminfo zcompdump zhistory zsh_history"
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for item in $DEFAULT_FILES; do
     rm -f $HOME/.$item

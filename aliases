@@ -1,6 +1,5 @@
 alias be="bundle exec"
 alias bu="be unicorn -c config/unicorn.rb"
-alias dir_size="du -d 1 -m . | sort -nr | head -n 20"
 alias clean="make clean"
 
 OS=`uname | tr "[A-Z]" "[a-z]"`
@@ -10,9 +9,11 @@ case $OS in
     alias finder_hide_files="defaults write com.apple.finder AppleShowAllFiles NO;killall Finder"
     alias finder_show_files="defaults write com.apple.finder AppleShowAllFiles YES;killall Finder"
     alias flushdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed"
+    alias dir_size="du -h -d1 . | gsort -rh | head -n 20"
     ;;
 "linux")
     alias ls="ls --color=auto"
     alias auu="sudo apt-get update && sudo apt-get -y upgrade"
+    alias dir_size="du -h -d1 . | sort -rh | head -n 20"
     ;;
 esac

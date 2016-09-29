@@ -6,70 +6,96 @@ shopt -s nocasematch
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
-printf "OS: %s\n" "${OS}"
-printf "DIR: %s\n" $DIR
+echo "OS: $OS"
+echo "DIR: $DIR"
 
 function install_apps {
-    APPS="vim zsh sudo nodejs npm python python-pip"
-    INSTALL=()
-
-    printf "Installing applications: "
+    echo "Installing applications: "
 
     case $OS in
     "linux")
-        for app in $APPS; do
-            dpkg -s $app &> /dev/null
-            if [[ $? ]]; then
-                INSTALL+="$app "
-            fi
-        done
-
-        if [[ ${#INSTALL[@]} -gt 0 ]]; then
-            sudo apt-get -y install $INSTALL &> /dev/null
-            if [[ $? ]]; then
-                printf "%s\n" "Success"
-            else
-                printf "%s\n" "Error during installation"
-            fi
-        else
-            printf "%s\n" "Already installed"
+        local apps="vim zsh sudo nodejs npm python python-pip"
+        local to_install=()
+        
+        if [[ type pacman &> /dev/null ]]; then
+            $PKGMGR=pacman
         fi
+
+        if [[ type apt-get &> /dev/null ]]; then
+            $PKGMGR=apt-get
+        fi
+
+        case $PKGMGR in
+        "apt-get")
+            for app in $apps; do
+                dpkg -s $app &> /dev/null
+                if [[ $? ]]; then
+                    INSTALL+="$app "
+                fi
+            done
+
+            if [[ ${#to_install[@]} -gt 0 ]]; then
+                if [[ sudo apt-get -y install $to_install &> /dev/null ]]; then
+                    echo "Success."
+                else
+                    echo "Error during installation."
+                fi
+            else
+                echo "Already installed."
+            fi
+            ;;
+        "pacman")
+            for app in $apps; do
+                if [[ pacman -Q $app &> /dev/null ]]; then
+                    to_install+="$app "
+                fi
+            done
+
+            if [[ ${#to_install[@]} -gt 0 ]]; then
+                if [[ sudo pacman -S $to_install &> /dev/null ]]; then
+                    echo "Success."
+                else
+                    echo "Error during installation."
+                    exit 1
+                fi
+            else
+                echo "Already installed."
+            fi
+            ;;
+        *)
+            echo "Package manager not supported."
+            exit 1
+        esac
         ;;
     *)
-        printf "Operating System not supported\n"
+        echo "Operating System not supported."
         ;;
     esac
 }
 
 function install_tools {
-    printf "Installing tools: "
     case $OS in
     "linux")
-        printf "\n"
-        printf "\tPercol: "
-        type percol &> /dev/null
-        if [[ $? ]]; then
-            sudo pip install percol &> /dev/null
-            if [[ $? ]]; then
-                printf "Success\n"
+        echo -n "Installing Percol: "
+        if [[ type percol &> /dev/null ]]; then
+            if [[ sudo pip install percol &> /dev/null ]]; then
+                echo "Success"
             else
-                printf "Error installing\n"
+                echo "Error installing"
             fi
         fi
 
-        printf "\tDiff-so-fancy: "
-        type diff-so-fancy &> /dev/null
-        if [[ $? ]]; then
-            sudo npm install -g diff-so-fancy &> /dev/null
-            if [[ $? ]]; then
-                printf "Success\n"
+        echo -n "Installing Diff-so-fancy: "
+        if [[ type diff-so-fancy &> /dev/null ]]; then
+            if [[ sudo npm install -g diff-so-fancy &> /dev/null ]]; then
+                echo "Success"
             else
-                printf "Error installing\n"
+                echo "Error installing"
             fi
         fi
         ;;
     *)
-        printf "Operating System not supported\n"
+        echo "Operating System not supported"
         ;;
     esac
 }
@@ -89,23 +115,23 @@ function install_dotfiles {
     regex="(.*)-$OS"
     for item in $LINKED; do
         if [[ $item =~ $regex ]]; then
-            # printf "regex: %s\n" "$HOME/.${BASH_REMATCH[1]}"
-            printf "Creating file %s: " ".${BASH_REMATCH[1]}"
+            # echo "regex: %s\n" "$HOME/.${BASH_REMATCH[1]}"
+            echo -n "Creating file .${BASH_REMATCH[1]}: "
             if [[ "$SAFE" = "false" || ! -e "$HOME/.${BASH_REMATCH[1]}" ]]; then
                 cat "${BASH_REMATCH[1]}" "$item" > "$HOME/.${BASH_REMATCH[1]}"
-                printf "Success\n"
+                echo "Success"
             else
-                printf "Already exists\n"
+                echo "Already exists"
             fi
         else
-            # printf "no_regex: %s\n" "$HOME/.$item"
+            # echo "no_regex: %s\n" "$HOME/.$item"
             # ln -s ".dotfiles/$item" "$HOME/.$item"
-            printf "Linking file %s: " ".$item"
+            echo -n "Linking file .$item: "
             if [[ "$SAFE" = "false" || ( ! -e "$HOME/.$item" && ! -L "$HOME/.$item" ) ]]; then
                 ln -sf "$DIR/$item" "$HOME/.$item"
-                printf "Success\n"
+                echo "Success"
             else
-                printf "Already exists\n"
+                echo "Already exists"
             fi
         fi
     done
@@ -114,79 +140,69 @@ function install_dotfiles {
 function install_scripts {
     mkdir -p $HOME/bin
     for item in $DIR/scripts/*; do
-        printf "Installing %s: " $(basename $item)
+        echo -n "Installing $(basename $item): "
         if [[ "$SAFE" = false || ! -L "$HOME/bin/$(basename $item)" ]]; then
             ln -sf $item $HOME/bin
-            printf "Success\n"
+            echo "Success"
         else
-            printf "Already exists\n"
+            echo "Already exists"
         fi
     done
 }
 
 function install_plugins {
-    printf "Cloning %s: " "zsh-syntax-highlighting"
+    echo -n "Cloning zsh-syntax-highlighting: "
     if [[ ! -e "zsh/plugins/zsh-syntax-highlighting" ]]; then
-        mkdir -p zsh/
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting &> /dev/null
-        if [[ $? ]]; then
-            printf "Success\n"
+        if [[ git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting &> /dev/null ]]; then
+            echo "Success"
         else
-            printf "Error cloning\n"
+            echo "Error cloning"
         fi
     else
-        printf "Already cloned\n"
+        echo "Already cloned"
     fi
 
-    printf "Cloning %s: " "zsh-completions"
+    echo -n "Cloning zsh-completions: "
     if [[ ! -e "zsh/plugins/zsh-completions" ]]; then
-        mkdir -p zsh/
-        git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions &> /dev/null
-        if [[ $? ]]; then
-            printf "Success\n"
+        if [[ git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions &> /dev/null ]]; then
+            echo "Success"
         else
-            printf "Error cloning\n"
+            echo "Error cloning"
         fi
     else
-        printf "Already cloned\n"
+        echo "Already cloned"
     fi
 
-    printf "Cloning %s: " "base16-shell"
+    echo -n "Cloning base16-shell: "
     if [[ ! -e "zsh/plugins/base16-shell" ]]; then
-        mkdir -p zsh/
-        git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell &> /dev/null
-        if [[ $? ]]; then
-            printf "Success\n"
+        if [[ git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell &> /dev/null ]]; then
+            echo "Success"
         else
-            printf "Error cloning\n"
+            echo "Error cloning"
         fi
     else
-        printf "Already cloned\n"
+        echo "Already cloned"
     fi
 
-    printf "Cloning %s: " "Vundle.vim"
+    echo -n "Cloning Vundle.vim: "
     if [[ ! -e "vim/bundle/Vundle.vim" ]]; then
-        mkdir -p vim/bundle
-        git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim &> /dev/null
-        if [[ $? ]]; then
-            printf "Success\n"
+        if [[ git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim &> /dev/null ]]; then
+            echo "Success"
         else
-            printf "Error cloning\n"
+            echo "Error cloning"
         fi
     else
-        printf "Already cloned\n"
+        echo "Already cloned"
     fi
 
-    printf "Cloning %s: " "tpm"
+    echo -n "Cloning tpm: "
     if [[ ! -e "tmux/plugins/tpm" ]]; then
-        mkdir -p tmux/plugins/
-        git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm &> /dev/null
-        if [[ $? ]]; then
-            printf "Success\n"
+        if [[ git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm &> /dev/null ]]; then
+            echo "Success"
         else
-            printf "Error cloning\n"
+            echo "Error cloning"
         fi
     else
-        printf "Already cloned\n"
+        echo "Already cloned"
     fi
 }
