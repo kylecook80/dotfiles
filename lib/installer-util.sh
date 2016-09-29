@@ -85,7 +85,7 @@ function install_tools {
                 echo "Error installing"
             fi
         else
-            echo "Already installed"
+            echo -n "Already installed"
         fi
 
         echo ""
