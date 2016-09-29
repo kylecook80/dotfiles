@@ -16,16 +16,17 @@ function install_apps {
     "linux")
         local apps="vim zsh sudo nodejs npm python python-pip"
         local to_install=()
+        local pkgmgr=""
         
         if type pacman &> /dev/null; then
-            $PKGMGR=pacman
+            pkgmgr="pacman"
         fi
 
         if type apt-get &> /dev/null; then
-            $PKGMGR=apt-get
+            pkgmgr="apt-get"
         fi
 
-        case $PKGMGR in
+        case $pkgmgr in
         "apt-get")
             for app in $apps; do
                 dpkg -s $app &> /dev/null
