@@ -17,11 +17,11 @@ function install_apps {
         local apps="vim zsh sudo nodejs npm python python-pip"
         local to_install=()
         
-        if [[ type pacman &> /dev/null ]]; then
+        if type pacman &> /dev/null; then
             $PKGMGR=pacman
         fi
 
-        if [[ type apt-get &> /dev/null ]]; then
+        if type apt-get &> /dev/null; then
             $PKGMGR=apt-get
         fi
 
@@ -34,8 +34,8 @@ function install_apps {
                 fi
             done
 
-            if [[ ${#to_install[@]} -gt 0 ]]; then
-                if [[ sudo apt-get -y install $to_install &> /dev/null ]]; then
+            if [ ${#to_install[@]} -gt 0 ]; then
+                if sudo apt-get -y install $to_install &> /dev/null; then
                     echo "Success."
                 else
                     echo "Error during installation."
@@ -46,13 +46,13 @@ function install_apps {
             ;;
         "pacman")
             for app in $apps; do
-                if [[ pacman -Q $app &> /dev/null ]]; then
+                if pacman -Q $app &> /dev/null; then
                     to_install+="$app "
                 fi
             done
 
-            if [[ ${#to_install[@]} -gt 0 ]]; then
-                if [[ sudo pacman -S $to_install &> /dev/null ]]; then
+            if [ ${#to_install[@]} -gt 0 ]; then
+                if sudo pacman -S $to_install &> /dev/null; then
                     echo "Success."
                 else
                     echo "Error during installation."
@@ -77,8 +77,8 @@ function install_tools {
     case $OS in
     "linux")
         echo -n "Installing Percol: "
-        if [[ type percol &> /dev/null ]]; then
-            if [[ sudo pip install percol &> /dev/null ]]; then
+        if type percol &> /dev/null; then
+            if sudo pip install percol &> /dev/null; then
                 echo "Success"
             else
                 echo "Error installing"
@@ -86,8 +86,8 @@ function install_tools {
         fi
 
         echo -n "Installing Diff-so-fancy: "
-        if [[ type diff-so-fancy &> /dev/null ]]; then
-            if [[ sudo npm install -g diff-so-fancy &> /dev/null ]]; then
+        if type diff-so-fancy &> /dev/null; then
+            if sudo npm install -g diff-so-fancy &> /dev/null; then
                 echo "Success"
             else
                 echo "Error installing"
@@ -105,7 +105,7 @@ function install_dotfiles {
     LINKED=()
 
     for item in $DEFAULT_FILES; do
-        if [[ -e "$item-$OS" ]]; then
+        if [ -e "$item-$OS" ]; then
             LINKED+="$item-$OS "
         else
             LINKED+="$item "
@@ -152,8 +152,8 @@ function install_scripts {
 
 function install_plugins {
     echo -n "Cloning zsh-syntax-highlighting: "
-    if [[ ! -e "zsh/plugins/zsh-syntax-highlighting" ]]; then
-        if [[ git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting &> /dev/null ]]; then
+    if [ ! -e "zsh/plugins/zsh-syntax-highlighting" ]; then
+        if git clone https://github.com/zsh-users/zsh-syntax-highlighting zsh/plugins/zsh-syntax-highlighting &> /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -163,8 +163,8 @@ function install_plugins {
     fi
 
     echo -n "Cloning zsh-completions: "
-    if [[ ! -e "zsh/plugins/zsh-completions" ]]; then
-        if [[ git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions &> /dev/null ]]; then
+    if [ ! -e "zsh/plugins/zsh-completions" ]; then
+        if git clone https://github.com/zsh-users/zsh-completions zsh/plugins/zsh-completions &> /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -174,8 +174,8 @@ function install_plugins {
     fi
 
     echo -n "Cloning base16-shell: "
-    if [[ ! -e "zsh/plugins/base16-shell" ]]; then
-        if [[ git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell &> /dev/null ]]; then
+    if [ ! -e "zsh/plugins/base16-shell" ]; then
+        if git clone https://github.com/chriskempson/base16-shell zsh/plugins/base16-shell &> /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -185,8 +185,8 @@ function install_plugins {
     fi
 
     echo -n "Cloning Vundle.vim: "
-    if [[ ! -e "vim/bundle/Vundle.vim" ]]; then
-        if [[ git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim &> /dev/null ]]; then
+    if [ ! -e "vim/bundle/Vundle.vim" ]; then
+        if git clone https://github.com/VundleVim/Vundle.vim vim/bundle/Vundle.vim &> /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
@@ -196,8 +196,8 @@ function install_plugins {
     fi
 
     echo -n "Cloning tpm: "
-    if [[ ! -e "tmux/plugins/tpm" ]]; then
-        if [[ git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm &> /dev/null ]]; then
+    if [ ! -e "tmux/plugins/tpm" ]; then
+        if git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm &> /dev/null; then
             echo "Success"
         else
             echo "Error cloning"
