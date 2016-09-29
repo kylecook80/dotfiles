@@ -72,10 +72,11 @@ function install_apps {
 }
 
 function install_tools {
-    echo -n "Installing Tools: "
+    echo -n "Installing tools: "
 
     case $OS in
     "linux")
+        echo ""
         echo -n "Installing Percol: "
         if (type percol 2>&1) > /dev/null; then
             if (pip install percol 2>&1) > /dev/null; then
@@ -83,8 +84,11 @@ function install_tools {
             else
                 echo "Error installing"
             fi
+        else
+            echo "Already installed"
         fi
 
+        echo ""
         echo -n "Installing Diff-so-fancy: "
         if (type diff-so-fancy 2>&1) > /dev/null; then
             if (npm install -g diff-so-fancy 2>&1) > /dev/null; then
@@ -92,6 +96,8 @@ function install_tools {
             else
                 echo "Error installing"
             fi
+        else
+            echo "Already installed"
         fi
         ;;
     *)
