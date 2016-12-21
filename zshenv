@@ -20,6 +20,7 @@ case $OS in
       /usr/local/bin
       /usr/bin
       /bin
+      /usr/local/sbin
       /usr/sbin
       /sbin
       /usr/local/MacGPG2/bin
@@ -29,6 +30,8 @@ case $OS in
     # export LIBRARY_PATH=/opt/X11/lib
     # export LD_LIBRARY_PATH=/opt/X11/lib
     export MACOSX_DEPLOYMENT_TARGET=10.11
+    export PETSC_DIR=/usr/local/Cellar/petsc/3.7.4/complex
+
     ;;
 "linux")
     export JAVA_HOME=/opt/java/jdk1.8.0_102

@@ -1,5 +1,5 @@
 #
-# A information theme used for ruby and node development.
+# Simple two-line theme for ZSH
 #
 # Authors:
 #   Kyle Cook <kylecook80@gmail.com>
@@ -32,4 +32,3 @@ function prompt_cook_setup {
 }
 
 prompt_cook_setup "$@"
-

@@ -19,6 +19,7 @@ case $OS in
     mkdir -p $HOME/Applications
     cp "Sublime Text.app" $HOME/Applications/
     hdiutil detach "/Volumes/Sublime Text"
+    cp $HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl $HOME/bin/subl
     ;;
 "linux")
     wget -O /tmp/sublime.tar.bz2 https://download.sublimetext.com/sublime_text_3_build_${VERSION}_x64.tar.bz2 

@@ -8,6 +8,7 @@ PLUGINS="$HOME/.zsh/plugins"
 
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
+autoload -Uz add-zsh-hook
 
 # Tab Completion
 setopt completealiases
@@ -79,6 +80,7 @@ fi
 # ZSH Plugins
 [[ -f $PLUGINS/zsh-completions/zsh-completions.plugin.zsh ]] && . $PLUGINS/zsh-completions/zsh-completions.plugin.zsh
 [[ -f $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f $PLUGINS/zsh-docker-completions/zsh-docker-completions.plugin.zsh ]] && . $PLUGINS/zsh-docker-completions/zsh-docker-completions.plugin.zsh
 
 # autojump
 if type "brew" > /dev/null; then
@@ -90,3 +92,13 @@ fi
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/kyle/Downloads/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/kyle/Downloads/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/kyle/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/kyle/Downloads/google-cloud-sdk/completion.zsh.inc'
+fi
