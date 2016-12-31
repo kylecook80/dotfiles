@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DIR="${BASH_SOURCE%/*}"
-if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-. "$DIR/lib/installer-util.sh"
+# DIR="${BASH_SOURCE%/*}"
+# if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+. "/home/$(whoami)/.dotfiles/lib/installer-util.sh"
 
 SAFE=true
 while getopts "u" o; do
@@ -13,8 +13,6 @@ while getopts "u" o; do
     esac
 done
 
-install_apps
-install_tools
 install_dotfiles $SAFE
 install_scripts
 install_plugins

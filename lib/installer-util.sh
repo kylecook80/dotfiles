@@ -4,107 +4,11 @@ shopt -s nullglob nocaseglob
 shopt -s nocasematch
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
-DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
+# DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
+DIR="/home/$(whoami)/.dotfiles"
 
 echo "OS: $OS"
 echo "DIR: $DIR"
-
-function install_apps {
-    echo -n "Installing applications: "
-
-    case $OS in
-    "linux")
-        local apps="vim zsh sudo nodejs npm python python-pip"
-        local to_install=()
-        local pkgmgr=""
-        
-        if (type "pacman" 2>&1) > /dev/null; then
-            pkgmgr="pacman"
-        fi
-
-        if (type "apt-get" 2>&1) > /dev/null; then
-            pkgmgr="apt-get"
-        fi
-
-        case $pkgmgr in
-        "apt-get")
-            for app in $apps; do
-                if (dpkg -s $app 2>&1) > /dev/null; then
-                    to_install+="$app "
-                fi
-            done
-
-            if [ ${#to_install[@]} -gt 0 ]; then
-                if (apt-get -y install $to_install 2>&1) > /dev/null; then
-                    echo "Success"
-                else
-                    echo "Error during installation"
-                fi
-            else
-                echo "Already installed"
-            fi
-            ;;
-        "pacman")
-            for app in $apps; do
-                if (pacman -Q $app 2>&1) > /dev/null; then
-                    to_install+="$app "
-                fi
-            done
-
-            if [ ${#to_install[@]} -gt 0 ]; then
-                if (pacman -S $to_install 2>&1) > /dev/null; then
-                    echo "Success"
-                else
-                    echo "Error during installation"
-                fi
-            else
-                echo "Already installed"
-            fi
-            ;;
-        *)
-            echo "Package manager not supported"
-        esac
-        ;;
-    *)
-        echo "Operating System not supported"
-        ;;
-    esac
-}
-
-function install_tools {
-    echo -n "Installing tools: "
-
-    case $OS in
-    "linux")
-        echo ""
-        echo -n "Installing Percol: "
-        if (type percol 2>&1) > /dev/null; then
-            if (pip install percol 2>&1) > /dev/null; then
-                echo "Success"
-            else
-                echo "Error installing"
-            fi
-        else
-            echo -n "Already installed"
-        fi
-
-        echo ""
-        echo -n "Installing Diff-so-fancy: "
-        if (type diff-so-fancy 2>&1) > /dev/null; then
-            if (npm install -g diff-so-fancy 2>&1) > /dev/null; then
-                echo "Success"
-            else
-                echo "Error installing"
-            fi
-        else
-            echo "Already installed"
-        fi
-        ;;
-    *)
-        echo "Operating System not supported"
-        ;;
-    esac
-}
 
 function install_dotfiles {
     DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"

@@ -17,6 +17,7 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
+      /opt/puppetlabs/bin
       /usr/local/bin
       /usr/bin
       /bin
