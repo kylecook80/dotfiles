@@ -2,7 +2,7 @@
 
 # DIR="${BASH_SOURCE%/*}"
 # if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-. "/home/$(whoami)/.dotfiles/lib/installer-util.sh"
+. "$HOME/.dotfiles/lib/installer-util.sh"
 
 SAFE=true
 while getopts "u" o; do

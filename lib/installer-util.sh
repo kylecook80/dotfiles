@@ -5,7 +5,7 @@ shopt -s nocasematch
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 # DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
-DIR="/home/$(whoami)/.dotfiles"
+DIR="$HOME/.dotfiles"
 
 echo "OS: $OS"
 echo "DIR: $DIR"
