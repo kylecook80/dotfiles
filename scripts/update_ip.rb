@@ -3,9 +3,9 @@
 require 'open-uri'
 require 'droplet_kit'
 
-apikey = '23bf0655fe6c6f3d2eee08239ec888cc273cc0ab5b1c5900ecc8d6d13fe658cd'
-domain = 'kylecook.me'
-domain_record_id = '8508917'
+apikey = ''
+domain = ''
+domain_record_id = ''
 ip = open('http://whatismyip.akamai.com').read
 
 puts "IP is " + ip
