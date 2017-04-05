@@ -92,6 +92,10 @@ fi
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
 
+if type "archey" > /dev/null; then
+    [[ -f $(brew --prefix)/bin/archey ]] && archey
+fi
+
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /Users/kyle/Downloads/google-cloud-sdk/path.zsh.inc ]; then
