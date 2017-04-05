@@ -34,6 +34,8 @@ APPS=(
     omnigraffle
     omnifocus
     omnioutliner
+    beardedspice
+    amethyst
 )
 
 FONTS=(
