@@ -36,14 +36,21 @@ APPS=(
     omnioutliner
     beardedspice
     amethyst
+    tunnelblock
 )
 
 FONTS=(
     font-hack
 )
 
-brew install $CMDLINE
-brew cask install $APPS
+for i in ${CMDLINE[@]}; do
+    brew install $i
+done
+
+for i in ${APPS[@]}; do
+    brew cask install $i
+done
+
 brew tap caskroom/fonts
 brew cask install $FONTS
 

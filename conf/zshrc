@@ -47,6 +47,7 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 #zstyle ':completion:*' auto-description '%d'
 #zstyle ':completion:*' format '%d'
 #zstyle ':completion:*' group-name ''
+
 compinit
 
 # Color
