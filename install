@@ -1,18 +1,6 @@
 #!/bin/bash
 
-# DIR="${BASH_SOURCE%/*}"
-# if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 . "$HOME/.dotfiles/lib/installer-util.sh"
 
-SAFE=true
-while getopts "u" o; do
-    case ${o} in
-    u)
-        SAFE=false
-        ;;
-    esac
-done
-
-install_dotfiles $SAFE
+install_dotfiles
 install_scripts
-install_plugins

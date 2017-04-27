@@ -1,5 +1,6 @@
 Package\ Control.*
 
-tmux/plugins/
-vim/bundle/
-zsh/plugins/
+vim/
+zsh/
+antigen/
+

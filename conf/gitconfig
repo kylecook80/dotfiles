@@ -1,0 +1,19 @@
+[user]
+	name = Kyle Cook
+	email = kylecook80@gmail.com
+[core]
+	excludesfile = /Users/kyle/.gitignore
+	editor = vim 
+	autocrlf = input
+[color]
+	ui = true
+[alias]
+  tree = log --graph --decorate --pretty=oneline --abbrev-commit
+[push]
+	default = simple
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[pager]
+	diff = diff-so-fancy | less --tabs=1,5 -RFX
+	show = diff-so-fancy | less --tabs=1,5 -RFX

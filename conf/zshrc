@@ -4,7 +4,28 @@ fpath=(
     $fpath
 )
 
-PLUGINS="$HOME/.zsh/plugins"
+if [[ ! -e antigen/antigen.zsh ]]; then
+    git clone https://github.com/zsh-users/antigen.git
+fi
+
+if [[ ! -d .zsh ]]; then
+    ln -s ~/.dotfiles/zsh .zsh
+fi
+
+if [[ ! -e ~/.vim/bundle/Vundle.vim ]]; then
+    mkdir -p ~/.vim/bundle
+    git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+fi
+
+source antigen/antigen.zsh
+
+antigen bundle chriskempson/base16-shell
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+# antigen bundle zsh-users/zsh-autosuggestions
+
+# PLUGINS="$HOME/.zsh/plugins"
+base16_tomorrow-night
 
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
@@ -32,9 +53,6 @@ compinit
 colors
 export CLICOLOR=1
 
-# Terminal Color Scheme
-. $PLUGINS/base16-shell/scripts/base16-tomorrow-night.sh
-
 # Prompt
 promptinit
 prompt cook
@@ -59,28 +77,28 @@ bindkey -e
 #DIRSTACKSIZE=5
 
 # Globbing
-setopt extendedglob
-unsetopt nomatch
+# setopt extendedglob
+# unsetopt nomatch
 
 # Percol setup
-function exists { which $1 &> /dev/null }
-if exists percol; then
-    function percol_select_history() {
-        local tac
-        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-        CURSOR=$#BUFFER         # move cursor
-        zle -R -c               # refresh
-    }
+# function exists { which $1 &> /dev/null }
+# if exists percol; then
+#     function percol_select_history() {
+#         local tac
+#         exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+#         BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+#         CURSOR=$#BUFFER         # move cursor
+#         zle -R -c               # refresh
+#     }
 
-    zle -N percol_select_history
-    bindkey '^R' percol_select_history
-fi
+#     zle -N percol_select_history
+#     bindkey '^R' percol_select_history
+# fi
 
 # ZSH Plugins
-[[ -f $PLUGINS/zsh-completions/zsh-completions.plugin.zsh ]] && . $PLUGINS/zsh-completions/zsh-completions.plugin.zsh
-[[ -f $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[[ -f $PLUGINS/zsh-docker-completions/zsh-docker-completions.plugin.zsh ]] && . $PLUGINS/zsh-docker-completions/zsh-docker-completions.plugin.zsh
+# [[ -f $PLUGINS/zsh-completions/zsh-completions.plugin.zsh ]] && . $PLUGINS/zsh-completions/zsh-completions.plugin.zsh
+# [[ -f $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . $PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# [[ -f $PLUGINS/zsh-docker-completions/zsh-docker-completions.plugin.zsh ]] && . $PLUGINS/zsh-docker-completions/zsh-docker-completions.plugin.zsh
 
 # autojump
 if type "brew" > /dev/null; then
@@ -95,7 +113,6 @@ fi
 if type "archey" > /dev/null; then
     [[ -f $(brew --prefix)/bin/archey ]] && archey
 fi
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /Users/kyle/Downloads/google-cloud-sdk/path.zsh.inc ]; then
