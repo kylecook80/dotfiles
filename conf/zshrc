@@ -4,8 +4,8 @@ fpath=(
     $fpath
 )
 
-if [[ ! -e antigen/antigen.zsh ]]; then
-    git clone https://github.com/zsh-users/antigen.git
+if [[ ! -e $HOME/.antigen/antigen.zsh ]]; then
+    git clone https://github.com/zsh-users/antigen.git .antigen
 fi
 
 if [[ ! -d .zsh ]]; then
@@ -17,7 +17,7 @@ if [[ ! -e ~/.vim/bundle/Vundle.vim ]]; then
     git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 fi
 
-source antigen/antigen.zsh
+source $HOME/.antigen/antigen.zsh
 
 antigen bundle chriskempson/base16-shell
 antigen bundle zsh-users/zsh-syntax-highlighting
