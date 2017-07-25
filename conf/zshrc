@@ -23,7 +23,8 @@ source $HOME/.antigen/antigen.zsh
 antigen bundle chriskempson/base16-shell
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
-# antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen apply
 
 # PLUGINS="$HOME/.zsh/plugins"
 base16_tomorrow-night
