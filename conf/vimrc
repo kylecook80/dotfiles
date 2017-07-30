@@ -1,6 +1,6 @@
 set nocompatible
 
-source .dotfiles/bundles.vim
+source ~/.dotfiles/bundles.vim
 
 set encoding=utf-8
 set ruler

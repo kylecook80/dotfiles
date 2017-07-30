@@ -1,6 +1,7 @@
 alias be="bundle exec"
 alias bu="be unicorn -c config/unicorn.rb"
 alias clean="make clean"
+alias newpw="LC_ALL=C tr -dc 'A-Za-z0-9!#$%&()*+,-./:;<=>?@[\]^_{|}~' < /dev/urandom | head -c 16 ; echo"
 
 OS=`uname | tr "[A-Z]" "[a-z]"`
 case $OS in
