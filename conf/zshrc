@@ -20,14 +20,15 @@ fi
 
 source $HOME/.antigen/antigen.zsh
 
+antigen use oh-my-zsh
+antigen bundle colored-man-pages
+
 antigen bundle chriskempson/base16-shell
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
-antigen apply
 
-# PLUGINS="$HOME/.zsh/plugins"
-base16_tomorrow-night
+antigen apply
 
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
