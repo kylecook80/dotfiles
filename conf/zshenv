@@ -16,9 +16,11 @@ case $OS in
 
     # PATH
     path=(
+      $HOME/Library/Haskell/bin
       $HOME/.local/bin
       $HOME/bin
       /opt/puppetlabs/bin
+      /usr/local/opt/bison/bin
       /usr/local/bin
       /usr/bin
       /bin
