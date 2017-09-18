@@ -1,7 +1,7 @@
 {
 	"color_scheme": "Packages/Tomorrow Color Schemes/Tomorrow-Night.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
-    "font_face": "Hack-Regular",
+	"font_face": "Hack-Regular",
 	"font_size": 12,
 	"hot_exit": false,
 	"ignored_packages":
@@ -10,7 +10,7 @@
 	],
 	"scroll_past_end": "true",
 	"tab_size": 4,
-    "theme": "Soda Dark 3.sublime-theme",
+	"theme": "Adaptive.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"word_wrap": false
 }
