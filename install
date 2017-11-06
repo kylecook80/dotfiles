@@ -4,3 +4,4 @@
 
 install_dotfiles
 install_scripts
+install_sublime_prefs

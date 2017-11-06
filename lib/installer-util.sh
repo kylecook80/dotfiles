@@ -60,3 +60,13 @@ function install_scripts {
         fi
     done
 }
+
+function install_sublime_prefs {
+    if [[ "$OS" == "darwin" ]]; then
+        if [[ -e "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
+            mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings.old"
+        fi
+
+        ln -s "$HOME/.dotfiles/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+    fi
+}
