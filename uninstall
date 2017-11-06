@@ -20,3 +20,8 @@ for item in $DIR/scripts/*; do
         rm $HOME/bin/${item##*/}
     fi
 done
+
+if [[ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
+    rm "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+    mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings.old" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+fi

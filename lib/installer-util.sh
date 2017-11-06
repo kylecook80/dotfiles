@@ -62,11 +62,19 @@ function install_scripts {
 }
 
 function install_sublime_prefs {
+    echo -n "Installing Sublime Text 3 Preferences: "
     if [[ "$OS" == "darwin" ]]; then
+        if [[ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
+            echo "Already exists"
+            return
+        fi
         if [[ -e "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
             mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings.old"
         fi
 
         ln -s "$HOME/.dotfiles/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+        echo "Success"
+    else
+        echo "Operating System not supported."
     fi
 }
