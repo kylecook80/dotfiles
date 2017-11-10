@@ -16,10 +16,8 @@ case $OS in
 
     # PATH
     path=(
-      $HOME/Library/Haskell/bin
-      $HOME/.local/bin
+      /usr/local/MacGPG2/bin
       $HOME/bin
-      /opt/puppetlabs/bin
       /usr/local/opt/bison/bin
       /usr/local/bin
       /usr/bin
@@ -27,19 +25,10 @@ case $OS in
       /usr/local/sbin
       /usr/sbin
       /sbin
-      /usr/local/MacGPG2/bin
     )
-
-    # export CPATH=/opt/X11/include
-    # export LIBRARY_PATH=/opt/X11/lib
-    # export LD_LIBRARY_PATH=/opt/X11/lib
-    # export MACOSX_DEPLOYMENT_TARGET=10.11
-    # export PETSC_DIR=/usr/local/Cellar/petsc/3.7.4/complex
     ;;
 "linux")
-    export JAVA_HOME=/opt/java/jdk1.8.0_102
     path=(
-      $JAVA_HOME/bin
       $HOME/bin
       /usr/local/sbin
       /usr/sbin
@@ -50,7 +39,5 @@ case $OS in
       /usr/local/games
       /usr/games
     )
-
-    export CPATH="/usr/include/postgresql:$CPATH"
     ;;
 esac
