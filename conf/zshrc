@@ -5,11 +5,11 @@ fpath=(
 )
 
 if [[ ! -e $HOME/.antigen/antigen.zsh ]]; then
-    git clone https://github.com/zsh-users/antigen.git .antigen
+    git clone https://github.com/zsh-users/antigen.git $HOME/.antigen
 fi
 
-if [[ ! -d .zsh ]]; then
-    ln -s ~/.dotfiles/zsh .zsh
+if [[ ! -d $HOME/.zsh ]]; then
+    ln -s ~/.dotfiles/zsh $HOME/.zsh
 fi
 
 if [[ ! -e ~/.vim/bundle/Vundle.vim ]]; then
@@ -62,10 +62,8 @@ promptinit
 prompt cook
 
 # History setup
-setopt hist_ignore_all_dups inc_append_history
-HISTFILE=~/.zhistory
-HISTSIZE=4096
-SAVEHIST=4096
+HISTFILE=~/.zsh_history
+HISTSIZE=50
 
 # keybindings for shell
 bindkey -e
