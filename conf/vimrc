@@ -21,7 +21,7 @@ set noswapfile
 set t_Co=256
 let base16colorspace=256
 set background=dark
-colorscheme base16-tomorrow-night
+"colorscheme base16-tomorrow-night
 
 " Line numbers and such
 set number

@@ -39,5 +39,7 @@ case $OS in
       /usr/local/games
       /usr/games
     )
+    export CPATH=/usr/local/include
+    export LIBRARY_PATH=/usr/local/lib
     ;;
 esac

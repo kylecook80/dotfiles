@@ -8,7 +8,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'chriskempson/base16-vim'
+"Plugin 'chriskempson/base16-vim'
 Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
