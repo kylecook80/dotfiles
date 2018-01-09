@@ -18,4 +18,6 @@ case $OS in
     alias auu="sudo apt-get update && sudo apt-get -y upgrade"
     alias ds="du -h -d1 . | sort -rh | head -n 20"
     ;;
+"freebsd")
+   alias build="sudo poudriere bulk -j 11-amd64"
 esac
