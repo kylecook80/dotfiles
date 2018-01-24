@@ -8,7 +8,7 @@
 [color]
 	ui = true
 [alias]
-  tree = log --graph --decorate --pretty=oneline --abbrev-commit
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [push]
 	default = simple
 [filter "media"]

@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
 
+DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"
 OTHER_FILES="viminfo zcompdump zhistory zsh_history"
 DIR="$(pwd)"
-echo $DIR && exit 0
 
-for item in $DIR/conf/*; do
+for item in $DEFAULT_FILES; do
     if [[ -L "$HOME/.${item##*/}" ]]; then
         rm -rf $HOME/.${item##*/}
     fi
 done
 
-# for item in $OTHER_FILES; do
-#     if [[ -e "$HOME/.$item" ]]; then
-#         rm -rf "$HOME/.$item"
-#     fi
-# done
+for item in $OTHER_FILES; do
+    if [[ -e "$HOME/.$item" ]]; then
+        rm -rf "$HOME/.$item"
+    fi
+done
 
 for item in $DIR/scripts/*; do
     if [[ -L "$HOME/bin/${item##*/}" ]]; then
         rm $HOME/bin/${item##*/}
     fi
-done
 
-if [[ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
-    rm "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
-    mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings.old" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
-fi
+    if ! find "$HOME/bin" -mindepth 1 -print -quit | grep -q .; then
+        rmdir $HOME/bin
+    fi
+done
