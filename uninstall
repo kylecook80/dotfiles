@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 OTHER_FILES="viminfo zcompdump zhistory zsh_history"
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DIR="$(pwd)"
+echo $DIR && exit 0
 
 for item in $DIR/conf/*; do
     if [[ -L "$HOME/.${item##*/}" ]]; then
