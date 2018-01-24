@@ -43,7 +43,7 @@ set splitright
 set textwidth=80
 
 set clipboard=unnamedplus
-"set mouse=a
+set mouse=a
 
 let mapleader = " "
 

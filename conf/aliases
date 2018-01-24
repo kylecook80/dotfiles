@@ -19,5 +19,6 @@ case $OS in
     alias ds="du -h -d1 . | sort -rh | head -n 20"
     ;;
 "freebsd")
-   alias build="sudo poudriere bulk -j 11-amd64"
+    alias build="sudo poudriere bulk -j 11-amd64"
+    alias view="feh -F ."
 esac
