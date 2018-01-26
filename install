@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# shopt -s nullglob nocaseglob
-# shopt -s nocasematch
-
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 # DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 DIR="$HOME/.dotfiles"
@@ -10,25 +7,24 @@ DIR="$HOME/.dotfiles"
 echo "OS: $OS"
 echo "DIR: $DIR"
 
-function install_dotfiles {
+install_dotfiles() {
     DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"
-    LINKED=()
 
     for item in $DEFAULT_FILES; do
         if [ -e "$item-$OS" ]; then
-            LINKED+="$item-$OS "
+            set -- "$@" "$item-$OS"
         else
-            LINKED+="$item "
+            set -- "$@" "$item"
         fi
     done
 
-    regex="(.*)-$OS"
-    for item in $LINKED; do
-        if [[ $item =~ $regex ]]; then
-            # echo "regex: %s\n" "$HOME/.${BASH_REMATCH[1]}"
-            echo -n "Creating file .${BASH_REMATCH[1]}: "
-            if [[ ! -e "$HOME/.${BASH_REMATCH[1]}" ]]; then
-                cat "${BASH_REMATCH[1]}" "$item" > "$HOME/.${BASH_REMATCH[1]}"
+    regex=".*-$OS"
+    for item do
+        if echo "$item" | grep -q $regex; then
+            file=$(echo "$item" | cut -d'-' -f1)
+            echo -n "Creating file .$file: "
+            if [ ! -e "$HOME/.$file" ]; then
+                cat "$file" "$item" > "$HOME/.$file"
                 echo "Success"
             else
                 echo "Already exists"
@@ -37,7 +33,7 @@ function install_dotfiles {
             # echo "no_regex: %s\n" "$HOME/.$item"
             # ln -s ".dotfiles/$item" "$HOME/.$item"
             echo -n "Linking file .$item: "
-            if [[ ! -e "$HOME/.$item" && ! -L "$HOME/.$item" ]]; then
+            if [ ! -e "$HOME/.$item" -a ! -L "$HOME/.$item" ]; then
                 ln -sf "$DIR/$item" "$HOME/.$item"
                 echo "Success"
             else
@@ -47,11 +43,11 @@ function install_dotfiles {
     done
 }
 
-function install_scripts {
+install_scripts() {
     mkdir -p $HOME/bin
     for item in $DIR/scripts/*; do
         echo -n "Installing $(basename $item): "
-        if [[ ! -L "$HOME/bin/$(basename $item)" ]]; then
+        if [ ! -L "$HOME/bin/$(basename $item)" ]; then
             ln -sf $item $HOME/bin
             echo "Success"
         else
@@ -60,14 +56,14 @@ function install_scripts {
     done
 }
 
-function install_sublime_prefs {
+install_sublime_prefs() {
     echo -n "Installing Sublime Text 3 Preferences: "
-    if [[ "$OS" == "darwin" ]]; then
-        if [[ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
+    if [ "$OS" = "darwin" ]; then
+        if [ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]; then
             echo "Already exists"
             return
         fi
-        if [[ -e "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]]; then
+        if [ -e "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]; then
             mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings.old"
         fi
 
