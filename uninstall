@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEFAULT_FILES="aliases gdbinit gitconfig gitignore i3 polybar rofi screenrc vimrc xmodmaprc Xresources Xresources.d zshenv zshrc zsh"
+DEFAULT_FILES="aliases gdbinit gitconfig gitignore i3 polybar rofi screenrc vimrc xmodmaprc xinitrc Xresources Xresources.d zshenv zshrc zsh"
 OTHER_FILES="viminfo zcompdump zhistory zsh_history"
 DIR="$(pwd)"
 
