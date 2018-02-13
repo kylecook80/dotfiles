@@ -1,0 +1,25 @@
+! XFT
+!Xft.dpi: 96
+!Xft.antialias: true
+!Xft.rgba: rgb
+!Xft.hinting: true
+!Xft.hintstyle: hintslight
+
+! URxvt
+URxvt.perl-lib: /usr/lib/urxvt/perl
+URxvt.perl-ext-common: ...,selection-to-clipboard,font-size
+
+URxvt.iconFile: /usr/share/icons/gnome/scalable/apps/terminal.svg
+URxvt.scrollBar: false
+URxvt.borderless: true
+URxvt.scrollstyle: plain
+URxvt.termName: rxvt-unicode-256color
+URxvt.urlLauncher:  firefox
+
+URxvt.font: xft:Hack:pixelsize=14,xft:FontAwesome:size=14
+!URxvt.letterSpacing: 1
+
+URxvt.transparent:   true
+URxvt.depth:    32
+URxvt.shading:       20
+URxvt.blurRadius:   5

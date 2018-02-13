@@ -51,7 +51,7 @@ filetype plugin indent on
 "set textwidth=80
 
 set clipboard=unnamedplus
-set mouse=a
+"set mouse=a
 
 "let mapleader = " "
 

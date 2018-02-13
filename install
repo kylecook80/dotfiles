@@ -8,7 +8,7 @@ echo "OS: $OS"
 echo "DIR: $DIR"
 
 install_dotfiles() {
-    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc tmux.conf tmux vimrc vim zshenv zshrc zsh"
+    DEFAULT_FILES="aliases gdbinit gitconfig gitignore i3 polybar rofi screenrc vimrc xmodmaprc Xresources Xresources.d zshenv zshrc zsh"
 
     for item in $DEFAULT_FILES; do
         if [ -e "$item-$OS" ]; then
