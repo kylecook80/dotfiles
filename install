@@ -4,6 +4,8 @@ OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 # DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 DIR="$HOME/.dotfiles"
 
+ECHO="/bin/echo -n"
+
 echo "OS: $OS"
 echo "DIR: $DIR"
 
@@ -22,7 +24,7 @@ install_dotfiles() {
     for item do
         if echo "$item" | grep -q $regex; then
             file=$(echo "$item" | cut -d'-' -f1)
-            echo -n "Creating file .$file: "
+            $ECHO "Creating file .$file: "
             if [ ! -e "$HOME/.$file" ]; then
                 cat "$file" "$item" > "$HOME/.$file"
                 echo "Success"
@@ -32,7 +34,7 @@ install_dotfiles() {
         else
             # echo "no_regex: %s\n" "$HOME/.$item"
             # ln -s ".dotfiles/$item" "$HOME/.$item"
-            echo -n "Linking file .$item: "
+            $ECHO "Linking file .$item: "
             if [ ! -e "$HOME/.$item" -a ! -L "$HOME/.$item" ]; then
                 ln -sf "$DIR/$item" "$HOME/.$item"
                 echo "Success"
@@ -46,7 +48,7 @@ install_dotfiles() {
 install_scripts() {
     mkdir -p $HOME/bin
     for item in $DIR/scripts/*; do
-        echo -n "Installing $(basename $item): "
+        $ECHO "Installing $(basename $item): "
         if [ ! -L "$HOME/bin/$(basename $item)" ]; then
             ln -sf $item $HOME/bin
             echo "Success"
@@ -57,7 +59,7 @@ install_scripts() {
 }
 
 install_sublime_prefs() {
-    echo -n "Installing Sublime Text 3 Preferences: "
+    $ECHO "Installing Sublime Text 3 Preferences: "
     if [ "$OS" = "darwin" ]; then
         if [ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]; then
             echo "Already exists"
@@ -76,3 +78,6 @@ install_sublime_prefs() {
 
 install_dotfiles
 install_scripts
+if [ "$OS" = "darwin" ]; then
+    install_sublime_prefs
+fi
