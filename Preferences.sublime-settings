@@ -7,9 +7,10 @@
 	[
 		"Vintage"
 	],
-	"scroll_past_end": "true",
+	"scroll_past_end": true,
+	"spell_check": true,
 	"tab_size": 4,
 	"theme": "Adaptive.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"word_wrap": false
+	"word_wrap": true
 }

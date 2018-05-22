@@ -107,4 +107,7 @@ if type "archey" > /dev/null; then
     [[ -f $(brew --prefix)/bin/archey ]] && archey
 fi
 
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
