@@ -4,8 +4,8 @@
 xdg-user-dirs-update
 
 xset -b
-#xset s off
-#xset -dpms
+xset s on
+xset +dpms
 
 xrandr --output DP-2 --mode 2560x1440 --primary --rotate normal
 xrandr --output DP-0 --mode 2560x1440 --left-of DP-2 --rotate normal

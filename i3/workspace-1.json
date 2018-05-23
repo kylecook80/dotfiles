@@ -1,0 +1,82 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1416,
+       "width": 2563,
+       "x": 0,
+       "y": 26
+    },
+    "name": "#jewchat - Discord",
+    "percent": 0.5,
+    "swallows": [
+       {
+       "class": "^discord$",
+       "instance": "^discord$",
+       "title": "Discord$",
+       "transient_for": "^$",
+       "window_role": "^browser\\-window$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    // splitv split container with 2 children
+    "border": "none",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1359,
+               "width": 1239,
+               "x": 1293,
+               "y": 53
+            },
+            "name": "Slack - ascii overflow",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Slack$",
+               "instance": "^slack$",
+               "title": "^Slack",
+               "transient_for": "^$",
+               "window_role": "^browser\\-window$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 663,
+               "width": 1237,
+               "x": 1295,
+               "y": 749
+            },
+            "name": "Signal",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Signal$",
+               "instance": "^signal$",
+               "title": "^Signal$",
+               "transient_for": "^$",
+               "window_role": "^browser\\-window$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

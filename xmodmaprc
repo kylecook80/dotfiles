@@ -4,6 +4,3 @@ keycode 96 = XF86AudioRaiseVolume
 keycode 107 = XF86AudioPrev
 keycode 78 = XF86AudioPlay
 keycode 127 = XF86AudioNext
-
-remove Lock = Caps_Lock
-keysym Caps_Lock = Escape
