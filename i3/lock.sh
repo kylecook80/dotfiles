@@ -11,6 +11,8 @@ resolution=$(xdpyinfo | grep dimensions | awk '{print $2}')
 #So  make sure your scale values invert: i.e. 1/25 = 0.04
 filters='noise=alls=10,scale=iw*.04:-1,scale=iw*25:-1:flags=neighbor'
 
+scrot -m /tmp/screen_lock.png
+
 #Get the screenshot and blur it
 ffmpeg -y -loglevel 0 -s "$resolution" -f x11grab -i $DISPLAY -vframes 1 \
   -vf "$filters" "$image_file"
@@ -25,7 +27,7 @@ rm $image_file_2
 ffmpeg -i $image_file -vf scale=1:1 $image_file_2
 
 #Get the inverted color
-color="$(convert -negate /tmp/screen_lock_1.png txt:- | grep -o '(?<=#)(\w{6}\W)' | sed '/^$/d')"
+color="$(convert -negate /tmp/screen_lock_1.png txt:- | grep -oP '(?<=#)(\w{6}\W)' | sed '/^$/d')"
 echo Color: $color
 
 #And boom!
