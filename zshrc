@@ -23,6 +23,7 @@ source $HOME/.antigen/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle colored-man-pages
 antigen bundle docker
+antigen bundle osx
 
 antigen bundle chriskempson/base16-shell
 antigen bundle zsh-users/zsh-syntax-highlighting

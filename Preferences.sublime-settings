@@ -1,4 +1,31 @@
 {
+	"auto_complete_triggers":
+	[
+		{
+			"characters": ".>:",
+			"selector": "source.c++ - string - comment - constant.numeric"
+		},
+		{
+			"characters": ".>:",
+			"selector": "source.c - string - comment - constant.numeric"
+		},
+		{
+			"characters": ".>: ",
+			"selector": "source.objc++ - string - comment - constant.numeric"
+		},
+		{
+			"characters": ".>: ",
+			"selector": "source.objc - string - comment - constant.numeric"
+		},
+		{
+			"characters": ".>: ",
+			"selector": "source.cuda-c++ - string - comment - constant.numeric"
+		},
+		{
+			"characters": "\\",
+			"selector": "text.tex.latex"
+		}
+	],
 	"color_scheme": "Packages/Tomorrow Color Schemes/Tomorrow-Night.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Hack",

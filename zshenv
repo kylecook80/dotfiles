@@ -16,8 +16,9 @@ case $OS in
 
     # PATH
     path=(
-      /usr/local/MacGPG2/bin
       $HOME/bin
+      /usr/local/MacGPG2/bin
+      /usr/local/anaconda3/bin
       /usr/local/opt/bison/bin
       /usr/local/bin
       /usr/bin

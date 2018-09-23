@@ -3,6 +3,12 @@ alias bu="be unicorn -c config/unicorn.rb"
 alias clean="make clean"
 
 alias newpw="LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16 | xargs echo"
+alias pubkey="cat ~/.ssh/id_rsa.pub"
+
+alias chd="find . -type d chmod 755 {} \;"
+alias chf="find . -type f chmod 644 {} \;"
+
+alias sshk="ssh-keygen -R "
 
 OS=`uname | tr "[A-Z]" "[a-z]"`
 case $OS in

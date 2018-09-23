@@ -16,10 +16,8 @@ APPS=(
 	dropbox
 	postgres
 	jetbrains-toolbox
-	yujitach-menumeters
 	vmware-fusion
 	vmware-remote-console
-	flux
 	bartender
 	fantastical
 	sublime-text
@@ -35,8 +33,7 @@ APPS=(
     omnifocus
     omnioutliner
     beardedspice
-    amethyst
-    tunnelblock
+    tunnelblick
 )
 
 FONTS=(
