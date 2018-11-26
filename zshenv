@@ -17,6 +17,10 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
+      /opt/puppetlabs/bin
+      /usr/local/opt/php@5.6/bin
+      /usr/local/opt/php@5.6/sbin
+      /usr/local/opt/openssl/bin
       /usr/local/MacGPG2/bin
       /usr/local/anaconda3/bin
       /usr/local/opt/bison/bin
@@ -27,6 +31,10 @@ case $OS in
       /usr/sbin
       /sbin
     )
+
+    #export DYLD_LIBRARY_PATH=
+    #export LDFLAGS="-L/usr/local/opt/openssl/lib"
+    #export CPPFLAGS="-I/usr/local/opt/openssl/include"
     ;;
 "linux")
     path=(
@@ -37,10 +45,10 @@ case $OS in
       /usr/local/bin
       /usr/bin
       /bin
-      /usr/local/games
-      /usr/games
+      #/usr/local/games
+      #/usr/games
     )
-    export CPATH=/usr/local/include
-    export LIBRARY_PATH=/usr/local/lib
+    #export CPATH=/usr/local/include
+    #export LIBRARY_PATH=/usr/local/lib
     ;;
 esac

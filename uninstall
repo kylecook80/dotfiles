@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
-DEFAULT_FILES="aliases gdbinit gitconfig gitignore i3 polybar rofi screenrc vimrc xmodmaprc xinitrc Xresources Xresources.d zshenv zshrc zsh"
-OTHER_FILES="viminfo zcompdump zhistory zsh_history"
+SHELL_FILES="aliases gdbinit gitignore screenrc vim vimrc zshenv zshrc zsh"
+I3_FILES="i3 polybar rofi xmodmaprc xinitrc Xresources Xresources.d"
+GEN_FILES="antigen base16_theme gitconfig viminfo zcompdump zsh_history zsh_history zshrc.zwc"
+
 DIR="$(pwd)"
 
-for item in $DEFAULT_FILES; do
+for item in $SHELL_FILES; do
     if [[ -L "$HOME/.${item##*/}" ]]; then
         rm -rf $HOME/.${item##*/}
     fi
 done
 
-for item in $OTHER_FILES; do
+for item in $GEN_FILES; do
     if [[ -e "$HOME/.$item" ]]; then
         rm -rf "$HOME/.$item"
     fi

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 # DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
@@ -10,7 +10,8 @@ echo "OS: $OS"
 echo "DIR: $DIR"
 
 install_dotfiles() {
-    DEFAULT_FILES="aliases gdbinit gitconfig gitignore i3 polybar rofi screenrc vimrc xinitrc xmodmaprc Xresources Xresources.d zshenv zshrc zsh"
+    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc vimrc zshenv zshrc zsh"
+    I3_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
 
     for item in $DEFAULT_FILES; do
         if [ -e "$item-$OS" ]; then
@@ -78,6 +79,4 @@ install_sublime_prefs() {
 
 install_dotfiles
 install_scripts
-if [ "$OS" = "darwin" ]; then
-    install_sublime_prefs
-fi
+install_sublime_prefs

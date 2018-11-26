@@ -80,34 +80,38 @@ setopt extendedglob
 unsetopt nomatch
 
 # Percol setup
-function exists { which $1 &> /dev/null }
-if exists percol; then
-    function percol_select_history() {
-        local tac
-        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-        CURSOR=$#BUFFER         # move cursor
-        zle -R -c               # refresh
-    }
+# function exists { which $1 &> /dev/null }
+# if exists percol; then
+#     function percol_select_history() {
+#         local tac
+#         exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+#         BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+#         CURSOR=$#BUFFER         # move cursor
+#         zle -R -c               # refresh
+#     }
 
-    zle -N percol_select_history
-    bindkey '^R' percol_select_history
-fi
+#     zle -N percol_select_history
+#     bindkey '^R' percol_select_history
+# fi
 
 # autojump
-if type "brew" > /dev/null; then
-    [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-else
-    [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
-fi
+# if type "brew" > /dev/null; then
+#     [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+# else
+#     [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
+# fi
 
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
 
-if type "archey" > /dev/null; then
-    [[ -f $(brew --prefix)/bin/archey ]] && archey
-fi
+# if type "archey" > /dev/null; then
+#     [[ -f $(brew --prefix)/bin/archey ]] && archey
+# fi
 
-#eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
+# source $HOME/.rvm/scripts/rvm
