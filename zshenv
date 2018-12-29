@@ -18,8 +18,8 @@ case $OS in
     path=(
       $HOME/bin
       /opt/puppetlabs/bin
-      /usr/local/opt/php@5.6/bin
-      /usr/local/opt/php@5.6/sbin
+      /usr/local/opt/php@7.2/bin
+      /usr/local/opt/php@7.2/sbin
       /usr/local/opt/openssl/bin
       /usr/local/MacGPG2/bin
       /usr/local/anaconda3/bin
