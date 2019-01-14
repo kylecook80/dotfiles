@@ -17,12 +17,10 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
-      /opt/puppetlabs/bin
-      /usr/local/opt/php@7.2/bin
-      /usr/local/opt/php@7.2/sbin
-      /usr/local/opt/openssl/bin
+      /usr/local/texlive/2018/bin/x86_64-darwin
       /usr/local/MacGPG2/bin
       /usr/local/anaconda3/bin
+      /usr/local/opt/openssl/bin
       /usr/local/opt/bison/bin
       /usr/local/bin
       /usr/bin
