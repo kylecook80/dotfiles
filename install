@@ -77,6 +77,106 @@ install_sublime_prefs() {
     fi
 }
 
+install_brew_apps() {
+    if test ! $(which brew); then
+        echo "Installing X Code CLI tools"
+        xcode-select --install
+        echo "Installing Homebrew..."
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    # Make sure we’re using the latest Homebrew
+    brew update
+    # Upgrade any already-installed formulae
+    brew tap homebrew/cask-fonts
+    brew upgrade
+
+    apps=(
+        autojump
+        binutils
+        coreutils
+        curl
+        curl-openssl
+        dockutil
+        findutils
+        gcc
+        git
+        neofetch
+        nmap
+        pandoc
+        pandoc-citeproc
+        pandoc-crossref
+        python
+        python@2
+        ruby
+        vim
+        wget
+        xz
+        zsh
+    )
+    brew install "${apps[@]}"
+
+    # Remove outdated versions from the cellar
+    brew cleanup
+}
+
+install_brew_cask() {
+    echo “Installing cask...”
+    brew tap homebrew/cask
+
+    CASKS=(
+        1password
+        adobe-creative-cloud
+        bartender
+        daisydisk
+        discord
+        docker
+        dropbox
+        duet
+        fantastical
+        fantasy-grounds
+        firefox
+        font-fira-code
+        font-fira-mono
+        font-fira-sans
+        font-hack
+        forklift
+        google-chrome
+        gpg-suite
+        iterm2
+        jetbrains-toolbox
+        karabiner-elements
+        latexit
+        mactex
+        microsoft-office
+        mountain
+        nextcloud
+        onedrive
+        pdf-expert
+        scroll-reverser
+        signal
+        skim
+        slack
+        sublime-text
+        texstudio
+        tunnelblick
+        twitch
+        vagrant
+        virtualbox
+        virtualbox-extension-pack
+        vmware-fusion
+        vmware-remote-console
+        wireshark
+        yujitach-menumeters
+        zotero
+    )
+
+    echo “Installing cask apps...”
+    brew cask install ${CASKS[@]}
+}
+
 install_dotfiles
 install_scripts
+install_brew_apps
+install_brew_cask
 install_sublime_prefs
