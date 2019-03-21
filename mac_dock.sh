@@ -7,7 +7,6 @@ OLDIFS=$IFS
 IFS=''
 
 apps=(
-    Finder
     ForkLift
     Firefox
     'Google Chrome'

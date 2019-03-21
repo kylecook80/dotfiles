@@ -17,6 +17,8 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
+      /opt/puppetlabs/pdk/bin
+      /opt/puppetlabs/bin
       /usr/local/texlive/2018/bin/x86_64-darwin
       /usr/local/MacGPG2/bin
       /usr/local/anaconda3/bin
@@ -30,6 +32,7 @@ case $OS in
       /sbin
     )
 
+    export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
     #export DYLD_LIBRARY_PATH=
     #export LDFLAGS="-L/usr/local/opt/openssl/lib"
     #export CPPFLAGS="-I/usr/local/opt/openssl/include"

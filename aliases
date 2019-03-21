@@ -18,6 +18,9 @@ case $OS in
     alias finder_show_files="defaults write com.apple.finder AppleShowAllFiles YES;killall Finder"
     alias flushdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
     alias ds="du -h -d1 . | gsort -rh | head -n 20"
+    alias chquar="xattr * | grep quarantine"
+    alias unquar="xattr -r -d com.apple.quarantine"
+    alias serial="screen /dev/cu.usbserial 115200"
     ;;
 "linux")
     alias ls="ls --color=auto"

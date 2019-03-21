@@ -61,17 +61,34 @@ install_scripts() {
 
 install_sublime_prefs() {
     $ECHO "Installing Sublime Text 3 Preferences: "
-    if [ "$OS" = "darwin" ]; then
-        if [ -L "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]; then
-            echo "Already exists"
-            return
-        fi
-        if [ -e "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" ]; then
-            mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings.old"
-        fi
+    
+    SUBFILES=("$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+        "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings")
 
-        ln -s "$HOME/.dotfiles/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
-        echo "Success"
+    if [ "$OS" = "darwin" ]; then
+        OP=""
+        for ((i = 0; i < ${#SUBFILES[@]}; i++)); do
+            FILE=${SUBFILES[$i]}
+            NAME=$(basename "$FILE")
+
+            if [ -L "$FILE" ]; then
+                continue
+            fi
+
+            OP=0
+
+            if [ -e "$FILE" ]; then
+                mv "$HOME/Library/Application Support/Sublime Text 3/Packages/User/${NAME}" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User/${NAME}.old"
+            fi
+
+            ln -s "$HOME/.dotfiles/${NAME}" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User/${NAME}"
+        done
+        
+        if [[ -z "$OP" ]]; then
+            echo "Already exists. Skipping..."
+        else
+            echo "Success"
+        fi
     else
         echo "Operating System not supported."
     fi
@@ -87,25 +104,34 @@ install_brew_apps() {
 
     # Make sure we’re using the latest Homebrew
     brew update
+    
     # Upgrade any already-installed formulae
-    brew tap homebrew/cask-fonts
     brew upgrade
 
     apps=(
         autojump
         binutils
+        cmake
+        conan
         coreutils
         curl
         curl-openssl
         dockutil
         findutils
         gcc
+        gdb
         git
+        llvm
+        nasm
         neofetch
         nmap
+        p7zip
+        packer
         pandoc
         pandoc-citeproc
         pandoc-crossref
+        percol
+        postgresql
         python
         python@2
         ruby
@@ -123,11 +149,15 @@ install_brew_apps() {
 install_brew_cask() {
     echo “Installing cask...”
     brew tap homebrew/cask
+    brew tap homebrew/cask-fonts
+    brew tap puppetlabs/puppet
 
     CASKS=(
         1password
         adobe-creative-cloud
+        arq
         bartender
+        bettertouchtool
         daisydisk
         discord
         docker
@@ -140,9 +170,10 @@ install_brew_cask() {
         font-fira-mono
         font-fira-sans
         font-hack
+        font-inconsolata
         forklift
         google-chrome
-        gpg-suite
+        gpg-suite-no-mail
         iterm2
         jetbrains-toolbox
         karabiner-elements
@@ -153,10 +184,13 @@ install_brew_cask() {
         nextcloud
         onedrive
         pdf-expert
+        pdk
+        royal-tsx
         scroll-reverser
         signal
         skim
         slack
+        sublime-merge
         sublime-text
         texstudio
         tunnelblick
@@ -177,6 +211,10 @@ install_brew_cask() {
 
 install_dotfiles
 install_scripts
-install_brew_apps
-install_brew_cask
+
+if [[ "$OS" == "darwin" ]]; then
+	install_brew_apps
+	install_brew_cask
+fi
+
 install_sublime_prefs

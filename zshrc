@@ -64,7 +64,7 @@ prompt cook
 
 # History setup
 HISTFILE=~/.zsh_history
-HISTSIZE=50
+#HISTSIZE=50
 
 # keybindings for shell
 bindkey -e
@@ -79,27 +79,31 @@ bindkey -e
 setopt extendedglob
 unsetopt nomatch
 
-# Percol setup
-# function exists { which $1 &> /dev/null }
-# if exists percol; then
-#     function percol_select_history() {
-#         local tac
-#         exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-#         BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-#         CURSOR=$#BUFFER         # move cursor
-#         zle -R -c               # refresh
-#     }
+. /usr/local/anaconda3/etc/profile.d/conda.sh
 
-#     zle -N percol_select_history
-#     bindkey '^R' percol_select_history
-# fi
+neofetch
+
+# Percol setup
+function exists { which $1 &> /dev/null }
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
 
 # autojump
-# if type "brew" > /dev/null; then
-#     [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-# else
-#     [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
-# fi
+if type "brew" > /dev/null; then
+    [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+else
+    [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
+fi
 
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
