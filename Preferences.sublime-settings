@@ -28,8 +28,9 @@
 	],
 	"color_scheme": "Packages/Tomorrow Color Schemes/Tomorrow-Night.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
-	"font_face": "Courier New",
-	"hot_exit": false,
+	"font_face": "Hack",
+	"font_size": 12,
+	"hot_exit": true,
 	"ignored_packages":
 	[
 		"Vintage"

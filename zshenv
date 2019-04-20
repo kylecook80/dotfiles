@@ -19,6 +19,7 @@ case $OS in
       $HOME/bin
       /opt/puppetlabs/pdk/bin
       /opt/puppetlabs/bin
+      /usr/local/opt/llvm/bin
       /usr/local/texlive/2018/bin/x86_64-darwin
       /usr/local/MacGPG2/bin
       /usr/local/anaconda3/bin

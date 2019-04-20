@@ -21,6 +21,7 @@ case $OS in
     alias chquar="xattr * | grep quarantine"
     alias unquar="xattr -r -d com.apple.quarantine"
     alias serial="screen /dev/cu.usbserial 115200"
+    alias bcs="brew cleanup -s"
     ;;
 "linux")
     alias ls="ls --color=auto"
