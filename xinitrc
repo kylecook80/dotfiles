@@ -8,7 +8,7 @@ xset s on
 xset +dpms
 
 xrandr --output DP-2 --mode 2560x1440 --primary --rotate normal
-xrandr --output DP-0 --mode 2560x1440 --left-of DP-2 --rotate normal
+xrandr --output DP-0 --mode 2560x1440 --left-of DP-2 --rotate left
 xrandr --output DP-4 --mode 2560x1440 --right-of DP-2 --rotate normal
 
 numlockx
@@ -22,5 +22,5 @@ sh ~/.fehbg
 xmodmap ~/.xmodmaprc
 
 #exec /usr/local/bin/i3 -V >> ~/.i3/logfile
-exec /usr/bin/i3 -V >> ~/.i3/logfile
+#exec /usr/bin/i3 -V >> ~/.i3/logfile
 

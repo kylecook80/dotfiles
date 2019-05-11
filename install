@@ -10,8 +10,7 @@ echo "OS: $OS"
 echo "DIR: $DIR"
 
 install_dotfiles() {
-    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc vimrc zshenv zshrc zsh"
-    I3_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
+    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc vimrc zshenv zshrc zsh i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
 
     for item in $DEFAULT_FILES; do
         if [ -e "$item-$OS" ]; then
@@ -211,10 +210,9 @@ install_brew_cask() {
 
 install_dotfiles
 install_scripts
-
 if [[ "$OS" == "darwin" ]]; then
 	install_brew_apps
 	install_brew_cask
 fi
 
-install_sublime_prefs
+#install_sublime_prefs
