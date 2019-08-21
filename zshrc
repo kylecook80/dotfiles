@@ -79,8 +79,6 @@ bindkey -e
 setopt extendedglob
 unsetopt nomatch
 
-# . /usr/local/anaconda3/etc/profile.d/conda.sh  # commented out by conda initialize
-
 neofetch
 
 # Percol setup
@@ -115,26 +113,4 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 #     [[ -f $(brew --prefix)/bin/archey ]] && archey
 # fi
 
-# eval "$(pyenv init -)"
-
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-# export PATH="$PATH:$HOME/.rvm/bin"
-# source $HOME/.rvm/scripts/rvm
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/Caskroom/miniconda/4.6.14/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/local/Caskroom/miniconda/4.6.14/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/Caskroom/miniconda/4.6.14/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/local/Caskroom/miniconda/4.6.14/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
