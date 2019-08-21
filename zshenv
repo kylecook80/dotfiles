@@ -2,6 +2,7 @@ export TERM=xterm-256color
 export VISUAL=vim
 export EDITOR=$VISUAL
 export KEYTIMEOUT=1
+export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
 # Aliases
 [[ -f ~/.aliases ]] && . ~/.aliases
@@ -20,6 +21,7 @@ case $OS in
       /opt/puppetlabs/pdk/bin
       /opt/puppetlabs/bin
       /usr/local/opt/llvm/bin
+      /usr/local/opt/mysql-client/bin
       /usr/local/texlive/2018/bin/x86_64-darwin
       /usr/local/MacGPG2/bin
       /usr/local/anaconda3/bin

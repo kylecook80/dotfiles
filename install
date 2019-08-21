@@ -108,6 +108,7 @@ install_brew_apps() {
     brew upgrade
 
     apps=(
+        ansible
         autojump
         binutils
         cmake
@@ -120,7 +121,12 @@ install_brew_apps() {
         gcc
         gdb
         git
+        gnupg
+        ical-buddy
+        iperf
+        jq
         llvm
+        mysql
         nasm
         neofetch
         nmap
@@ -132,12 +138,14 @@ install_brew_apps() {
         percol
         postgresql
         python
-        python@2
+        r
         ruby
+        socat
         vim
         wget
         xz
         zsh
+        zsh-autosuggestions
     )
     brew install "${apps[@]}"
 
@@ -153,17 +161,15 @@ install_brew_cask() {
 
     CASKS=(
         1password
-        adobe-creative-cloud
         arq
         bartender
         bettertouchtool
+        boom-3d
         daisydisk
         discord
         docker
         dropbox
-        duet
         fantastical
-        fantasy-grounds
         firefox
         font-fira-code
         font-fira-mono
@@ -174,18 +180,23 @@ install_brew_cask() {
         google-chrome
         gpg-suite-no-mail
         iterm2
+        java
         jetbrains-toolbox
         karabiner-elements
         latexit
         mactex
+        menumeters
         microsoft-office
         mountain
         nextcloud
         onedrive
+        oracle-jdk
+        osxfuse
         pdf-expert
         pdk
         royal-tsx
         scroll-reverser
+        sdformatter
         signal
         skim
         slack
@@ -194,13 +205,11 @@ install_brew_cask() {
         texstudio
         tunnelblick
         twitch
+        ultimaker-cura
         vagrant
-        virtualbox
-        virtualbox-extension-pack
         vmware-fusion
-        vmware-remote-console
         wireshark
-        yujitach-menumeters
+        xquartz
         zotero
     )
 
@@ -210,9 +219,11 @@ install_brew_cask() {
 
 install_dotfiles
 install_scripts
-if [[ "$OS" == "darwin" ]]; then
+
+if [[ "$OS" == "darwin" && ! -e $HOME/.dotinstalled ]]; then
+    touch $HOME/.dotinstalled
 	install_brew_apps
 	install_brew_cask
 fi
 
-#install_sublime_prefs
+install_sublime_prefs

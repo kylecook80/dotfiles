@@ -79,7 +79,7 @@ bindkey -e
 setopt extendedglob
 unsetopt nomatch
 
-. /usr/local/anaconda3/etc/profile.d/conda.sh
+# . /usr/local/anaconda3/etc/profile.d/conda.sh  # commented out by conda initialize
 
 neofetch
 
@@ -105,6 +105,9 @@ else
     [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
 fi
 
+# autosuggestions
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
 
@@ -119,3 +122,19 @@ fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/.rvm/bin"
 # source $HOME/.rvm/scripts/rvm
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/Caskroom/miniconda/4.6.14/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/Caskroom/miniconda/4.6.14/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/Caskroom/miniconda/4.6.14/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/Caskroom/miniconda/4.6.14/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
