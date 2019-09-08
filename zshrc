@@ -104,7 +104,11 @@ else
 fi
 
 # autosuggestions
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if type "brew" > /dev/null; then
+    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+    source /usr/share/zsh/plugins/zsh-autosuggestions
+fi
 
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat

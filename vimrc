@@ -1,4 +1,8 @@
 set nocompatible
+
+"""""""""""""""""""""
+" VUNDLE CONFIG BEGIN
+"""""""""""""""""""""
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -8,6 +12,10 @@ call vundle#begin()
 source ~/.dotfiles/bundles.vim
 
 call vundle#end()
+"""""""""""""""""""
+" VUNDLE CONFIG END
+"""""""""""""""""""
+
 filetype plugin indent on
 
 "set encoding=utf-8
@@ -32,16 +40,16 @@ filetype plugin indent on
 "colorscheme base16-tomorrow-night
 
 " Line numbers and such
-"set number
-"set numberwidth=5
-"syntax on
+set number
+set numberwidth=5
+syntax on
 
 " Keyboard rules
 "set backspace=start,eol,indent
-"set tabstop=4
-"set softtabstop=4
-"set shiftwidth=4
-"set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 "set tags=./tags;/
 
 " Open new panes below and right
