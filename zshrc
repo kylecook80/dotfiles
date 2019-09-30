@@ -28,6 +28,7 @@ antigen bundle osx
 antigen bundle chriskempson/base16-shell
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
 
 antigen apply
 
@@ -79,7 +80,9 @@ bindkey -e
 setopt extendedglob
 unsetopt nomatch
 
-neofetch
+if type "neofetch" > /dev/null; then
+    neofetch
+fi
 
 # Percol setup
 function exists { which $1 &> /dev/null }
@@ -103,18 +106,7 @@ else
     [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
 fi
 
-# autosuggestions
-if type "brew" > /dev/null; then
-    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-else
-    source /usr/share/zsh/plugins/zsh-autosuggestions
-fi
-
 # Fortune Cowsay
 # fortune -o | cowsay | lolcat
-
-# if type "archey" > /dev/null; then
-#     [[ -f $(brew --prefix)/bin/archey ]] && archey
-# fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
