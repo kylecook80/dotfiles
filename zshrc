@@ -76,6 +76,9 @@ bindkey -e
 # zle-line-init() { zle -K ${prev_mode:-viins} }
 # zle -N zle-line-init
 
+# Prevent last line from being eaten
+setopt PROMPT_SP
+
 # Globbing
 setopt extendedglob
 unsetopt nomatch
