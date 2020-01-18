@@ -18,6 +18,7 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
+      $HOME/i686-elf/bin
       /opt/puppetlabs/pdk/bin
       /opt/puppetlabs/bin
       /usr/local/opt/llvm/bin
