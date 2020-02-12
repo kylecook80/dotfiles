@@ -2,7 +2,7 @@ export TERM=xterm-256color
 export VISUAL=vim
 export EDITOR=$VISUAL
 export KEYTIMEOUT=1
-export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+export PUPPET_PATH=$HOME/puppet
 
 # Aliases
 [[ -f ~/.aliases ]] && . ~/.aliases
@@ -18,14 +18,12 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
-      $HOME/i686-elf/bin
       /opt/puppetlabs/pdk/bin
       /opt/puppetlabs/bin
       /usr/local/opt/llvm/bin
       /usr/local/opt/mysql-client/bin
       /usr/local/texlive/2018/bin/x86_64-darwin
       /usr/local/MacGPG2/bin
-      /usr/local/anaconda3/bin
       /usr/local/opt/openssl/bin
       /usr/local/opt/bison/bin
       /usr/local/bin
@@ -37,9 +35,6 @@ case $OS in
     )
 
     export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
-    #export DYLD_LIBRARY_PATH=
-    #export LDFLAGS="-L/usr/local/opt/openssl/lib"
-    #export CPPFLAGS="-I/usr/local/opt/openssl/include"
     ;;
 "linux")
     path=(
@@ -53,7 +48,5 @@ case $OS in
       #/usr/local/games
       #/usr/games
     )
-    #export CPATH=/usr/local/include
-    #export LIBRARY_PATH=/usr/local/lib
     ;;
 esac

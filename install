@@ -60,7 +60,7 @@ install_scripts() {
 
 install_sublime_prefs() {
     $ECHO "Installing Sublime Text 3 Preferences: "
-    
+
     SUBFILES=("$HOME/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
         "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings")
 
@@ -82,7 +82,7 @@ install_sublime_prefs() {
 
             ln -s "$HOME/.dotfiles/${NAME}" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User/${NAME}"
         done
-        
+
         if [[ -z "$OP" ]]; then
             echo "Already exists. Skipping..."
         else
@@ -103,7 +103,7 @@ install_brew_apps() {
 
     # Make sure we’re using the latest Homebrew
     brew update
-    
+
     # Upgrade any already-installed formulae
     brew upgrade
 
