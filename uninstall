@@ -8,7 +8,13 @@ DIR="$(pwd)"
 
 for item in $SHELL_FILES; do
     if [[ -L "$HOME/.${item##*/}" ]]; then
-        rm -rf $HOME/.${item##*/}
+        rm -rf "$HOME/.${item##*/}"
+    fi
+done
+
+for item in $I3_FILES; do
+    if [[ -L "$HOME/.$item" ]]; then
+        rm -rf "$HOME/.$item"
     fi
 done
 

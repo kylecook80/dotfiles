@@ -227,3 +227,6 @@ if [[ "$OS" == "darwin" && ! -e $HOME/.dotinstalled ]]; then
 fi
 
 install_sublime_prefs
+
+# Canary to tell if dotfiles is installed
+date > $HOME/.dotfiles_installed
