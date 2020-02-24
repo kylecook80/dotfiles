@@ -9,9 +9,15 @@ ECHO="/bin/echo -n"
 echo "OS: $OS"
 echo "DIR: $DIR"
 
-install_dotfiles() {
-    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc vimrc zshenv zshrc zsh i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
+if [ "$OS" = "darwin" ]; then
+    DEFAULT_FILES="aliases gitconfig gitignore templates vimrc zshenv zshrc zsh"
+else
+    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc vimrc zshenv zshrc zsh"
+fi
 
+DESKTOP_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
+
+install_dotfiles() {
     for item in $DEFAULT_FILES; do
         if [ -e "$item-$OS" ]; then
             set -- "$@" "$item-$OS"
@@ -164,11 +170,8 @@ install_brew_cask() {
         arq
         bartender
         bettertouchtool
-        boom-3d
         daisydisk
         discord
-        docker
-        dropbox
         fantastical
         firefox
         font-fira-code
@@ -177,10 +180,7 @@ install_brew_cask() {
         font-hack
         font-inconsolata
         forklift
-        google-chrome
-        gpg-suite-no-mail
         iterm2
-        java
         jetbrains-toolbox
         karabiner-elements
         latexit
@@ -189,8 +189,6 @@ install_brew_cask() {
         microsoft-office
         mountain
         nextcloud
-        onedrive
-        oracle-jdk
         osxfuse
         pdf-expert
         pdk
@@ -209,7 +207,6 @@ install_brew_cask() {
         vagrant
         vmware-fusion
         wireshark
-        xquartz
         zotero
     )
 
@@ -224,9 +221,18 @@ if [[ "$OS" == "darwin" && ! -e $HOME/.dotinstalled ]]; then
     touch $HOME/.dotinstalled
 	install_brew_apps
 	install_brew_cask
+    install_sublime_prefs
 fi
 
-install_sublime_prefs
+echo -n "Setting terminal theme: "
+if [[ ! -L "$HOME/.base16_theme" ]]; then
+    base_16_tomorrow-night
+    echo "Done."
+else
+    echo "Already set."
+fi
 
 # Canary to tell if dotfiles is installed
-date > $HOME/.dotfiles_installed
+if [[ ! -e "$HOME/.dotinstalled" ]]; then
+    date > $HOME/.dotinstalled
+fi

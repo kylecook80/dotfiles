@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SHELL_FILES="aliases gdbinit gitignore screenrc vim vimrc zshenv zshrc zsh"
+SHELL_FILES="aliases gdbinit gitconfig gitignore screenrc templates vim vimrc zshenv zshrc zsh"
 I3_FILES="i3 polybar rofi xmodmaprc xinitrc Xresources Xresources.d"
 GEN_FILES="antigen base16_theme gitconfig viminfo zcompdump zsh_history zsh_history zshrc.zwc"
 

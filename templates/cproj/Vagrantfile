@@ -1,0 +1,10 @@
+puppet_dir = ENV['PUPPET_PATH']
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "kylecook80/ubuntu-lts-puppet"
+  config.vm.provision "puppet" do |puppet|
+    puppet.module_path = "#{puppet_dir}/modules"
+    puppet.manifests_path = "#{puppet_dir}/manifests"
+    puppet.manifest_file = ""
+  end
+end
