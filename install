@@ -226,7 +226,7 @@ fi
 
 echo -n "Setting terminal theme: "
 if [[ ! -L "$HOME/.base16_theme" ]]; then
-    base_16_tomorrow-night
+    base16_tomorrow-night
     echo "Done."
 else
     echo "Already set."
