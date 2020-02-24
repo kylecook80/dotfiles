@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TEMPDIR="$HOME/templates"
+TEMPDIR="$HOME/.templates"
 
 if [[ "$1" == "" ]]; then
     ls $TEMPDIR
