@@ -12,7 +12,7 @@ echo "DIR: $DIR"
 if [ "$OS" = "darwin" ]; then
     DEFAULT_FILES="aliases gitconfig gitignore templates vimrc zshenv zshrc zsh"
 else
-    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc vimrc zshenv zshrc zsh"
+    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc templates vimrc zshenv zshrc zsh"
 fi
 
 DESKTOP_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
