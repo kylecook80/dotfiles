@@ -8,19 +8,19 @@
 ;=====================================================
 
 [colors]
-foreground = ${xrdb:color7:#222}
-background = #220e0e
+foreground = ${xrdb:foreground:#222}
+background = ${xrdb:background:#555}
 
 foreground-alt = ${xrdb:color14:#222}
-background-alt = ${xrdb:color0:#222}
+background-alt = ${xrdb:color0:#555}
 
 ;primary = #ffb52a
 ;secondary = #e60053
 ;alert = #bd2c40
 
-primary = ${xrdb:color15:#222}
-secondary = ${xrdb:color0:#222}
-alert = ${xrdb:color6:#222}
+primary = ${xrdb:color8:#222}
+secondary = ${xrdb:color1:#222}
+alert = ${xrdb:color5:#222}
 
 [bar/example]
 monitor = ${env:MONITOR:}
@@ -31,8 +31,8 @@ height = 27
 ;radius = 6.0
 fixed-center = false
 
-background = ${colors.background}
 foreground = ${colors.foreground}
+background = ${colors.background}
 
 line-size = 3
 line-color = #f00
@@ -46,14 +46,15 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = "FontAwesome:pixelsize=12;1"
-font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-3 = siji:pixelsize=10;1
+font-0 = "fixed:pixelsize=10;1"
+font-1 = "unifont:fontformat=truetype:size=8:antialias=false;0"
+font-2 = "siji:pixelsize=10;1"
+#font-3 = "Font Awesome 5 Free:pixelsize=12;1"
+font-3 = "Noto Color Emoji:style=Regular"
 
-modules-left = i3 menu-wallman
+modules-left = i3
 modules-center = date
-modules-right = volume memory cpu
+modules-right = alsa memory cpu powermenu
 
 tray-position = right
 tray-padding = 2
@@ -259,19 +260,24 @@ format-underline = ${colors.primary}
 
 label = %date% %time%
 
-[module/volume]
-type = internal/volume
+[module/pulseaudio]
+type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL
+label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
 
-format-muted-prefix = "                   "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
+label-muted = 🔇 muted
+label-muted-foreground = #666
 
-bar-volume-width = 15
-bar-volume-foreground-0 = ${colors.primary}
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 2
@@ -279,7 +285,18 @@ bar-volume-fill = ─
 bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.secondary}
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
 
 [module/battery]
 type = internal/battery
@@ -339,7 +356,7 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open =  
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}

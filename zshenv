@@ -18,14 +18,6 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
-      /opt/puppetlabs/pdk/bin
-      /opt/puppetlabs/bin
-      /usr/local/opt/llvm/bin
-      /usr/local/opt/mysql-client/bin
-      /usr/local/texlive/2018/bin/x86_64-darwin
-      /usr/local/MacGPG2/bin
-      /usr/local/opt/openssl/bin
-      /usr/local/opt/bison/bin
       /usr/local/bin
       /usr/bin
       /bin
@@ -39,14 +31,14 @@ case $OS in
 "linux")
     path=(
       $HOME/bin
+      /opt/chef-workstation/bin
       /usr/local/sbin
       /usr/sbin
       /sbin
       /usr/local/bin
       /usr/bin
       /bin
-      #/usr/local/games
-      #/usr/games
     )
     ;;
 esac
+

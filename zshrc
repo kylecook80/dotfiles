@@ -102,14 +102,7 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
-# autojump
-if type "brew" > /dev/null; then
-    [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-else
-    [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
-fi
-
-# Fortune Cowsay
-# fortune -o | cowsay | lolcat
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+eval "$(chef shell-init zsh)"
+
