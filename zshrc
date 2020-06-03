@@ -104,5 +104,10 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-eval "$(chef shell-init zsh)"
+if type "chef" > /dev/null; then
+    eval "$(chef shell-init zsh)"
+fi
 
+if [ -d "$HOME/.cargo" ]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+task()
+{
+    echo -n "[ ${lbluef}$1${reset} ]: "
+}
+
 msg()
 {
     echo "[ ${lbluef}$1${reset} ]: $2"
