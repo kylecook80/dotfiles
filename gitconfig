@@ -1,8 +1,8 @@
 [user]
-	name = Kyle Cook
-	email = kylecook80@gmail.com
+	name = ${FULLNAME}
+	email = ${EMAIL}
 [core]
-	excludesfile = /Users/kyle/.gitignore
+	excludesfile = ${HOME}/.gitignore
 	editor = vim 
 	autocrlf = input
 [color]

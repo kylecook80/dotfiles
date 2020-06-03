@@ -2,34 +2,48 @@
 
 SHELL_FILES="aliases gdbinit gitconfig gitignore screenrc templates vim vimrc zshenv zshrc zsh"
 I3_FILES="i3 polybar rofi xmodmaprc xinitrc Xresources Xresources.d"
-GEN_FILES="antigen base16_theme gitconfig viminfo zcompdump zsh_history zsh_history zshrc.zwc"
+GEN_FILES="antigen base16_theme gitconfig viminfo vimrc_background zcompdump zsh_history zsh_history zshrc.zwc"
+GEN_SCRIPTS="update_ip.sh"
 
 DIR="$(pwd)"
 
 for item in $SHELL_FILES; do
-    if [[ -L "$HOME/.${item##*/}" ]]; then
+    if [ -L "$HOME/.${item##*/}" ]; then
         rm -rf "$HOME/.${item##*/}"
     fi
 done
 
 for item in $I3_FILES; do
-    if [[ -L "$HOME/.$item" ]]; then
+    if [ -L "$HOME/.$item" ]; then
         rm -rf "$HOME/.$item"
     fi
 done
 
 for item in $GEN_FILES; do
-    if [[ -e "$HOME/.$item" ]]; then
+    if [ -e "$HOME/.$item" ] || [ -L "$HOME/.$item" ]; then
         rm -rf "$HOME/.$item"
     fi
 done
 
-for item in $DIR/scripts/*; do
-    if [[ -L "$HOME/bin/${item##*/}" ]]; then
-        rm $HOME/bin/${item##*/}
-    fi
-
-    if ! find "$HOME/bin" -mindepth 1 -print -quit | grep -q .; then
-        rmdir $HOME/bin
+for item in $GEN_SCRIPTS; do
+    if [ -e "$HOME/bin/$item" ]; then
+        rm -rf "$HOME/bin/$item"
     fi
 done
+
+for item in $DIR/scripts/*; do
+    regex=".*-gen\.sh"
+    if echo "$item" | grep -q $regex; then
+        file="$(basename $(echo "$item" | cut -d'-' -f1)).sh"
+    else
+        file="$(basename $item)"
+    fi
+
+    if [ -L "$HOME/bin/$file" ]; then
+        rm $HOME/bin/$file
+    fi
+done
+
+if [ -e "$HOME/.dotinstalled" ]; then
+    rm "$HOME/.dotinstalled"
+fi

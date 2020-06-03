@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+. $HOME/.private
+
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 # DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 DIR="$HOME/.dotfiles"
@@ -15,7 +17,7 @@ else
     DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc templates vimrc zshenv zshrc zsh"
 fi
 
-DESKTOP_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
+#DESKTOP_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
 
 install_dotfiles() {
     for item in $DEFAULT_FILES; do
@@ -32,7 +34,7 @@ install_dotfiles() {
             file=$(echo "$item" | cut -d'-' -f1)
             $ECHO "Creating file .$file: "
             if [ ! -e "$HOME/.$file" ]; then
-                cat "$file" "$item" > "$HOME/.$file"
+                cat "$file" "$item" | envsubst > "$HOME/.$file"
                 echo "Success"
             else
                 echo "Already exists"
@@ -53,13 +55,26 @@ install_dotfiles() {
 
 install_scripts() {
     mkdir -p $HOME/bin
+    regex=".*-gen\.sh"
     for item in $DIR/scripts/*; do
-        $ECHO "Installing $(basename $item): "
-        if [ ! -L "$HOME/bin/$(basename $item)" ]; then
-            ln -sf $item $HOME/bin
-            echo "Success"
+        if echo "$item" | grep -q $regex; then
+            file="$(basename $(echo "$item" | cut -d'-' -f1)).sh"
+            $ECHO "Generating script $file.sh: "
+            if [ ! -e "$HOME/bin/$file" ]; then
+                cat "$item" | envsubst > "$HOME/bin/$file"
+                echo "Success"
+            else
+                echo "Already exists"
+            fi
         else
-            echo "Already exists"
+            file="$(basename $item)"
+            $ECHO "Installing $(basename $item): "
+            if [ ! -L "$HOME/bin/$file" ]; then
+                ln -sf $item $HOME/bin
+                echo "Success"
+            else
+                echo "Already exists"
+            fi
         fi
     done
 }
@@ -114,26 +129,37 @@ install_brew_apps() {
     brew upgrade
 
     apps=(
-        ansible
+        autoconf
         autojump
+        automake
         binutils
+        check
         cmake
-        conan
         coreutils
+        ctags
         curl
         curl-openssl
+        diff-so-fancy
         dockutil
         findutils
         gcc
         gdb
+        gettext
         git
         gnupg
+        htop
         ical-buddy
+        imagemagick
         iperf
+        iperf3
+        ipmitool
         jq
         llvm
+        make
+        mosh
         mysql
         nasm
+        ncurses
         neofetch
         nmap
         p7zip
@@ -142,12 +168,20 @@ install_brew_apps() {
         pandoc-citeproc
         pandoc-crossref
         percol
+        perl
+        pkg-config
         postgresql
         python
         r
+        readline
         ruby
+        sc-im
         socat
+        sqlite
+        telnet
+        tmux
         vim
+        wakeonlan
         wget
         xz
         zsh
@@ -167,11 +201,13 @@ install_brew_cask() {
 
     CASKS=(
         1password
+        adoptopenjdk8
         arq
         bartender
         bettertouchtool
         daisydisk
         discord
+        drawio
         fantastical
         firefox
         font-fira-code
@@ -181,7 +217,6 @@ install_brew_cask() {
         font-inconsolata
         forklift
         iterm2
-        jetbrains-toolbox
         karabiner-elements
         latexit
         mactex
@@ -191,20 +226,19 @@ install_brew_cask() {
         nextcloud
         osxfuse
         pdf-expert
-        pdk
-        royal-tsx
-        scroll-reverser
         sdformatter
         signal
-        skim
         slack
+        soundflower
+        steam
         sublime-merge
         sublime-text
+        teamviewer
         texstudio
         tunnelblick
-        twitch
         ultimaker-cura
         vagrant
+        vagrant-vmware-utility
         vmware-fusion
         wireshark
         zotero
@@ -222,14 +256,6 @@ if [[ "$OS" == "darwin" && ! -e $HOME/.dotinstalled ]]; then
 	install_brew_apps
 	install_brew_cask
     install_sublime_prefs
-fi
-
-echo -n "Setting terminal theme: "
-if [[ ! -L "$HOME/.base16_theme" ]]; then
-    base16_tomorrow-night
-    echo "Done."
-else
-    echo "Already set."
 fi
 
 # Canary to tell if dotfiles is installed

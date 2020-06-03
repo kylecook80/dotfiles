@@ -32,6 +32,10 @@ antigen bundle zsh-users/zsh-autosuggestions
 
 antigen apply
 
+if [[ ! -L $HOME/.base16_theme ]]; then
+    base16_tomorrow-night
+fi
+
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
 autoload -Uz add-zsh-hook

@@ -152,4 +152,3 @@ checkForCmdInPath()
         fi
     fi
 }
-

@@ -2,7 +2,6 @@ export TERM=xterm-256color
 export VISUAL=vim
 export EDITOR=$VISUAL
 export KEYTIMEOUT=1
-export PUPPET_PATH=$HOME/puppet
 
 # Aliases
 [[ -f ~/.aliases ]] && . ~/.aliases
@@ -15,6 +14,8 @@ case $OS in
         export HOMEBREW_GITHUB_API_TOKEN=$(cat $HOME/.homebrew_token)
     fi
 
+    export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
+
     # PATH
     path=(
       $HOME/bin
@@ -25,8 +26,6 @@ case $OS in
       /usr/sbin
       /sbin
     )
-
-    export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
     ;;
 "linux")
     path=(
