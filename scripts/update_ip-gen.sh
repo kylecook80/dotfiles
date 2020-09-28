@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-. library.sh
+. shinc/stdlib.shinc
 
 # Include private variables containing API key
+if [[ ! -f "$HOME/.private" ]]; then
+    error "Cannot find $HOME/.private. Exiting."
+    exit 1
+fi
+
 . $HOME/.private
 
 function querydns()
@@ -42,8 +47,6 @@ function usage()
 {
     echo "Usage: $0 [-q] [-u]"
 }
-
-initializeANSI
 
 if [[ -z $DO_TOKEN ]]; then
     error "No token set."

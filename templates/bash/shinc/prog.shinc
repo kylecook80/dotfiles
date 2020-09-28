@@ -1,0 +1,24 @@
+_spin()
+{
+    local i=1
+    local sp="/-\|"
+    local n=${#sp}
+    printf " "
+    while true; do
+        printf '\b%s' "${sp:i++%n:1}"
+        sleep 0.5
+    done
+}
+
+prog()
+{
+    _spin & progpid=$!
+}
+
+progend()
+{
+    if [[ ! -z "${progpid+x}" ]]; then
+        kill "${progpid}"
+    fi
+    printf '\b'
+}

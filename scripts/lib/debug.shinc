@@ -1,0 +1,13 @@
+export PS4=' \[\010\][ ${lcyanf}TRACE${reset} ] (${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+
+drun()
+{
+    # Hack to execute arbitrary command
+    # if debugging is enabled
+    [[ "${DEBUG}" = "T" ]] && "$@" || :
+}
+
+debuginfo()
+{
+    echo "(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }"
+}

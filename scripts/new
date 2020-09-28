@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Enable tracing
+# set -x
+
+# Enable Debug Mode
+# DEBUG="T"
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__base="$(basename ${__file} .sh)"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+
+__version="0.0.1"
+
+source "${__dir}/lib/stdlib.shinc"
+
+help()
+{
+    echo -e "${__base} - Description"
+    echo -e ""
+    echo -e "Usage:"
+    echo -e "\t${__base} [options]"
+    echo -e ""
+    echo -e "Options:"
+    echo -e "\t-h | --help\t\tShow this screen"
+    echo -e ""
+}
+
+printdebug()
+{
+    debug "__dir = ${__dir}"
+    debug "__file = ${__file}"
+    debug "__base = ${__base}"
+    debug "__root = ${__root}"
+    debug ""
+    debug "__version = ${__version}"
+}
+
+copyfiles()
+{
+    if [[ ! -d "$HOME/.templates" ]]; then
+        error "$HOME/.templates does not exist."
+        exit 1
+    fi
+
+    cp -r "$HOME/.templates/$1/" "./"
+}
+
+findvalid()
+{
+    valid="$(cd $HOME/.templates && find . -type d -d 1 | cut -c 3- | sort)"
+    echo "Valid Projects:"
+    echo "${valid}"
+}
+
+if [[ -z "${1:x}" ]]; then
+    findvalid
+    exit 1
+fi
+
+while [[ -n $1 ]]; do
+    case $1 in
+        -h|--help)
+            help
+            exit
+        ;;
+        *)
+            copyfiles "$1"
+        ;;
+    esac
+    shift
+done

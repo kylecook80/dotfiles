@@ -11,6 +11,8 @@
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [push]
 	default = simple
+[pull]
+	rebase = false
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f

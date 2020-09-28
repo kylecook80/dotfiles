@@ -15,22 +15,23 @@ case $OS in
     fi
 
     export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
     # PATH
     path=(
       $HOME/bin
-      /usr/local/bin
-      /usr/bin
-      /bin
+      $HOME/.cargo/bin
       /usr/local/sbin
       /usr/sbin
       /sbin
+      /usr/local/bin
+      /usr/bin
+      /bin
     )
     ;;
 "linux")
     path=(
       $HOME/bin
-      /opt/chef-workstation/bin
       /usr/local/sbin
       /usr/sbin
       /sbin

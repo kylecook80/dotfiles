@@ -1,0 +1,11 @@
+# Call within a subshell - $(upper "Text here")
+upper()
+{
+    echo "${1}" | tr "[a-z]" "[A-Z]"
+}
+
+# Call within a subshell - $(lower "TEXT HERE")
+lower()
+{
+    echo "${1}" | tr "[A-Z]" "[a-z]"
+}
