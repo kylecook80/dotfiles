@@ -98,7 +98,7 @@ _value: ; @echo '$(value $(TRACE))'
 endif
 
 ifeq ($(DEBUG),TRUE)
-.PHONE: all
+.PHONY: all
 all: debug
 else
 .PHONY: all

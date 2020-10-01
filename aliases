@@ -1,17 +1,13 @@
 alias newpw="LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16 | xargs echo"
 alias pubkey="cat ~/.ssh/id_rsa.pub"
 
-alias chd="find . -type d chmod 755 {} \;"
-alias chf="find . -type f chmod 644 {} \;"
-
 alias sshk="ssh-keygen -R "
 
 alias t="todo.sh"
 alias tls="todo.sh ls"
 alias ted="subl $HOME/Nextcloud/todo/todo.txt"
 
-#alias cproj="template.sh -p c"
-#alias tmake="template.sh Makefile"
+alias docker-update="docker-compose pull && docker-compose up --force-recreate --build -d"
 
 OS=`uname | tr "[A-Z]" "[a-z]"`
 case $OS in
