@@ -87,7 +87,7 @@ setopt PROMPT_SP
 setopt extendedglob
 unsetopt nomatch
 
-if type "neofetch" > /dev/null; then
+if hash "neofetch" 2> /dev/null; then
     neofetch
 fi
 
@@ -122,18 +122,10 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if hash "chef" > /dev/null; then
-    eval "$(chef shell-init zsh)"
-fi
-
-if [ -d "$HOME/.cargo" ]; then
-    export PATH="$PATH:$HOME/.cargo/bin"
-fi
-
-if hash "perl" > /dev/null; then
+if hash "perl" 2> /dev/null; then
     eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 fi
 
-if hash "rbenv" > /dev/null; then
+if hash "rbenv" 2> /dev/null; then
     eval "$(rbenv init -)"
-fi
+∏fi
