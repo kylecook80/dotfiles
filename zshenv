@@ -20,6 +20,10 @@ case $OS in
       /usr/bin
       /bin
     )
+
+    if [ -d "$HOME/.cargo" ]; then
+        export PATH="$PATH:$HOME/.cargo/bin"
+    fi
     
     # Homebrew Github API Token
     if [[ -r "$HOME/.homebrew_token" ]]; then

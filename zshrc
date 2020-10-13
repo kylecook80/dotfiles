@@ -108,19 +108,21 @@ fi
 
 # Tmux
 ## workaround for handling TERM variable in multiple tmux sessions properly from http://sourceforge.net/p/tmux/mailman/message/32751663/[dead link 2020-04-03 ⓘ] by Nicholas Marriott
-if [[ -n ${TMUX} && -n ${commands[tmux]} ]];then
-        case $(tmux showenv TERM 2>/dev/null) in
-                *256color) ;&
-                TERM=fbterm)
-                        TERM=screen-256color ;;
-                *)
-                        TERM=screen
+if [[ -n ${TMUX} && -n ${commands[tmux]} ]]; then
+    case $(tmux showenv TERM 2>/dev/null) in
+            *256color) ;&
+            TERM=fbterm)
+                TERM=tmux-256color
+                ;;
+            *)
+                TERM=tmux
+                ;;
         esac
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if type "chef" > /dev/null; then
+if hash "chef" > /dev/null; then
     eval "$(chef shell-init zsh)"
 fi
 
@@ -128,6 +130,10 @@ if [ -d "$HOME/.cargo" ]; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+if hash "perl" > /dev/null; then
+    eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+fi
 
-eval "$(rbenv init -)"
+if hash "rbenv" > /dev/null; then
+    eval "$(rbenv init -)"
+fi
