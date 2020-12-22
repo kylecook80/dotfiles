@@ -23,6 +23,7 @@ function prompt_cook_setup {
   # Add hook for calling vcs_info before each command.
   add-zsh-hook precmd prompt_cook_precmd
 
+  zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:git:*' formats '%F{green}[%b%f%F{red}%m%c%u%f%F{green}]%f'
   zstyle ':vcs_info:git:*' check-for-changes true
   zstyle ':vcs_info:git:*' stagedstr ' *'

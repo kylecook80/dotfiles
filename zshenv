@@ -52,4 +52,3 @@ case $OS in
 
     ;;
 esac
-

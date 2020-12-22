@@ -38,7 +38,6 @@ fi
 
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
-autoload -Uz add-zsh-hook
 
 # Tab Completion
 setopt completealiases
@@ -106,6 +105,9 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
+# Autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 # Tmux
 ## workaround for handling TERM variable in multiple tmux sessions properly from http://sourceforge.net/p/tmux/mailman/message/32751663/[dead link 2020-04-03 ⓘ] by Nicholas Marriott
 if [[ -n ${TMUX} && -n ${commands[tmux]} ]]; then
@@ -128,4 +130,4 @@ fi
 
 if hash "rbenv" 2> /dev/null; then
     eval "$(rbenv init -)"
-∏fi
+fi
