@@ -18,11 +18,11 @@ call vundle#end()
 
 filetype plugin indent on
 
-" set encoding=utf-8
-" set ruler
-" set showmatch
-" set showmode
-" set hidden
+set encoding=utf-8
+set ruler
+set showmatch
+set showmode
+set hidden
 
 " Project specific vimrc
 "set exrc
@@ -34,10 +34,10 @@ filetype plugin indent on
 "set noswapfile
 
 " Color scheme
-" set t_Co=256
-" let base16colorspace=256
-" set background=dark
-" colorscheme base16-tomorrow-night
+set t_Co=256
+let base16colorspace=256
+set background=dark
+"colorscheme base16-tomorrow-night
 
 " Line numbers and such
 set number
@@ -46,10 +46,10 @@ syntax on
 
 " Keyboard rules
 "set backspace=start,eol,indent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
+"set tabstop=4
+"set softtabstop=4
+"set shiftwidth=4
+"set expandtab
 "set tags=./tags;/
 
 " Open new panes below and right
@@ -58,8 +58,8 @@ set expandtab
 
 "set textwidth=80
 
-set clipboard=unnamedplus
-set mouse=a
+"set clipboard=unnamedplus
+"set mouse=a
 
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
