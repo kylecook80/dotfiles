@@ -43,6 +43,7 @@ case $OS in
       /usr/sbin
       /sbin
       /usr/local/bin
+      /usr/bin/core_perl
       /usr/bin
       /bin
     )

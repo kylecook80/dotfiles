@@ -39,6 +39,15 @@ fi
 # ZSH prompt and modules
 autoload -Uz colors compinit complist promptinit zmv
 
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+
 # Tab Completion
 setopt completealiases
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate # Approximate matching
@@ -49,6 +58,12 @@ zstyle ':completion:*' hosts        # SSH hosts
 zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+
+### Fix slowness of pastes with zsh-syntax-highlighting.zsh
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+### Fix slowness of pastes
+
 #zstyle ':completion:*' original true
 #zstyle ':completion:*' prompt '%e'
 #zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s

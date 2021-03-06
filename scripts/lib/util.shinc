@@ -8,65 +8,9 @@ popd()
     command popd "$@" > /dev/null
 }
 
-task()
+require()
 {
-    TASK_ACTIVE="T"
-    echo -n "[ ${lbluef}$1${reset} ]: "
-    prog
-}
-
-taskerror()
-{
-    progend
-    if [[ "${TASK_ACTIVE}" = "T" ]]; then
-        echo "${lredf}$1${reset}"
-        unset TASK_ACTIVE
-    fi
-}
-
-taskdone()
-{
-    progend
-    if [[ "${TASK_ACTIVE}" = "T" ]]; then
-        echo "${lgreenf}Complete${reset}"
-        unset TASK_ACTIVE
-    fi
-}
-
-run()
-{
-    if [[ -z "${RUN_STATUS+x}" ]]; then
-        echo ""
-        msg "COMMAND" "$@"
-        "$@" || RUN_STATUS=$?
-    fi
-}
-
-check()
-{
-    if [[ "${RUN_STATUS}" = "${1}" ]]; then
-        CHECK_ERROR="${1}"
-
-        if [[ "${TASK_ACTIVE}" = "Y" ]]; then
-            taskerror "$2"
-        else
-            error "$2"
-        fi
-    fi
-}
-
-checkdone()
-{
-    unset RUN_STATUS
-}
-
-checkexit()
-{
-    if [[ ! -z "${CHECK_ERROR}" ]]; then
-        progend
-        exit ${CHECK_ERROR}
-    fi
-    unset RUN_STATUS
+    hash $1 2>/dev/null || { echo >&2 "$1 is not installed. Exiting."; exit 1; }
 }
 
 download_url()

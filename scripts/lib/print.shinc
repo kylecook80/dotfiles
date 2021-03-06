@@ -1,0 +1,33 @@
+msg()
+{
+    echo -n "[ ${lbluef}$1${reset} ]: "
+    shift
+    echo "$@"
+}
+
+output()
+{
+    echo "[ ${lbluef}${__base}${reset} ]: $@"
+}
+
+debug()
+{
+    if [[ "${DEBUG}" = "T" || "${DEBUG}" = "Y" ]]; then
+        echo "[ ${lpurplef}DEBUG${reset} ]: $@"
+    fi
+}
+
+info()
+{
+    echo "[ ${lyellowf}INFO${reset} ]: $@"
+}
+
+warning()
+{
+    echo "[ ${lyellowf}WARNING${reset} ]: $@"
+}
+
+error()
+{
+    echo "[ ${lredf}ERROR${reset} ]: $@"
+}
