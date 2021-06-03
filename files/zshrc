@@ -1,0 +1,30 @@
+# Add local path to custom themes and functions
+fpath=(
+    ~/.zsh/site-functions
+    $fpath
+)
+
+if [[ ! -e $HOME/dev/zsh-snap ]]; then
+    mkdir -p $HOME/dev
+    git clone https://github.com/marlonrichert/zsh-snap $HOME/dev/zsh-snap
+fi
+
+#if [[ ! -e ~/.vim/bundle/Vundle.vim ]]; then
+#    mkdir -p ~/.vim/bundle
+#    git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+#    vim -u ~/.vimrc +VundleInstall +qall
+#fi
+
+if hash "neofetch" 2> /dev/null; then
+    neofetch
+fi
+
+# Standard emacs keymap
+bindkey -e
+
+source $HOME/dev/zsh-snap/znap.zsh
+
+znap prompt cook
+
+znap source marlonrichert/zsh-autocomplete
+znap source zsh-users/zsh-syntax-highlighting

@@ -3,7 +3,6 @@ _spin()
     local i=1
     local sp="/-\|"
     local n=${#sp}
-    printf " "
     while true; do
         printf '\b%s' "${sp:i++%n:1}"
         sleep 0.5
@@ -12,6 +11,7 @@ _spin()
 
 _prog()
 {
+    printf " "
     _spin & progpid=$!
 }
 
@@ -42,8 +42,14 @@ taskerror()
 taskdone()
 {
     _progend
+    local msg="Complete"
+
+    if [[ $# -ne 0 ]]; then
+        msg=$1
+    fi
+
     if [[ "${TASK_ACTIVE}" = "T" ]]; then
-        echo "${lgreenf}Complete${reset}"
+        echo "${lgreenf}${msg}${reset}"
         unset TASK_ACTIVE
     fi
 }

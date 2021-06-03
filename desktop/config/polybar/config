@@ -54,7 +54,7 @@ font-3 = "Noto Color Emoji:style=Regular"
 
 modules-left = i3
 modules-center = date
-modules-right = alsa memory cpu powermenu
+modules-right = memory cpu powermenu
 
 tray-position = right
 tray-padding = 2

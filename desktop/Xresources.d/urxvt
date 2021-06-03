@@ -9,17 +9,21 @@
 URxvt.perl-lib: /usr/lib/urxvt/perl
 URxvt.perl-ext-common: ...,selection-to-clipboard,font-size
 
-URxvt.iconFile: /usr/share/icons/gnome/scalable/apps/terminal.svg
+!URxvt.iconFile: /usr/share/icons/gnome/scalable/apps/terminal.svg
 URxvt.scrollBar: false
 URxvt.borderless: true
 URxvt.scrollstyle: plain
+URxvt.saveLines: 10000
 URxvt.termName: rxvt-unicode-256color
-URxvt.urlLauncher:  firefox
+URxvt.urlLauncher: firefox
 
 URxvt.font: xft:Hack:pixelsize=14,xft:FontAwesome:size=14
 !URxvt.letterSpacing: 1
 
-URxvt.transparent:   true
-URxvt.depth:    32
-URxvt.shading:       20
-URxvt.blurRadius:   5
+URxvt.transparent: true
+URxvt.depth: 32
+URxvt.shading: 20
+URxvt.blurRadius: 5
+
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0

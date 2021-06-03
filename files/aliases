@@ -3,10 +3,6 @@ alias pubkey="cat ~/.ssh/id_rsa.pub"
 
 alias sshk="ssh-keygen -R "
 
-alias t="todo.sh"
-alias tls="todo.sh ls"
-alias ted="subl $HOME/Nextcloud/todo/todo.txt"
-
 alias docker-update="docker-compose pull && docker-compose up --force-recreate --build -d"
 
 OS=`uname | tr "[A-Z]" "[a-z]"`
@@ -26,8 +22,6 @@ case $OS in
     alias ls="ls --color=auto"
     alias auu="sudo apt-get update && sudo apt-get -y upgrade"
     alias ds="du -h -d1 . | sort -rh | head -n 20"
-    ;;
-"freebsd")
-    alias build="sudo poudriere bulk -j 11-amd64"
     alias view="feh -F ."
+    ;;
 esac

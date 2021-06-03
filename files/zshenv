@@ -1,0 +1,34 @@
+export TERM=xterm-256color
+export VISUAL=vim
+export EDITOR=$VISUAL
+
+# Aliases
+[[ -f ~/.aliases ]] && . ~/.aliases
+
+OS=`uname | tr "A-Z" "a-z"`
+case $OS in
+"darwin")
+    # PATH
+    path=(
+      $HOME/bin
+      /usr/local/sbin
+      /usr/sbin
+      /sbin
+      /usr/local/bin
+      /usr/bin
+      /bin
+    )
+    ;;
+"linux")
+    path=(
+      $HOME/bin
+      /usr/local/sbin
+      /usr/sbin
+      /sbin
+      /usr/local/bin
+      /usr/bin
+      /bin
+    )
+
+    ;;
+esac

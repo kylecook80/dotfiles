@@ -1,49 +1,121 @@
 #!/usr/bin/env bash
 
-SHELL_FILES="aliases gdbinit gitconfig gitignore screenrc templates vim vimrc zshenv zshrc zsh"
-I3_FILES="i3 polybar rofi xmodmaprc xinitrc Xresources Xresources.d"
-GEN_FILES="antigen base16_theme gitconfig viminfo vimrc_background zcompdump zsh_history zsh_history zshrc.zwc"
-GEN_SCRIPTS="update_ip.sh"
+#!/bin/bash
 
-DIR="$(pwd)"
+# Enable tracing
+#set -x
 
-for item in $SHELL_FILES; do
-    if [ -L "$HOME/.${item##*/}" ]; then
-        rm -rf "$HOME/.${item##*/}"
-    fi
-done
+# Enable Debug Mode
+#DEBUG="T"
 
-for item in $I3_FILES; do
-    if [ -L "$HOME/.$item" ]; then
-        rm -rf "$HOME/.$item"
-    fi
-done
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__base="$(basename ${__file} .sh)"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
 
-for item in $GEN_FILES; do
-    if [ -e "$HOME/.$item" ] || [ -L "$HOME/.$item" ]; then
-        rm -rf "$HOME/.$item"
-    fi
-done
+__version="2.0.0"
 
-for item in $GEN_SCRIPTS; do
-    if [ -e "$HOME/bin/$item" ]; then
-        rm -rf "$HOME/bin/$item"
-    fi
-done
+source "scripts/lib/stdlib.shinc"
 
-for item in $DIR/scripts/*; do
-    regex=".*-gen\.sh"
-    if echo "$item" | grep -q $regex; then
-        file="$(basename $(echo "$item" | cut -d'-' -f1)).sh"
+help()
+{
+    echo -e "${__base} - Description"
+    echo -e ""
+    echo -e "Usage:"
+    echo -e "\t${__base} [options]"
+    echo -e ""
+    echo -e "Options:"
+    echo -e "\t-h | --help\t\tShow this screen"
+    echo -e ""
+}
+
+OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
+
+DEFAULT_FILES=`find files -mindepth 1 -maxdepth 1 -printf "%p "`
+DEFAULT_SCRIPTS=`find scripts -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_CONFIG=`find desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_FILES=`find desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
+EXTRA_FILES="antigen base16_theme vim viminfo vimrc_background zcompdump zsh_history zsh_history zshrc.zwc"
+
+debug "DEFAULT_FILES = ${DEFAULT_FILES}"
+debug "DEFAULT_SCRIPTS = ${DEFAULT_SCRIPTS}"
+debug "DESKTOP_FILES = ${DESKTOP_FILES}"
+debug "DESKTOP_CONFIG = ${DESKTOP_CONFIG}"
+debug "EXTRA_FILES = ${EXTRA_FILES}"
+
+uninstall_from() {
+    local list=$1
+    local src=$2
+
+    # If uninstalling from home directory, only remove hidden links
+    # Also add a trailing slash if not present.
+    if [[ "$src" = "$HOME" ]]; then
+        src="$HOME/."
     else
-        file="$(basename $item)"
+        [[ "${src}" != */ ]] && src="${src}/"
     fi
 
-    if [ -L "$HOME/bin/$file" ]; then
-        rm $HOME/bin/$file
-    fi
+    debug "list = $list"
+    debug "src = $src"
+
+    for item in $list; do
+        local filename=`basename $item`
+        debug "file = $src$filename"
+
+        task "Removing $filename"
+
+        [[ -L "$src$filename" ]] && rm -rf "$src$filename"
+
+        taskdone
+    done
+}
+
+delete_extras() {
+    local list=$EXTRA_FILES
+    local src=$HOME/.
+
+    debug "list = $list"
+    debug "src = $src"
+
+    for item in $list; do
+        local filename=`basename $item`
+        debug "file = $src$filename"
+
+        task "Deleting $filename"
+
+        [[ -e "$src$filename" ]] && rm -rf "$src$filename"
+
+        taskdone
+    done
+}
+
+while [[ -n $1 ]]; do
+    case "$1" in
+        -h|--help)
+            help
+            exit
+        ;;
+        -d|--desktop)
+            UNINSTALL_DESKTOP="T"
+        ;;
+        -c|--clean)
+            CLEAN_EXTRAS="T"
+        ;;
+        *)
+            echo "Unknown option: $1"
+            echo ""
+            help >&2
+            exit 1
+        ;;
+    esac
+    shift
 done
 
-if [ -e "$HOME/.dotinstalled" ]; then
-    rm "$HOME/.dotinstalled"
-fi
+uninstall_from "$DEFAULT_FILES" "$HOME"
+uninstall_from "$DEFAULT_SCRIPTS" "$HOME/bin"
+
+[[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_FILES" "$HOME"
+[[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_CONFIG" "$HOME/.config"
+
+[[ "$CLEAN_EXTRAS" = "T" ]] && delete_extras

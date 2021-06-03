@@ -37,19 +37,21 @@ printdebug()
     debug "__version = ${__version}"
 }
 
+TEMPLATES_DIR="$HOME/.dotfiles/templates"
+
 copyfiles()
 {
-    if [[ ! -d "$HOME/.templates" ]]; then
-        error "$HOME/.templates does not exist."
+    if [[ ! -d "$TEMPLATES_DIR" ]]; then
+        error "$TEMPLATES_DIR does not exist."
         exit 1
     fi
 
-    cp -r "$HOME/.templates/$1/" "./"
+    cp -r "$TEMPLATES_DIR/$1/" "./"
 }
 
 findvalid()
 {
-    valid="$(cd $HOME/.templates && find . -type d -d 1 | cut -c 3- | sort)"
+    valid="$(cd $TEMPLATES_DIR && find . -type d -d 1 | cut -c 3- | sort)"
     echo "Valid Projects:"
     echo "${valid}"
 }

@@ -15,9 +15,14 @@ __version="0.0.1"
 
 source "${dir}/lib/stdlib.shinc"
 
-usage()
+printdebug()
 {
-    echo "${__base}: usage: ${__base}} [-h]"
+    debug "__dir = ${__dir}"
+    debug "__file = ${__file}"
+    debug "__base = ${__base}"
+    debug "__root = ${__root}"
+    debug ""
+    debug "__version = ${__version}"
 }
 
 help()
@@ -32,15 +37,9 @@ help()
     echo -e ""
 }
 
-printdebug()
-{
-    debug "__dir = ${__dir}"
-    debug "__file = ${__file}"
-    debug "__base = ${__base}"
-    debug "__root = ${__root}"
-    debug ""
-    debug "__version = ${__version}"
-}
+### Put variables and options here
+
+### Put functions here
 
 while [[ -n $1 ]]; do
     case "$1" in
@@ -49,9 +48,13 @@ while [[ -n $1 ]]; do
             exit
         ;;
         *)
-            usage >&2
+            echo "Unknown option: $1"
+            echo ""
+            help >&2
             exit 1
         ;;
     esac
     shift
 done
+
+# Main execution starts here

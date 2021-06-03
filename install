@@ -1,88 +1,140 @@
 #!/bin/bash
 
-if [[ -f "$HOME/.private" ]]; then . $HOME/.private; fi
+# Enable tracing
+#set -x
+
+# Enable Debug Mode
+DEBUG="T"
+
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__base="$(basename ${__file} .sh)"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+
+__version="2.0.0"
+
+source "scripts/lib/stdlib.shinc"
+
+help()
+{
+    echo -e "${__base} - Installation script for dotfiles"
+    echo -e ""
+    echo -e "Usage:"
+    echo -e "\t${__base} [options]"
+    echo -e ""
+    echo -e "Options:"
+    echo -e "\t-d | --desktop\t\tInstall desktop configuration files"
+    echo -e "\t-h | --help\t\tShow this screen"
+    echo -e ""
+}
+
+# Use a private env file for sensitive information.
+if [[ -f "$DIR/.private" ]]; then . $DIR/.private; fi
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
-# DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
-DIR="$HOME/.dotfiles"
+DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
-ECHO="/bin/echo -n"
+debug "OS: $OS"
+debug "DIR: $DIR"
 
-echo "OS: $OS"
-echo "DIR: $DIR"
+DEFAULT_FILES=`find files -mindepth 1 -maxdepth 1 | grep -P '^(?!.*-gen).*$' | tr '\n' ' '`
+GEN_FILES=`find files -mindepth 1 -maxdepth 1 | grep -P '.*-gen' | tr '\n' ' '`
 
-if [ "$OS" = "darwin" ]; then
-    DEFAULT_FILES="aliases gitconfig gitignore templates vimrc zshenv zshrc zsh"
-else
-    DEFAULT_FILES="aliases gdbinit gitconfig gitignore screenrc templates vimrc zshenv zshrc zsh"
-fi
+DEFAULT_SCRIPTS=`find scripts -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_CONFIG=`find desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_FILES=`find desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
 
-#DESKTOP_FILES="i3 polybar rofi xinitrc xmodmaprc Xresources Xresources.d"
+debug "DEFAULT_FILES = ${DEFAULT_FILES}"
+debug "GEN_FILES = ${GEN_FILES}"
+debug "DEFAULT_SCRIPTS = ${DEFAULT_SCRIPTS}"
+debug "DESKTOP_CONFIG = ${DESKTOP_CONFIG}"
+debug "DESKTOP_FILES = ${DESKTOP_FILES}"
 
-install_dotfiles() {
-    for item in $DEFAULT_FILES; do
-        if [[ -e "$item-$OS" ]]; then
-            set -- "$@" "$item-$OS"
+link_to() {
+    local list=$1
+    local dst=$2
+
+    # If linking to home directory, make them hidden.
+    # Also add a trailing slash if not present.
+    if [[ "$dst" = "$HOME" ]]; then
+        dst="$HOME/."
+    else
+        [[ "${dst}" != */ ]] && dst="${dst}/"
+        [[ ! -d "${dst}" ]] && mkdir -p "${dst}"
+    fi
+
+    debug "list = $list"
+    debug "dst = $dst"
+
+    for item in $list; do
+        local filename=`basename $item`
+        debug "file = $src$filename"
+
+        task "Linking $filename"
+
+        if [[ ! -e "$dst$filename" ]]; then
+            ln -sf "$DIR/$item" "$dst$filename"
+            taskdone
         else
-            set -- "$@" "$item"
-        fi
-    done
-
-    regex=".*-$OS"
-    for item do
-        if echo "$item" | grep -q $regex; then
-            file=$(echo "$item" | cut -d'-' -f1)
-            $ECHO "Creating file .$file: "
-            if [[ ! -e "$HOME/.$file" ]]; then
-                cat "$file" "$item" | envsubst > "$HOME/.$file"
-                echo "Success"
-            else
-                echo "Already exists"
-            fi
-        else
-            # echo "no_regex: %s\n" "$HOME/.$item"
-            # ln -s ".dotfiles/$item" "$HOME/.$item"
-            $ECHO "Linking file .$item: "
-            if [[ ! -e "$HOME/.$item" && ! -L "$HOME/.$item" ]]; then
-                ln -sf "$DIR/$item" "$HOME/.$item"
-                echo "Success"
-            else
-                echo "Already exists"
-            fi
-        fi
-    done
-}
-
-install_scripts() {
-    mkdir -p $HOME/bin
-    regex=".*-gen\.sh"
-    for item in $DIR/scripts/*; do
-        if echo "$item" | grep -q $regex; then
-            file="$(basename $(echo "$item" | cut -d'-' -f1)).sh"
-            $ECHO "Generating script $file.sh: "
-            if [[ ! -e "$HOME/bin/$file" ]]; then
-                cat "$item" | envsubst > "$HOME/bin/$file"
-                echo "Success"
-            else
-                echo "Already exists"
-            fi
-        else
-            file="$(basename $item)"
-            $ECHO "Installing $(basename $item): "
-            if [[ ! -L "$HOME/bin/$file" ]]; then
-                ln -sf $item $HOME/bin
-                echo "Success"
-            else
-                echo "Already exists"
-            fi
+            taskdone "Already exists"
         fi
     done
 }
 
-install_dotfiles
-install_scripts
+copy_to() {
+    local list=$1
+    local dst=$2
 
-# Canary to tell if dotfiles is installed
-if [[ ! -e "$HOME/.dotinstalled" ]]; then
-    date > $HOME/.dotinstalled
-fi
+    # If installing to home directory, make files hidden.
+    # Also add a trailing slash if not present.
+    if [[ "$dst" = "$HOME" ]]; then
+        dst="$HOME/."
+    else
+        [[ "${dst}" != */ ]] && dst="${dst}/"
+        [[ ! -d "${dst}" ]] && mkdir -p "${dst}"
+    fi
+
+    debug "list = $list"
+    debug "dst = $dst"
+
+    for item in $list; do
+        local filename=`basename $item`
+        debug "file = $src$filename"
+
+        task "Copying $filename"
+
+        if [[ ! -e "$dst$filename" ]]; then
+            ln -sf "$DIR/$item" "$dst$filename"
+            taskdone
+        else
+            taskdone "Already exists"
+        fi
+    done
+}
+
+while [[ -n $1 ]]; do
+    case "$1" in
+        -h|--help)
+            help
+            exit
+        ;;
+        -d|--desktop)
+            INSTALL_DESKTOP="T"
+        ;;
+        *)
+            echo "Unknown option: $1"
+            echo ""
+            help >&2
+            exit 1
+        ;;
+    esac
+    shift
+done
+
+#link_to "$DEFAULT_FILES" "$HOME"
+#link_to "$DEFAULT_SCRIPTS" "$HOME/bin"
+copy_to "$GEN_FILES" "$HOME"
+
+
+#[[ "$INSTALL_DESKTOP" = "T" ]] && install_to "$DESKTOP_FILES" "$HOME"
+#[[ "$INSTALL_DESKTOP" = "T" ]] && install_to "$DESKTOP_CONFIG" "$HOME/.config"

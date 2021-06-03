@@ -1,5 +1,0 @@
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-sensible'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'airblade/vim-gitgutter'
