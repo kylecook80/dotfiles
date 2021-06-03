@@ -15,6 +15,10 @@ __version="2.0.0"
 
 source "scripts/lib/stdlib.shinc"
 
+FIND="/usr/local/bin/gfind"
+GREP="/usr/local/bin/ggrep"
+TR="/usr/local/bin/gtr"
+
 help()
 {
     echo -e "${__base} - Installation script for dotfiles"
@@ -31,18 +35,18 @@ help()
 # Use a private env file for sensitive information.
 if [[ -f "$DIR/.private" ]]; then . $DIR/.private; fi
 
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+OS=`echo $(uname) | $TR '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
 debug "OS: $OS"
 debug "DIR: $DIR"
 
-DEFAULT_FILES=`find files -mindepth 1 -maxdepth 1 | grep -P '^(?!.*-gen).*$' | tr '\n' ' '`
-GEN_FILES=`find files -mindepth 1 -maxdepth 1 | grep -P '.*-gen' | tr '\n' ' '`
+DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' '`
+GEN_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '.*-gen' | $TR '\n' ' '`
 
-DEFAULT_SCRIPTS=`find scripts -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_CONFIG=`find desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_FILES=`find desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
+DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_CONFIG=`$FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_FILES=`$FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
 
 debug "DEFAULT_FILES = ${DEFAULT_FILES}"
 debug "GEN_FILES = ${GEN_FILES}"
@@ -131,9 +135,9 @@ while [[ -n $1 ]]; do
     shift
 done
 
-#link_to "$DEFAULT_FILES" "$HOME"
-#link_to "$DEFAULT_SCRIPTS" "$HOME/bin"
-copy_to "$GEN_FILES" "$HOME"
+link_to "$DEFAULT_FILES" "$HOME"
+link_to "$DEFAULT_SCRIPTS" "$HOME/bin"
+#copy_to "$GEN_FILES" "$HOME"
 
 
 #[[ "$INSTALL_DESKTOP" = "T" ]] && install_to "$DESKTOP_FILES" "$HOME"

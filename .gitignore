@@ -1,2 +1,3 @@
 .private
 desktop/config/i3/logfile
+*.zwc

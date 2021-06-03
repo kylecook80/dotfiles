@@ -17,6 +17,10 @@ __version="2.0.0"
 
 source "scripts/lib/stdlib.shinc"
 
+FIND="/usr/local/bin/gfind"
+GREP="/usr/local/bin/ggrep"
+TR="/usr/local/bin/gtr"
+
 help()
 {
     echo -e "${__base} - Description"

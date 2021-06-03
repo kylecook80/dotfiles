@@ -5,8 +5,8 @@ fpath=(
 )
 
 if [[ ! -e $HOME/dev/zsh-snap ]]; then
-    mkdir -p $HOME/dev
-    git clone https://github.com/marlonrichert/zsh-snap $HOME/dev/zsh-snap
+   mkdir -p $HOME/dev
+   git clone https://github.com/marlonrichert/zsh-snap $HOME/dev/zsh-snap
 fi
 
 #if [[ ! -e ~/.vim/bundle/Vundle.vim ]]; then
@@ -16,7 +16,7 @@ fi
 #fi
 
 if hash "neofetch" 2> /dev/null; then
-    neofetch
+   neofetch
 fi
 
 # Standard emacs keymap
@@ -26,5 +26,13 @@ source $HOME/dev/zsh-snap/znap.zsh
 
 znap prompt cook
 
-znap source marlonrichert/zsh-autocomplete
+#znap source marlonrichert/zsh-autocomplete
+znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
+znap source chriskempson/base16-shell
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+   [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+       eval "$("$BASE16_SHELL/profile_helper.sh")"
