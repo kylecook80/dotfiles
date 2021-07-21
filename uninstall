@@ -33,13 +33,13 @@ help()
     echo -e ""
 }
 
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+OS=`echo $(uname) | $TR '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
-DEFAULT_FILES=`find files -mindepth 1 -maxdepth 1 -printf "%p "`
-DEFAULT_SCRIPTS=`find scripts -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_CONFIG=`find desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_FILES=`find desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
+DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 -printf "%p "`
+DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_CONFIG=`$FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
+DESKTOP_FILES=`$FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
 EXTRA_FILES="antigen base16_theme vim viminfo vimrc_background zcompdump zsh_history zsh_history zshrc.zwc"
 
 debug "DEFAULT_FILES = ${DEFAULT_FILES}"

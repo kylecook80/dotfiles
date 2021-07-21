@@ -11,6 +11,8 @@ case $OS in
     # PATH
     path=(
       $HOME/bin
+      $HOME/.local/bin
+      $HOME/Library/Python/3.9/bin
       /usr/local/sbin
       /usr/sbin
       /sbin
