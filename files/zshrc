@@ -4,9 +4,9 @@ fpath=(
     $fpath
 )
 
-if [[ ! -e $HOME/dev/zsh-snap ]]; then
-   mkdir -p $HOME/dev
-   git clone https://github.com/marlonrichert/zsh-snap $HOME/dev/zsh-snap
+if [[ ! -e $HOME/.znap/zsh-snap ]]; then
+   mkdir -p $HOME/.znap
+   git clone https://github.com/marlonrichert/zsh-snap $HOME/.znap/zsh-snap
 fi
 
 #if [[ ! -e ~/.vim/bundle/Vundle.vim ]]; then
@@ -22,7 +22,7 @@ fi
 # Standard emacs keymap
 bindkey -e
 
-source $HOME/dev/zsh-snap/znap.zsh
+source $HOME/.znap/zsh-snap/znap.zsh
 
 znap prompt cook
 
@@ -36,3 +36,12 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory
+
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+eval "$(direnv hook zsh)"

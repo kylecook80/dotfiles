@@ -12,7 +12,7 @@ case $OS in
     path=(
       $HOME/bin
       $HOME/.local/bin
-      $HOME/Library/Python/3.9/bin
+      $HOME/.pyenv/bin
       /usr/local/sbin
       /usr/sbin
       /sbin

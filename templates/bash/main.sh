@@ -13,6 +13,8 @@ __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __version="0.0.1"
 
+OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+
 source "${dir}/lib/stdlib.shinc"
 
 printdebug()
@@ -37,9 +39,9 @@ help()
     echo -e ""
 }
 
-### Put variables and options here
+### Variables
 
-### Put functions here
+### Functions
 
 while [[ -n $1 ]]; do
     case "$1" in
@@ -56,5 +58,22 @@ while [[ -n $1 ]]; do
     esac
     shift
 done
+
+# getopts version
+# while getopts ":s:p:" o; do
+#     case "${o}" in
+#         s)
+#             s=${OPTARG}
+#             ((s == 45 || s == 90)) || usage
+#             ;;
+#         p)
+#             p=${OPTARG}
+#             ;;
+#         *)
+#             usage
+#             ;;
+#     esac
+# done
+# shift $((OPTIND-1))
 
 # Main execution starts here

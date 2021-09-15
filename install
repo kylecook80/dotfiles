@@ -15,10 +15,6 @@ __version="2.0.0"
 
 source "scripts/lib/stdlib.shinc"
 
-FIND="/usr/local/bin/gfind"
-GREP="/usr/local/bin/ggrep"
-TR="/usr/local/bin/gtr"
-
 help()
 {
     echo -e "${__base} - Installation script for dotfiles"
@@ -35,11 +31,21 @@ help()
 # Use a private env file for sensitive information.
 if [[ -f "$DIR/.private" ]]; then . $DIR/.private; fi
 
-OS=`echo $(uname) | $TR '[:upper:]' '[:lower:]'`
+OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
 debug "OS: $OS"
 debug "DIR: $DIR"
+
+if [[ "$OS" = "darwin" ]]; then
+    FIND="/usr/local/bin/gfind"
+    GREP="/usr/local/bin/ggrep"
+    TR="/usr/local/bin/gtr"
+else
+    FIND="/usr/bin/find"
+    GREP="/usr/bin/grep"
+    TR="/usr/bin/tr"
+fi
 
 DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' '`
 GEN_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '.*-gen' | $TR '\n' ' '`
