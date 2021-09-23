@@ -1,10 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Enable tracing
-#set -x
+# set -x
 
 # Enable Debug Mode
-#DEBUG="T"
+# DEBUG="T"
+
+# Set extended globbing
+# shopt -s extglob
+
+# Set recursive globbing
+# shopt -s globstar
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
@@ -15,7 +21,7 @@ __version="0.0.1"
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 
-source "${dir}/lib/stdlib.shinc"
+[ -s "${dir}/lib/stdlib.shinc" ] && source "${dir}/lib/stdlib.shinc"
 
 printdebug()
 {
@@ -39,15 +45,22 @@ help()
     echo -e ""
 }
 
-### Variables
+OPTS=`getopt -o h --long help -n "${__file}" -- "$@"`
+if [ $? != 0 ]; then
+    echo "Exiting..." >&2
+    exit 1
+fi
+eval set -- "$OPTS"
 
-### Functions
-
-while [[ -n $1 ]]; do
+while true; do
     case "$1" in
         -h|--help)
             help
             exit
+        ;;
+        --)
+            shift
+            break
         ;;
         *)
             echo "Unknown option: $1"
@@ -58,22 +71,3 @@ while [[ -n $1 ]]; do
     esac
     shift
 done
-
-# getopts version
-# while getopts ":s:p:" o; do
-#     case "${o}" in
-#         s)
-#             s=${OPTARG}
-#             ((s == 45 || s == 90)) || usage
-#             ;;
-#         p)
-#             p=${OPTARG}
-#             ;;
-#         *)
-#             usage
-#             ;;
-#     esac
-# done
-# shift $((OPTIND-1))
-
-# Main execution starts here
