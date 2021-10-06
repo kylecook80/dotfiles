@@ -31,3 +31,5 @@ error()
 {
     echo "[ ${lredf}ERROR${reset} ]: $@"
 }
+
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

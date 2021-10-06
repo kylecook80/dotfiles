@@ -10,27 +10,31 @@ case $OS in
 "darwin")
     # PATH
     path=(
-      $HOME/bin
-      $HOME/.local/bin
-      $HOME/.pyenv/bin
-      /usr/local/sbin
-      /usr/sbin
-      /sbin
-      /usr/local/bin
-      /usr/bin
-      /bin
+        $HOME/bin
+        $HOME/.local/bin
+        $HOME/.pyenv/bin
+        /usr/local/opt/gcc/bin
+        /usr/local/opt/bash/bin
+        /usr/local/opt/gnu-getopt/bin
+        /usr/local/sbin
+        /usr/sbin
+        /sbin
+        /usr/local/bin
+        /usr/bin
+        /bin
     )
     ;;
 "linux")
     path=(
-      $HOME/bin
-      /usr/local/sbin
-      /usr/sbin
-      /sbin
-      /usr/local/bin
-      /usr/bin
-      /bin
+        $HOME/bin
+        /usr/local/sbin
+        /usr/sbin
+        /sbin
+        /usr/local/bin
+        /usr/bin
+        /bin
     )
-
     ;;
 esac
+
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

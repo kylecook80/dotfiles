@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Enable tracing
-#set -x
+# set -x
 
 # Enable Debug Mode
-DEBUG="T"
+# DEBUG="T"
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
@@ -145,6 +145,7 @@ link_to "$DEFAULT_FILES" "$HOME"
 link_to "$DEFAULT_SCRIPTS" "$HOME/bin"
 #copy_to "$GEN_FILES" "$HOME"
 
-
 #[[ "$INSTALL_DESKTOP" = "T" ]] && install_to "$DESKTOP_FILES" "$HOME"
 #[[ "$INSTALL_DESKTOP" = "T" ]] && install_to "$DESKTOP_CONFIG" "$HOME/.config"
+
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

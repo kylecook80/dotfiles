@@ -1,6 +1,9 @@
 set nocompatible
+set ruler
 set number
 set backspace=indent,eol,start
+
+syntax on
 
 " Install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))

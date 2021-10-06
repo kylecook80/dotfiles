@@ -25,3 +25,5 @@ initializeANSI()
 
     reset="${esc}[0m"
 }
+
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

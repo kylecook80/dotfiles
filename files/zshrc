@@ -42,6 +42,14 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory
 
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-eval "$(direnv hook zsh)"
+if hash "pyenv" 2> /dev/null; then
+    eval "$(pyenv init -)"
+    # eval "$(pyenv virtualenv-init -)"
+fi
+
+if hash "direnv" 2> /dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :
+

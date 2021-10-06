@@ -21,8 +21,6 @@ __version="0.0.1"
 
 OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 
-[ -s "${dir}/lib/stdlib.shinc" ] && source "${dir}/lib/stdlib.shinc"
-
 printdebug()
 {
     debug "__dir = ${__dir}"
@@ -71,5 +69,33 @@ while true; do
     esac
     shift
 done
+
+FILES=""
+
+if ! hash "zip" 2> /dev/null; then
+    "This script requires the zip utility. Exiting."
+fi
+
+if [[ -d "dist/" ]]; then
+    rm -rf "dist/"
+fi
+
+mkdir -p dist/
+
+for i in $FILES; do
+    cp -r $i dist/$i
+done
+
+if hash "zip" 2> /dev/null; then
+    name="edrtool-${__version}"
+
+    if [[ -f "${name}.zip" ]]; then
+        rm "${name}.zip"
+    fi
+
+    cp -r dist ${name}
+    zip -r "${name}.zip" "${name}"
+    rm -rf ${name}
+fi
 
 # vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

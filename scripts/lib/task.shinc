@@ -12,7 +12,11 @@ _spin()
 _prog()
 {
     printf " "
-    _spin & progpid=$!
+
+    if check_bash_version; then
+        _spin &
+        progpid=$!
+    fi
 }
 
 _progend()
@@ -89,3 +93,5 @@ checkexit()
     fi
     unset RUN_STATUS
 }
+
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

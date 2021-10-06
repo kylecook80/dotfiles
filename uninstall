@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-#!/bin/bash
-
 # Enable tracing
-#set -x
+# set -x
 
 # Enable Debug Mode
-#DEBUG="T"
+# DEBUG="T"
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
@@ -40,7 +38,7 @@ DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 -printf "%p "`
 DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`
 DESKTOP_CONFIG=`$FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
 DESKTOP_FILES=`$FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
-EXTRA_FILES="antigen base16_theme vim viminfo vimrc_background zcompdump zsh_history zsh_history zshrc.zwc"
+EXTRA_FILES=""
 
 debug "DEFAULT_FILES = ${DEFAULT_FILES}"
 debug "DEFAULT_SCRIPTS = ${DEFAULT_SCRIPTS}"

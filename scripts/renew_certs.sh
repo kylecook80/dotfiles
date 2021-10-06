@@ -16,3 +16,5 @@ certbot certonly \
     --server https://acme-v02.api.letsencrypt.org/directory \
     -d ${DOMAIN} \
     -d *.${DOMAIN}
+
+# vim: ai et ts=4 sw=4 sts=4 ft=sh :
