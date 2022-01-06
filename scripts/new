@@ -17,13 +17,10 @@ source "${__dir}/lib/stdlib.shinc"
 
 help()
 {
-    echo -e "${__base} - Description"
+    echo -e "${__base} - Copy template files from the dotfiles templates directory"
     echo -e ""
     echo -e "Usage:"
-    echo -e "\t${__base} [options]"
-    echo -e ""
-    echo -e "Options:"
-    echo -e "\t-h | --help\t\tShow this screen"
+    echo -e "\t${__base} <template>"
     echo -e ""
 }
 

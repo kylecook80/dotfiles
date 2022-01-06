@@ -42,14 +42,35 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory
 
-if hash "pyenv" 2> /dev/null; then
+
+if ! hash "nvm" 2> /dev/null; then
+    if [ ! -d "$HOME/.nvm" ]; then
+        git clone https://github.com/nvm-sh/nvm.git .nvm
+    fi
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fi
+
+if ! hash "pyenv" 2> /dev/null; then
+    if [ ! -d "$HOME/.pyenv" ]; then
+        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+        pushd $HOME/.pyenv
+        src/configure && make -C src
+        popd
+    fi
+
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
-    # eval "$(pyenv virtualenv-init -)"
 fi
 
 if hash "direnv" 2> /dev/null; then
     eval "$(direnv hook zsh)"
 fi
 
-# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :
+if [ -e "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
 
+# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :

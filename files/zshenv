@@ -12,7 +12,6 @@ case $OS in
     path=(
         $HOME/bin
         $HOME/.local/bin
-        $HOME/.pyenv/bin
         /usr/local/opt/gcc/bin
         /usr/local/opt/bash/bin
         /usr/local/opt/gnu-getopt/bin

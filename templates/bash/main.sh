@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Exit on error
+# set -e
+
 # Enable tracing
 # set -x
 
@@ -23,7 +26,7 @@ OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 
 [ -s "${dir}/lib/stdlib.shinc" ] && source "${dir}/lib/stdlib.shinc"
 
-printdebug()
+printvars()
 {
     debug "__dir = ${__dir}"
     debug "__file = ${__file}"
@@ -60,7 +63,6 @@ while true; do
         ;;
         --)
             shift
-            break
         ;;
         *)
             echo "Unknown option: $1"
