@@ -15,6 +15,7 @@ case $OS in
         /usr/local/opt/gcc/bin
         /usr/local/opt/bash/bin
         /usr/local/opt/gnu-getopt/bin
+        /usr/local/anaconda3/bin
         /usr/local/sbin
         /usr/sbin
         /sbin
