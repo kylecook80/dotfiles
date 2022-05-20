@@ -1,3 +1,10 @@
+# Configuration
+ENABLE_NVM="F"
+ENABLE_PYENV="T"
+ENABLE_CARGO="F"
+ENABLE_DIRENV="F"
+ENABLE_KEYCHAIN="T"
+
 # Add local path to custom themes and functions
 fpath=(
     ~/.zsh/site-functions
@@ -36,12 +43,6 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory
 
-ENABLE_NVM="F"
-ENABLE_PYENV="F"
-ENABLE_CARGO="F"
-ENABLE_DIRENV="F"
-ENABLE_KEYCHAIN="F"
-
 if [ "$ENABLE_NVM" = "T" ]; then
     if ! hash "nvm" 2> /dev/null; then
         if [ ! -d "$HOME/.nvm" ]; then
@@ -65,7 +66,7 @@ if [ "$ENABLE_PYENV" = "T" ]; then
         export PYENV_ROOT="$HOME/.pyenv"
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
+        #eval "$(pyenv virtualenv-init -)"
     fi
 fi
 
