@@ -38,9 +38,21 @@ debug "OS: $OS"
 debug "DIR: $DIR"
 
 if [[ "$OS" = "darwin" ]]; then
-    FIND="/usr/local/bin/gfind"
-    GREP="/usr/local/bin/ggrep"
-    TR="/usr/local/bin/gtr"
+    if [ ! -x "/opt/homebrew/bin/gfind" ]; then
+        brew install findutils
+    fi
+
+    if [ ! -x "/opt/homebrew/bin/gtr " ]; then
+        brew install coreutils
+    fi
+
+    if [ ! -x "/opt/homebrew/bin/ggrep" ]; then
+        brew install grep
+    fi
+
+    FIND="/opt/homebrew/bin/gfind"
+    GREP="/opt/homebrew/bin/ggrep"
+    TR="/opt/homebrew/bin/gtr"
 else
     FIND="/usr/bin/find"
     GREP="/usr/bin/grep"
