@@ -12,6 +12,7 @@ case $OS in
     path=(
         $HOME/bin
         $HOME/.local/bin
+        $HOME/.cargo/bin
         /usr/local/sbin
         /usr/sbin
         /sbin

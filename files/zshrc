@@ -1,9 +1,17 @@
+# Options
+OPTION_PLUGINS="T"
+OPTION_PROMPT="T"
+OPTION_NEOFETCH="T"
+
 # Configuration
-ENABLE_NVM="F"
 ENABLE_PYENV="F"
-ENABLE_CARGO="F"
+ENABLE_CARGO="T"
+ENABLE_NVM="F"
 ENABLE_DIRENV="F"
 ENABLE_KEYCHAIN="F"
+
+# Configurations
+CONFIG_TMUX="T"
 
 # Add local path to custom themes and functions
 fpath=(
@@ -16,27 +24,36 @@ if [[ ! -e $HOME/.znap/zsh-snap ]]; then
    git clone https://github.com/marlonrichert/zsh-snap $HOME/.znap/zsh-snap
 fi
 
-if hash "neofetch" 2> /dev/null; then
-   neofetch
+if [ "$OPTION_NEOFETCH" = "T" ]; then
+    if hash "neofetch" 2> /dev/null; then
+       neofetch
+    fi
 fi
 
 # Standard emacs keymap
 bindkey -e
 
-source $HOME/.znap/zsh-snap/znap.zsh
+if [ "$OPTION_PLUGINS" = "T" ]; then
+    source $HOME/.znap/zsh-snap/znap.zsh
+    
+    if [ "$OPTION_PROMPT" = "T" ]; then
+        znap prompt cook
+    fi
+    
+    #znap source marlonrichert/zsh-autocomplete
+    znap source zsh-users/zsh-autosuggestions
+    znap source zsh-users/zsh-syntax-highlighting
+    #znap source chriskempson/base16-shell
 
-znap prompt cook
-
-#znap source marlonrichert/zsh-autocomplete
-znap source zsh-users/zsh-autosuggestions
-znap source zsh-users/zsh-syntax-highlighting
-znap source chriskempson/base16-shell
+fi
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-   [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-       eval "$("$BASE16_SHELL/profile_helper.sh")"
+#BASE16_SHELL="$HOME/.config/base16-shell/"
+#[ -n "$PS1" ] && \
+#   [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#       eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -87,6 +104,12 @@ if [ "$ENABLE_KEYCHAIN" = "T" ]; then
         keychain id_ed25519
         [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
         [ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh
+    fi
+fi
+
+if [ "$CONFIG_TMUX" = "T" ]; then
+    if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     fi
 fi
 

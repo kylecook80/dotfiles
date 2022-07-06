@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'arcticicestudio/nord-vim'
 
 " Initialize plugin system
 call plug#end()
