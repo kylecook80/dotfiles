@@ -1,0 +1,13 @@
+---
+- name: Initial setup
+  hosts: all
+  remote_user: install
+  become: true
+
+  roles:
+    - common
+
+  vars:
+    hostname:
+    network:
+      dhcp: true

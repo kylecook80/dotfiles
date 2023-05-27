@@ -1,0 +1,9 @@
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
+
+- name: Update hosts file
+  ansible.builtin.replace:
+    path: /etc/hosts
+    regexp: '(\s+)debian(\s+.*)?$'
+    replace: '\1{{ hostname }}\2'

@@ -1,0 +1,21 @@
+- name: Install ntp daemon
+  ansible.builtin.apt:
+    name: chrony
+    state: present
+  tags: ntp
+
+# - name: configure ntp
+#   copy:
+#     src: chrony.conf
+#     dest: /etc/chrony/chrony.conf
+#     mode: 0644
+#   notify:
+#     - restart chrony
+#   tags: ntp
+
+- name: Start and enable chronyd
+  ansible.builtin.service:
+    name: chronyd
+    state: started
+    enabled: true
+  tags: ntp

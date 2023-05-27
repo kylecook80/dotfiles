@@ -1,0 +1,9 @@
+---
+- name: Common configs
+  hosts: all
+  remote_user: kcook
+  become: true
+  become_method: sudo
+
+  roles:
+    - common

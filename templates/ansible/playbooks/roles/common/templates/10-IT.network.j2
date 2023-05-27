@@ -1,0 +1,11 @@
+[Match]
+Name=ens192
+
+[Network]
+{% if network.dhcp %}
+DHCP=yes
+{% else %}
+Address={{ network.address }}
+Gateway=10.20.86.1
+DNS=10.8.4.4
+{% endif %}

@@ -1,0 +1,12 @@
+---
+- name: Complete setup
+  hosts: all
+  remote_user:
+  become: true
+
+  tasks:
+    - name: Remove install user
+      ansible.builtin.user:
+        name: install
+        state: absent
+        remove: true

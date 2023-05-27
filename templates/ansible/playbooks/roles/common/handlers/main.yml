@@ -1,0 +1,13 @@
+- name: Restart chrony
+  ansible.builtin.service:
+    name: chronyd
+    state: restarted
+
+- name: Restart ssh
+  ansible.builtin.service:
+    name: ssh
+    state: restarted
+
+- name: Setup timezone
+  ansible.builtin.command: dpkg-reconfigure --frontend noninteractive tzdata
+  changed_when: true

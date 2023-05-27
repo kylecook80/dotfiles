@@ -1,0 +1,28 @@
+- name: Install libpam-ssh-agent-auth
+  ansible.builtin.apt:
+    name: libpam-ssh-agent-auth
+    state: present
+
+- name: Setup pam to use ssh-agent-auth
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/sudo
+    line: 'auth sufficient pam_ssh_agent_auth.so file=~/.ssh/authorized_keys'
+    insertafter: '^#%PAM'
+
+- name: Set sudo to maintain SSH_AUTH_SOCK
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/ssh_auth_sock
+    regexp: '^Defaults env_keep'
+    line: 'Defaults env_keep += SSH_AUTH_SOCK'
+    create: true
+    mode: '0440'
+    validate: '/usr/sbin/visudo -cf %s'
+
+- name: Disable password login
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  notify:
+    - Restart ssh

@@ -1,0 +1,26 @@
+---
+- name: Setup hostname tasks
+  ansible.builtin.import_tasks: hostname.yml
+
+- name: Setup libpam_ssh_agent
+  ansible.builtin.import_tasks: libpam_ssh_agent.yml
+
+- name: Setup networking
+  ansible.builtin.import_tasks: networking.yml
+
+- name: Setup ntp
+  ansible.builtin.import_tasks: ntp.yml
+
+- name: Set timezone
+  ansible.builtin.import_tasks: timezone.yml
+
+- name: Setup users
+  ansible.builtin.import_tasks: users.yml
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - vim
+      - git
+      - sudo
+    state: present

@@ -1,0 +1,23 @@
+- name: Add all users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: present
+    groups: sudo
+    shell: /bin/bash
+  loop: "{{ users }}"
+
+- name: Add keys for users
+  ansible.posix.authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "{{ item.ssh_pub }}"
+  loop: "{{ users }}"
+
+- name: Nopasswd sudoers
+  community.general.sudoers:
+    name: "no-passwd-{{ item.name }}"
+    user: "{{ item.name }}"
+    commands: ALL
+    nopassword: true
+    state: present
+  loop: "{{ users }}"

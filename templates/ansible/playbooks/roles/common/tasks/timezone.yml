@@ -1,0 +1,19 @@
+- name: Timezone check
+  ansible.builtin.stat:
+    path: /etc/localtime
+  register: common_timezone_s
+
+- name: Debug timezone
+  ansible.builtin.debug:
+    var: common_timezone_s
+    verbosity: 1
+
+- name: Symlink timezone
+  ansible.builtin.file:
+    src: /usr/share/zoneinfo/US/Central
+    dest: /etc/localtime
+    owner: root
+    group: root
+    state: link
+  when: common_timezone_s.stat.lnk_source != "/usr/share/zoneinfo/America/Chicago"
+  notify: "Setup timezone"
