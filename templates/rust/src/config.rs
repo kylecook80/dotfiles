@@ -8,9 +8,7 @@ use std::sync::OnceLock;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Debug)]
-pub struct Config {
-
-}
+pub struct Config {}
 
 const CONFIG_NAME: &str = "app.toml";
 static FILES: OnceLock<Vec<PathBuf>> = OnceLock::new();

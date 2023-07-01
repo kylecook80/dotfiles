@@ -25,7 +25,7 @@ struct Cli {
     debug: bool,
 
     #[command(subcommand)]
-    command: Option<Commands>
+    command: Option<Commands>,
 }
 
 #[derive(Subcommand)]
@@ -51,18 +51,15 @@ async fn main() -> Result<()> {
     LogTracer::init().expect("Failed to set logger");
 
     // Default to info log level
-    let env_filter =
-        EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new(filter));
+    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new(filter));
 
     // Write to stdout by default
     let formatting_layer = tracing_subscriber::fmt::layer().with_writer(std::io::stdout);
 
-    let subscriber = Registry::default()
-        .with(env_filter)
-        .with(formatting_layer);
+    let subscriber = Registry::default().with(env_filter).with(formatting_layer);
 
     set_global_default(subscriber).expect("Failed to set subscriber");
-    
+
     // Read Config File
     let config: error::Result<Config>;
     if let Some(c) = cli.config {
