@@ -15,10 +15,6 @@ __version="2.0.0"
 
 source "scripts/lib/stdlib.shinc"
 
-FIND="/usr/local/bin/gfind"
-GREP="/usr/local/bin/ggrep"
-TR="/usr/local/bin/gtr"
-
 help()
 {
     echo -e "${__base} - Description"
@@ -31,8 +27,18 @@ help()
     echo -e ""
 }
 
-OS=`echo $(uname) | $TR '[:upper:]' '[:lower:]'`
+OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
+
+if [[ "$OS" = "darwin" ]]; then
+    FIND="/opt/homebrew/bin/gfind"
+    GREP="/opt/homebrew/bin/ggrep"
+    TR="/opt/homebrew/bin/gtr"
+else
+    FIND="/usr/bin/find"
+    GREP="/usr/bin/grep"
+    TR="/usr/bin/tr"
+fi
 
 DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 -printf "%p "`
 DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`

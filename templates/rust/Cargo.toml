@@ -1,8 +1,8 @@
 [package]
-name = "app"
+name = "{{project-name}}"
 version = "0.1.0"
 edition = "2021"
-authors = ["Kyle Cook"]
+authors = ["{{authors}}"]
 description = ""
 license = "MIT"
 
@@ -15,7 +15,9 @@ assets = [
 
 [dependencies]
 anyhow = "1.0.71"
+{% if cli_enable %}
 clap = { version = "4.3.9", features = ["derive"] }
+{% endif %}
 serde = { version = "1.0.164", features = ["derive"] }
 thiserror = "1.0.40"
 tokio = { version = "1.28.2", features = ["full"] }

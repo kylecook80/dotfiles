@@ -1,0 +1,4 @@
+[placeholders.cli_enable]
+type = "bool"
+prompt = "Enable CLI support?"
+default = false

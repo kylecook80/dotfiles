@@ -1,3 +1,5 @@
 [user]
-	email = kcook@rivian.com
+	email = kylecook80@gmail.com
 	name = Kyle Cook
+[init]
+	defaultBranch = main

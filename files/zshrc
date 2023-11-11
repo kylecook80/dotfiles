@@ -55,10 +55,10 @@ fi
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory
+# HISTFILE=~/.histfile
+# HISTSIZE=1000
+# SAVEHIST=1000
+# setopt appendhistory
 
 if [ "$ENABLE_NVM" = "T" ]; then
     if ! hash "nvm" 2> /dev/null; then

@@ -6,13 +6,13 @@ use crate::config::Config;
 use std::path::PathBuf;
 
 use anyhow::{anyhow, Result};
-
+{% if cli_enable %}
 use clap::{Parser, Subcommand};
-
+{% endif %}
 use tracing::subscriber::set_global_default;
 use tracing_log::LogTracer;
 use tracing_subscriber::{layer::SubscriberExt, EnvFilter, Registry};
-
+{% if cli_enable %}
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
@@ -35,9 +35,10 @@ enum Commands {
         list: bool,
     },
 }
-
+{% endif %}
 #[tokio::main]
 async fn main() -> Result<()> {
+    {% if cli_enable %}
     let cli = Cli::parse();
 
     let filter: String;
@@ -46,7 +47,7 @@ async fn main() -> Result<()> {
     } else {
         filter = String::from("info");
     }
-
+    {% endif %}
     // Initialize all logging for the head node
     LogTracer::init().expect("Failed to set logger");
 

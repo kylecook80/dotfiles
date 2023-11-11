@@ -11,7 +11,7 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
-__version="2.0.0"
+__version="2.1.0"
 
 source "scripts/lib/stdlib.shinc"
 
@@ -24,6 +24,7 @@ help()
     echo -e ""
     echo -e "Options:"
     echo -e "\t-d | --desktop\t\tInstall desktop configuration files"
+    echo -e "\t-f | --files\t\tInstall Extra files only"
     echo -e "\t-h | --help\t\tShow this screen"
     echo -e ""
 }
@@ -42,7 +43,7 @@ if [[ "$OS" = "darwin" ]]; then
         brew install findutils
     fi
 
-    if [ ! -x "/opt/homebrew/bin/gtr " ]; then
+    if [ ! -x "/opt/homebrew/bin/gtr" ]; then
         brew install coreutils
     fi
 
@@ -59,7 +60,8 @@ else
     TR="/usr/bin/tr"
 fi
 
-DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' '`
+CORE_FILES="files/zsh files/zprofile files/zshenv files/zshrc"
+DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 -not -wholename files/z\* | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' '`
 GEN_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '.*-gen' | $TR '\n' ' '`
 
 DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`
@@ -143,6 +145,9 @@ while [[ -n $1 ]]; do
         -d|--desktop)
             INSTALL_DESKTOP="T"
         ;;
+        -f|--files)
+            INSTALL_FILES="T"
+        ;;
         *)
             echo "Unknown option: $1"
             echo ""
@@ -153,7 +158,12 @@ while [[ -n $1 ]]; do
     shift
 done
 
-link_to "$DEFAULT_FILES" "$HOME"
+link_to "$CORE_FILES" "$HOME"
+
+if [[ "$INSTALL_FILES" = "T" ]]; then
+    link_to "$DEFAULT_FILES" "$HOME"
+fi
+
 link_to "$DEFAULT_SCRIPTS" "$HOME/bin"
 #copy_to "$GEN_FILES" "$HOME"
 
