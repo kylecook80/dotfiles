@@ -32,13 +32,18 @@ help()
 # Use a private env file for sensitive information.
 if [[ -f "$DIR/.private" ]]; then . $DIR/.private; fi
 
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+OS=$(uname | tr '[:upper:]' '[:lower:]')
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
 debug "OS: $OS"
 debug "DIR: $DIR"
 
 if [[ "$OS" = "darwin" ]]; then
+    if [ ! -d "/opt/homebrew" ]; then
+        echo "Please install Homebrew first."
+        exit 1
+    fi
+    
     if [ ! -x "/opt/homebrew/bin/gfind" ]; then
         brew install findutils
     fi
@@ -61,12 +66,12 @@ else
 fi
 
 CORE_FILES="files/zsh files/zprofile files/zshenv files/zshrc"
-DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 -not -wholename files/z\* | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' '`
-GEN_FILES=`$FIND files -mindepth 1 -maxdepth 1 | $GREP -P '.*-gen' | $TR '\n' ' '`
+DEFAULT_FILES=$($FIND files -mindepth 1 -maxdepth 1 -not -wholename files/z\* | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' ')
+GEN_FILES=$($FIND files -mindepth 1 -maxdepth 1 | $GREP -P '.*-gen' | $TR '\n' ' ')
 
-DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_CONFIG=`$FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_FILES=`$FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
+DEFAULT_SCRIPTS=$($FIND scripts -mindepth 1 -maxdepth 1 -printf "%p ")
+DESKTOP_CONFIG=$($FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p ")
+DESKTOP_FILES=$($FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p ")
 
 debug "DEFAULT_FILES = ${DEFAULT_FILES}"
 debug "GEN_FILES = ${GEN_FILES}"
@@ -91,8 +96,8 @@ link_to() {
     debug "dst = $dst"
 
     for item in $list; do
-        local filename=`basename $item`
-        debug "file = $src$filename"
+        local filename;
+        filename=$(basename "$item")
 
         task "Linking $filename"
 
@@ -122,8 +127,8 @@ copy_to() {
     debug "dst = $dst"
 
     for item in $list; do
-        local filename=`basename $item`
-        debug "file = $src$filename"
+        local filename;
+        filename=$(basename "$item")
 
         task "Copying $filename"
 
