@@ -31,7 +31,7 @@ $IPTABLES -A icmp -p icmp -m limit --limit 1/s --limit-burst 4 -j ACCEPT -m comm
 $IPTABLES -A icmp -p icmp --icmp-type echo-request -j ACCEPT -m comment --comment "Allow echo request packets"
 $IPTABLES -A icmp -p icmp --icmp-type fragmentation-needed -j ACCEPT -m comment --comment "Allow fragmentation needed packets"
 $IPTABLES -A icmp -p icmp --icmp-type time-exceeded -j ACCEPT -m comment --comment "Allow time exceeded packets"
-$IPTABLES -A icmp -p icmp -s $INET_LOCAL -j ACCEPT -m comment --comment "Allow all icmp from local subnet"
+$IPTABLES -A icmp -p icmp -s "$INET_LOCAL" -j ACCEPT -m comment --comment "Allow all icmp from local subnet"
 $IPTABLES -A icmp -p icmp -j DROP -m comment --comment "Drop all other icmp packets"
 $IPTABLES -A INPUT -j icmp -m comment --comment "ICMP rules"
 

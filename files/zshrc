@@ -11,7 +11,7 @@ ENABLE_DIRENV="F"
 ENABLE_KEYCHAIN="F"
 
 # Configurations
-CONFIG_TMUX="T"
+CONFIG_TMUX="F"
 
 # Add local path to custom themes and functions
 fpath=(
@@ -35,11 +35,11 @@ bindkey -e
 
 if [ "$OPTION_PLUGINS" = "T" ]; then
     source $HOME/.znap/zsh-snap/znap.zsh
-    
+
     if [ "$OPTION_PROMPT" = "T" ]; then
         znap prompt cook
     fi
-    
+
     #znap source marlonrichert/zsh-autocomplete
     znap source zsh-users/zsh-autosuggestions
     znap source zsh-users/zsh-syntax-highlighting

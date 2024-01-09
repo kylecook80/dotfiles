@@ -9,7 +9,7 @@
  * @brief      Prints command line usage information.
  */
 void print_usage() {
-    std::cout << "Usage: ag_gen [OPTION...]" << std::endl << std::endl;
+    std::cout << "Usage: binary_name [OPTION...]" << std::endl << std::endl;
     std::cout << "Flags:" << std::endl;
     std::cout << "\t-h\tThis help menu." << std::endl;
 }

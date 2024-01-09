@@ -36,8 +36,8 @@ DEBUG ?= FALSE
 
 BUILD_DIR ?= src
 
-CSTD ?= c11
-CXXSTD ?= c++17
+CSTD ?= c17
+CXXSTD ?= c++20
 
 CFLAGS ?= -O2 -march=native --std=$(CSTD) -fno-strict-aliasing -D_FORTIFY_SOURCE=2
 CFLAGS_DEBUG ?= -g -Wall -pedantic -O0

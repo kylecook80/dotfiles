@@ -15,16 +15,11 @@
 # Set recursive globbing
 # shopt -s globstar
 
-__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__base="$(basename ${__file} .sh)"
-__root="$(cd "$(dirname "${__dir}")" && pwd)"
-
 __version="0.0.1"
 
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+OS=$(uname | tr '[:upper:]' '[:lower:]')
 
-[ -s "${dir}/lib/stdlib.shinc" ] && source "${dir}/lib/stdlib.shinc"
+[ -s "./lib/stdlib.shinc" ] && source "./lib/stdlib.shinc"
 
 printvars()
 {
@@ -48,7 +43,7 @@ help()
     echo -e ""
 }
 
-OPTS=`getopt -o h --long help -n "${__file}" -- "$@"`
+OPTS=$(getopt -o h --long help -n "${__file}" -- "$@")
 if [ $? != 0 ]; then
     echo "Exiting..." >&2
     exit 1

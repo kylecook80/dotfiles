@@ -14,12 +14,12 @@
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__base="$(basename ${__file} .sh)"
+__base="$(basename "${__file}" .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __version="0.0.1"
 
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+OS=$(uname | tr '[:upper:]' '[:lower:]')
 
 printdebug()
 {
@@ -43,7 +43,7 @@ help()
     echo -e ""
 }
 
-OPTS=`getopt -o h --long help -n "${__file}" -- "$@"`
+OPTS=$(getopt -o h --long help -n "${__file}" -- "$@")
 if [ $? != 0 ]; then
     echo "Exiting..." >&2
     exit 1
@@ -73,7 +73,8 @@ done
 FILES=""
 
 if ! hash "zip" 2> /dev/null; then
-    "This script requires the zip utility. Exiting."
+    echo "This script requires the zip utility. Exiting."
+    exit 1
 fi
 
 if [[ -d "dist/" ]]; then
@@ -83,7 +84,7 @@ fi
 mkdir -p dist/
 
 for i in $FILES; do
-    cp -r $i dist/$i
+    cp -r "$i" "dist/$i"
 done
 
 if hash "zip" 2> /dev/null; then

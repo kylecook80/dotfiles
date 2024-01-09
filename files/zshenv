@@ -8,11 +8,12 @@ export EDITOR=$VISUAL
 OS=`uname | tr "A-Z" "a-z"`
 case $OS in
 "darwin")
-    # PATH
     path=(
         $HOME/bin
         $HOME/.local/bin
         $HOME/.cargo/bin
+        /opt/homebrew/opt/coreutils/libexec/gnubin
+        /opt/homebrew/opt/make/libexec/gnubin
         /usr/local/sbin
         /usr/sbin
         /sbin

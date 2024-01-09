@@ -1,6 +1,0 @@
-# Library-defined
-ERROR_DOWNLOAD_FAILED=64
-ERROR_EXTRACT_FAILED=65
-ERROR_UNKNOWN=120
-
-# vim: ai et nu ts=4 sw=4 sts=4 ft=sh :
