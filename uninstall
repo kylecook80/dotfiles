@@ -8,7 +8,7 @@
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__base="$(basename ${__file} .sh)"
+__base="$(basename "${__file}" .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __version="2.0.0"
@@ -27,7 +27,7 @@ help()
     echo -e ""
 }
 
-OS=`echo $(uname) | tr '[:upper:]' '[:lower:]'`
+OS=$(uname | tr '[:upper:]' '[:lower:]')
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 
 if [[ "$OS" = "darwin" ]]; then
@@ -40,10 +40,10 @@ else
     TR="/usr/bin/tr"
 fi
 
-DEFAULT_FILES=`$FIND files -mindepth 1 -maxdepth 1 -printf "%p "`
-DEFAULT_SCRIPTS=`$FIND scripts -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_CONFIG=`$FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p "`
-DESKTOP_FILES=`$FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p "`
+DEFAULT_FILES=$($FIND files -mindepth 1 -maxdepth 1 -printf "%p ")
+DEFAULT_SCRIPTS=$($FIND scripts -mindepth 1 -maxdepth 1 -printf "%p ")
+DESKTOP_CONFIG=$($FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p ")
+DESKTOP_FILES=$($FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p ")
 EXTRA_FILES=""
 
 debug "DEFAULT_FILES = ${DEFAULT_FILES}"
@@ -68,7 +68,8 @@ uninstall_from() {
     debug "src = $src"
 
     for item in $list; do
-        local filename=`basename $item`
+        local filename
+        filename=$(basename "$item")
         debug "file = $src$filename"
 
         task "Removing $filename"
@@ -87,7 +88,8 @@ delete_extras() {
     debug "src = $src"
 
     for item in $list; do
-        local filename=`basename $item`
+        local filename
+        filename=$(basename "$item")
         debug "file = $src$filename"
 
         task "Deleting $filename"

@@ -29,11 +29,11 @@ help()
     echo -e ""
 }
 
-# Use a private env file for sensitive information.
-if [[ -f "$DIR/.private" ]]; then . $DIR/.private; fi
-
 OS=$(uname | tr '[:upper:]' '[:lower:]')
 DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
+
+# Use a private env file for sensitive information.
+if [[ -f "$DIR/.private" ]]; then . $DIR/.private; fi
 
 debug "OS: $OS"
 debug "DIR: $DIR"
@@ -43,7 +43,7 @@ if [[ "$OS" = "darwin" ]]; then
         echo "Please install Homebrew first."
         exit 1
     fi
-    
+
     if [ ! -x "/opt/homebrew/bin/gfind" ]; then
         brew install findutils
     fi
