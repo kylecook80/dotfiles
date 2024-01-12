@@ -13,7 +13,7 @@ __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __version="2.1.0"
 
-source "scripts/lib/stdlib.shinc"
+source "scripts/lib/stdlib.sh"
 
 help()
 {
