@@ -132,7 +132,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     uninstall_from "$DEFAULT_FILES" "$HOME"
     uninstall_from "$DEFAULT_SCRIPTS" "$HOME/bin"
 fi
-# [[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_FILES" "$HOME"
-# [[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_CONFIG" "$HOME/.config"
+
+[[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_FILES" "$HOME"
+[[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_CONFIG" "$HOME/.config"
 
 [[ "$CLEAN_EXTRAS" = "T" ]] && delete_extras
