@@ -13,7 +13,7 @@ __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __version="2.0.0"
 
-source "scripts/lib/stdlib.shinc"
+source "scripts/lib/stdlib.sh"
 
 help()
 {
@@ -74,9 +74,13 @@ uninstall_from() {
 
         task "Removing $filename"
 
-        [[ -L "$src$filename" ]] && rm -rf "$src$filename"
-
-        taskdone
+        #[[ -L "$src$filename" ]] && rm -rf "$src$filename"
+        if [[ -e "$src$filename" ]]; then
+            rm -rf "$src$filename"
+            taskdone
+        else
+            taskdone "Does not exist"
+        fi
     done
 }
 
@@ -122,10 +126,13 @@ while [[ -n $1 ]]; do
     shift
 done
 
-uninstall_from "$DEFAULT_FILES" "$HOME"
-uninstall_from "$DEFAULT_SCRIPTS" "$HOME/bin"
+read -p "Are you sure you want to delete installed dotfiles? [y/n] " -n 1 -r
 
-[[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_FILES" "$HOME"
-[[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_CONFIG" "$HOME/.config"
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    uninstall_from "$DEFAULT_FILES" "$HOME"
+    uninstall_from "$DEFAULT_SCRIPTS" "$HOME/bin"
+fi
+# [[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_FILES" "$HOME"
+# [[ "$UNINSTALL_DESKTOP" = "T" ]] && uninstall_from "$DESKTOP_CONFIG" "$HOME/.config"
 
 [[ "$CLEAN_EXTRAS" = "T" ]] && delete_extras

@@ -163,13 +163,13 @@ while [[ -n $1 ]]; do
     shift
 done
 
-link_to "$CORE_FILES" "$HOME"
+copy_to "$CORE_FILES" "$HOME"
 
 if [[ "$INSTALL_FILES" = "T" ]]; then
-    link_to "$DEFAULT_FILES" "$HOME"
+    copy_to "$DEFAULT_FILES" "$HOME"
 fi
 
-link_to "$DEFAULT_SCRIPTS" "$HOME/bin"
+copy_to "$DEFAULT_SCRIPTS" "$HOME/bin"
 #copy_to "$GEN_FILES" "$HOME"
 
 #[[ "$INSTALL_DESKTOP" = "T" ]] && install_to "$DESKTOP_FILES" "$HOME"

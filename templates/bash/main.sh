@@ -19,7 +19,7 @@ __version="0.0.1"
 
 OS=$(uname | tr '[:upper:]' '[:lower:]')
 
-[ -s "./lib/stdlib.shinc" ] && source "./lib/stdlib.shinc"
+[ -s "./lib/stdlib.shinc" ] && source "./lib/stdlib.sh"
 
 printvars()
 {

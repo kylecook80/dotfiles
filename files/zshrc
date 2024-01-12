@@ -11,7 +11,7 @@ ENABLE_DIRENV="F"
 ENABLE_KEYCHAIN="F"
 
 # Configurations
-CONFIG_TMUX="F"
+CONFIG_TMUX="T"
 
 # Add local path to custom themes and functions
 fpath=(
@@ -40,32 +40,21 @@ if [ "$OPTION_PLUGINS" = "T" ]; then
         znap prompt cook
     fi
 
-    #znap source marlonrichert/zsh-autocomplete
+    znap source marlonrichert/zsh-autocomplete
     znap source zsh-users/zsh-autosuggestions
     znap source zsh-users/zsh-syntax-highlighting
-    #znap source chriskempson/base16-shell
 
 fi
 
-# Base16 Shell
-#BASE16_SHELL="$HOME/.config/base16-shell/"
-#[ -n "$PS1" ] && \
-#   [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-#       eval "$("$BASE16_SHELL/profile_helper.sh")"
-
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
-# HISTFILE=~/.histfile
-# HISTSIZE=1000
-# SAVEHIST=1000
-# setopt appendhistory
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory
 
 if [ "$ENABLE_NVM" = "T" ]; then
     if ! hash "nvm" 2> /dev/null; then
-        if [ ! -d "$HOME/.nvm" ]; then
-            git clone https://github.com/nvm-sh/nvm.git .nvm
-        fi
-
         export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     fi
