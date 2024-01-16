@@ -1,18 +1,18 @@
 # Options
-OPTION_PLUGINS="T"
-OPTION_PROMPT="T"
+OPTION_PLUGINS="F"
+OPTION_PROMPT="F"
 OPTION_NEOFETCH="F"
 
 # Configuration
 ENABLE_PYENV="F"
-ENABLE_CARGO="T"
+ENABLE_CARGO="F"
 ENABLE_NVM="F"
 ENABLE_DIRENV="F"
 ENABLE_KEYCHAIN="F"
 
 # Configurations
-CONFIG_TMUX="T"
-CONFIG_ITERM2="T"
+CONFIG_TMUX="F"
+CONFIG_ITERM2="F"
 
 # Add local path to custom themes and functions
 fpath=(
