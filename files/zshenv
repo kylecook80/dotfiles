@@ -14,6 +14,7 @@ case $OS in
         $HOME/.cargo/bin
         /opt/homebrew/opt/coreutils/libexec/gnubin
         /opt/homebrew/opt/make/libexec/gnubin
+        /Library/TeX/texbin
         /usr/local/sbin
         /usr/sbin
         /sbin

@@ -129,7 +129,7 @@ copy_to() {
         task "Copying $filename"
 
         if [[ ! -e "$dst$filename" ]]; then
-            ln -sf "$DIR/$item" "$dst$filename"
+            cp -rf "$DIR/$item" "$dst$filename"
             taskdone
         else
             taskdone "Already exists"

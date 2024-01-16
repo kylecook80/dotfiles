@@ -8,12 +8,12 @@
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__base="$(basename ${__file} .sh)"
+__base="$(basename "${__file}" .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __version="0.0.1"
 
-source "${__dir}/lib/stdlib.shinc"
+source "${__dir}/lib/stdlib.sh"
 
 help()
 {
@@ -48,7 +48,7 @@ copyfiles()
 
 findvalid()
 {
-    valid="$(cd $TEMPLATES_DIR && find . -type d -d 1 | cut -c 3- | sort)"
+    valid="$(cd "$TEMPLATES_DIR" && find . -type d -d 1 | cut -c 3- | sort)"
     echo "Valid Projects:"
     echo "${valid}"
 }

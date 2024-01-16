@@ -8,7 +8,7 @@ alias docker-update="docker-compose pull && docker-compose up --force-recreate -
 OS=`uname | tr "[A-Z]" "[a-z]"`
 case $OS in
 "darwin")
-    alias ls="ls -G"
+    alias ls="ls -G --color=auto"
     alias finder_hide_files="defaults write com.apple.finder AppleShowAllFiles NO;killall Finder"
     alias finder_show_files="defaults write com.apple.finder AppleShowAllFiles YES;killall Finder"
     alias flushdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder"

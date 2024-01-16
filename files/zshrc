@@ -1,7 +1,7 @@
 # Options
 OPTION_PLUGINS="T"
 OPTION_PROMPT="T"
-OPTION_NEOFETCH="T"
+OPTION_NEOFETCH="F"
 
 # Configuration
 ENABLE_PYENV="F"
@@ -12,6 +12,7 @@ ENABLE_KEYCHAIN="F"
 
 # Configurations
 CONFIG_TMUX="T"
+CONFIG_ITERM2="T"
 
 # Add local path to custom themes and functions
 fpath=(
@@ -36,17 +37,14 @@ bindkey -e
 if [ "$OPTION_PLUGINS" = "T" ]; then
     source $HOME/.znap/zsh-snap/znap.zsh
 
-    if [ "$OPTION_PROMPT" = "T" ]; then
-        znap prompt cook
-    fi
-
     znap source marlonrichert/zsh-autocomplete
     znap source zsh-users/zsh-autosuggestions
     znap source zsh-users/zsh-syntax-highlighting
-
 fi
 
-test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
+if [ "$OPTION_PROMPT" = "T" ]; then
+    znap prompt cook
+fi
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -64,8 +62,8 @@ if [ "$ENABLE_PYENV" = "T" ]; then
     if hash "pyenv" 2> /dev/null; then
         export PYENV_ROOT="/opt/homebrew/opt/pyenv"
         export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
+        znap eval "$(pyenv init -)"
+        znap eval "$(pyenv virtualenv-init -)"
     fi
 fi
 
@@ -93,6 +91,10 @@ if [ "$CONFIG_TMUX" = "T" ]; then
     if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     fi
+fi
+
+if [ "$CONFIG_ITERM2" = "T" ]; then
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
 # vim: ai et nu ts=4 sw=4 sts=4 ft=sh :
