@@ -20,6 +20,7 @@ __root="$(cd "$(dirname "${__dir}")" && pwd)"
 __version="0.0.1"
 
 OS=$(uname | tr '[:upper:]' '[:lower:]')
+APP=template
 
 printdebug()
 {
@@ -84,11 +85,12 @@ fi
 mkdir -p dist/
 
 for i in $FILES; do
+    mkdir -p "dist/$(dirname "$i")"
     cp -r "$i" "dist/$i"
 done
 
 if hash "zip" 2> /dev/null; then
-    name="edrtool-${__version}"
+    name="${APP}-${__version}"
 
     if [[ -f "${name}.zip" ]]; then
         rm "${name}.zip"
