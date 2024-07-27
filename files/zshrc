@@ -39,7 +39,6 @@ fi
 if [ "$OPTION_PLUGINS" = "T" ]; then
     source $HOME/.znap/zsh-snap/znap.zsh
 
-    znap source marlonrichert/zsh-autocomplete
     znap source zsh-users/zsh-syntax-highlighting
 fi
 
