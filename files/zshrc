@@ -1,6 +1,6 @@
 # Options
 OPTION_PLUGINS="F"
-OPTION_PROMPT="F"
+OPTION_PROMPT="T"
 OPTION_NEOFETCH="F"
 
 # Configuration
@@ -8,17 +8,22 @@ ENABLE_PYENV="F"
 ENABLE_CARGO="F"
 ENABLE_NVM="F"
 ENABLE_DIRENV="F"
-ENABLE_KEYCHAIN="F"
 
 # Configurations
 CONFIG_TMUX="F"
 CONFIG_ITERM2="F"
+
+PYENV_ROOT="$HOME/.pyenv"
+NVM_DIR="$HOME/.nvm"
 
 # Add local path to custom themes and functions
 fpath=(
     ~/.zsh/site-functions
     $fpath
 )
+
+# Standard emacs keymap
+bindkey -e
 
 if [[ ! -e $HOME/.znap/zsh-snap ]]; then
    mkdir -p $HOME/.znap
@@ -31,14 +36,10 @@ if [ "$OPTION_NEOFETCH" = "T" ]; then
     fi
 fi
 
-# Standard emacs keymap
-bindkey -e
-
 if [ "$OPTION_PLUGINS" = "T" ]; then
     source $HOME/.znap/zsh-snap/znap.zsh
 
     znap source marlonrichert/zsh-autocomplete
-    znap source zsh-users/zsh-autosuggestions
     znap source zsh-users/zsh-syntax-highlighting
 fi
 
@@ -46,28 +47,41 @@ if [ "$OPTION_PROMPT" = "T" ]; then
     znap prompt cook
 fi
 
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory
-
 if [ "$ENABLE_NVM" = "T" ]; then
+    if [ ! -d "$HOME/.nvm" ]; then 
+        git clone https://github.com/nvm-sh/nvm.git .nvm
+        cd .nvm
+        git checkout v0.39.7
+        cd $HOME
+    fi
+    
     if ! hash "nvm" 2> /dev/null; then
-        export NVM_DIR="$HOME/.nvm"
+        export NVM_DIR
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     fi
 fi
 
 if [ "$ENABLE_PYENV" = "T" ]; then
+    if [ ! -d "$HOME/.pyenv" ]; then
+        git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
+        git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
+        cd $HOME/.pyenv && src/configure && make -C src
+        cd $HOME
+    fi
+    
     if hash "pyenv" 2> /dev/null; then
-        export PYENV_ROOT="/opt/homebrew/opt/pyenv"
+        export PYENV_ROOT
         export PATH="$PYENV_ROOT/bin:$PATH"
-        znap eval "$(pyenv init -)"
-        znap eval "$(pyenv virtualenv-init -)"
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
     fi
 fi
 
 if [ "$ENABLE_CARGO" = "T" ]; then
+    if [ ! -d "$HOME/.cargo" ]; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    fi
+
     if [ -e "$HOME/.cargo/env" ]; then
         source "$HOME/.cargo/env"
     fi
@@ -76,14 +90,6 @@ fi
 if [ "$ENABLE_DIRENV" = "T" ]; then
     if hash "direnv" 2> /dev/null; then
         eval "$(direnv hook zsh)"
-    fi
-fi
-
-if [ "$ENABLE_KEYCHAIN" = "T" ]; then
-    if hash "keychain" 2> /dev/null; then
-        keychain id_ed25519
-        [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
-        [ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh
     fi
 fi
 

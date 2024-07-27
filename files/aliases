@@ -1,11 +1,13 @@
+#!/usr/bin/env bash
+
 alias newpw="LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16 | xargs echo"
-alias pubkey="cat ~/.ssh/id_rsa.pub"
+alias pubkey="cat ~/.ssh/id_ed25519.pub"
 
 alias sshk="ssh-keygen -R "
 
 alias docker-update="docker-compose pull && docker-compose up --force-recreate --build -d"
 
-OS=`uname | tr "[A-Z]" "[a-z]"`
+OS=$(uname | tr "[:upper:]" "[:lower:]")
 case $OS in
 "darwin")
     alias ls="ls -G --color=auto"

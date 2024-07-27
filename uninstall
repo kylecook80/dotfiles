@@ -126,9 +126,10 @@ while [[ -n $1 ]]; do
     shift
 done
 
-read -p "Are you sure you want to delete installed dotfiles? [y/n] " -n 1 -r
-
+read -p "Are you sure you want to delete installed dotfiles? [y/N] " -n 1 -r REPLY
+REPLY=${REPLY:-N}
 if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ""
     uninstall_from "$DEFAULT_FILES" "$HOME"
     uninstall_from "$DEFAULT_SCRIPTS" "$HOME/bin"
 fi
