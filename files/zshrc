@@ -8,6 +8,7 @@ ENABLE_PYENV="F"
 ENABLE_CARGO="F"
 ENABLE_NVM="F"
 ENABLE_DIRENV="F"
+ENABLE_GO="F"
 
 # Configurations
 CONFIG_TMUX="F"
@@ -89,6 +90,20 @@ fi
 if [ "$ENABLE_DIRENV" = "T" ]; then
     if hash "direnv" 2> /dev/null; then
         eval "$(direnv hook zsh)"
+    fi
+fi
+
+if [ "$ENABLE_GO" = "T" ]; then
+    if [ ! -d "$HOME/.go" ]; then
+        cd $HOME
+        wget https://go.dev/dl/go1.22.5.linux-amd64.tar.gz
+        tar xfvz go1.22.5.linux-amd64.tar.gz
+        mv go .go
+        rm go1.22.5.linux-amd64.tar.gz
+    fi
+
+    if ! hash "go" 2> /dev/null; then
+        export PATH="$HOME/.go/bin:$PATH"
     fi
 fi
 
