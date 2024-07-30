@@ -1,6 +1,7 @@
 # Options
 OPTION_PLUGINS="F"
-OPTION_PROMPT="T"
+OPTION_PROMPT="F"
+
 OPTION_NEOFETCH="F"
 
 # Configuration
@@ -26,11 +27,6 @@ fpath=(
 # Standard emacs keymap
 bindkey -e
 
-if [[ ! -e $HOME/.znap/zsh-snap ]]; then
-   mkdir -p $HOME/.znap
-   git clone https://github.com/marlonrichert/zsh-snap $HOME/.znap/zsh-snap
-fi
-
 if [ "$OPTION_NEOFETCH" = "T" ]; then
     if hash "neofetch" 2> /dev/null; then
        neofetch
@@ -38,14 +34,20 @@ if [ "$OPTION_NEOFETCH" = "T" ]; then
 fi
 
 if [ "$OPTION_PLUGINS" = "T" ]; then
+    if [[ ! -e $HOME/.znap/zsh-snap ]]; then
+        mkdir -p $HOME/.znap
+        git clone https://github.com/marlonrichert/zsh-snap $HOME/.znap/zsh-snap
+    fi
+
     source $HOME/.znap/zsh-snap/znap.zsh
-
     znap source zsh-users/zsh-syntax-highlighting
+    znap source zsh-users/zsh-autosuggestions
+
+    if [ "$OPTION_PROMPT" = "T" ]; then
+        znap prompt cook
+    fi
 fi
 
-if [ "$OPTION_PROMPT" = "T" ]; then
-    znap prompt cook
-fi
 
 if [ "$ENABLE_NVM" = "T" ]; then
     if [ ! -d "$HOME/.nvm" ]; then 
@@ -69,7 +71,7 @@ if [ "$ENABLE_PYENV" = "T" ]; then
         cd $HOME
     fi
     
-    if hash "pyenv" 2> /dev/null; then
+    if ! hash "pyenv" 2> /dev/null; then
         export PYENV_ROOT
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
