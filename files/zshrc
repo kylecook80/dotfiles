@@ -1,10 +1,11 @@
 # Options
 OPTION_PLUGINS="F"
 OPTION_PROMPT="F"
-
 OPTION_NEOFETCH="F"
 
 # Configuration
+ENABLE_KEYCHAIN="F"
+ENABLE_AUTOJUMP="F"
 ENABLE_PYENV="F"
 ENABLE_CARGO="F"
 ENABLE_NVM="F"
@@ -18,6 +19,10 @@ CONFIG_ITERM2="F"
 PYENV_ROOT="$HOME/.pyenv"
 NVM_DIR="$HOME/.nvm"
 
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=$HISTSIZE
+
 # Add local path to custom themes and functions
 fpath=(
     ~/.zsh/site-functions
@@ -27,6 +32,11 @@ fpath=(
 # Standard emacs keymap
 bindkey -e
 
+if [[ ! -e $HOME/.znap/zsh-snap ]]; then
+   mkdir -p $HOME/.znap
+   git clone https://github.com/marlonrichert/zsh-snap $HOME/.znap/zsh-snap
+fi
+
 if [ "$OPTION_NEOFETCH" = "T" ]; then
     if hash "neofetch" 2> /dev/null; then
        neofetch
@@ -34,20 +44,18 @@ if [ "$OPTION_NEOFETCH" = "T" ]; then
 fi
 
 if [ "$OPTION_PLUGINS" = "T" ]; then
-    if [[ ! -e $HOME/.znap/zsh-snap ]]; then
-        mkdir -p $HOME/.znap
-        git clone https://github.com/marlonrichert/zsh-snap $HOME/.znap/zsh-snap
-    fi
-
     source $HOME/.znap/zsh-snap/znap.zsh
-    znap source zsh-users/zsh-syntax-highlighting
-    znap source zsh-users/zsh-autosuggestions
 
-    if [ "$OPTION_PROMPT" = "T" ]; then
-        znap prompt cook
-    fi
+    znap source zsh-users/zsh-syntax-highlighting
 fi
 
+if [ "$OPTION_PROMPT" = "T" ]; then
+    znap prompt cook
+fi
+
+if [ "$ENABLE_KEYCHAIN" = "T" ]; then
+    eval $(keychain --eval --quiet id_ed25519)
+fi
 
 if [ "$ENABLE_NVM" = "T" ]; then
     if [ ! -d "$HOME/.nvm" ]; then 
@@ -71,7 +79,7 @@ if [ "$ENABLE_PYENV" = "T" ]; then
         cd $HOME
     fi
     
-    if ! hash "pyenv" 2> /dev/null; then
+    if hash "pyenv" 2> /dev/null; then
         export PYENV_ROOT
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
@@ -117,6 +125,10 @@ fi
 
 if [ "$CONFIG_ITERM2" = "T" ]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
+
+if [ "$AUTOJUMP" = "T" ]; then
+    [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
 fi
 
 # vim: ai et nu ts=4 sw=4 sts=4 ft=sh :
