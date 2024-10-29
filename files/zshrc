@@ -4,6 +4,7 @@ OPTION_PROMPT="F"
 OPTION_NEOFETCH="F"
 
 # Configuration
+ENABLE_HISTORY="F"
 ENABLE_KEYCHAIN="F"
 ENABLE_AUTOJUMP="F"
 ENABLE_PYENV="F"
@@ -19,9 +20,11 @@ CONFIG_ITERM2="F"
 PYENV_ROOT="$HOME/.pyenv"
 NVM_DIR="$HOME/.nvm"
 
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=10000000
-SAVEHIST=$HISTSIZE
+if [[ "$ENABLE_HISTORY" = "T" ]]; then
+    HISTFILE="$HOME/.zsh_history"
+    HISTSIZE=10000000
+    SAVEHIST=$HISTSIZE
+fi
 
 # Add local path to custom themes and functions
 fpath=(

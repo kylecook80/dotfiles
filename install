@@ -25,6 +25,7 @@ help()
     echo -e "Options:"
     echo -e "\t-d | --desktop\t\tInstall desktop configuration files"
     echo -e "\t-f | --files\t\tInstall Extra files only"
+    echo -e "\t-F | --force\t\tForce installation of files"
     echo -e "\t-h | --help\t\tShow this screen"
     echo -e ""
 }
@@ -128,7 +129,7 @@ copy_to() {
 
         task "Copying $filename"
 
-        if [[ ! -e "$dst$filename" ]]; then
+        if [[ ! -e "$dst$filename" || "$FORCE" = "T" ]]; then
             cp -rf "$DIR/$item" "$dst$filename"
             taskdone
         else
@@ -148,6 +149,9 @@ while [[ -n $1 ]]; do
         ;;
         -f|--files)
             INSTALL_FILES="T"
+        ;;
+        -F|--force)
+            FORCE="T"
         ;;
         *)
             echo "Unknown option: $1"
