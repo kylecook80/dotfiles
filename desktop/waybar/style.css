@@ -1,0 +1,75 @@
+/* Default background color for the bar */
+#waybar {
+  background: #1d1f21;
+}
+
+#waybar .module {
+  margin: 0px 0px; /* Top-bottom, left-right */
+  padding: 0px 5px; /* Top-bottom, left-right */
+}
+
+/* Sway workspaces module */
+#workspaces {
+  background: #3b4252;  /* Change to desired color */
+  border: none;
+  border-radius: 4px;
+}
+
+/* Default workspace styling */
+#workspaces button {
+    background: #3b4252;  /* Default background for workspaces */
+    color: #eceff4;       /* Default text color */
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+}
+
+/* Active workspace styling */
+#workspaces button.active {
+    background: #81a1c1;  /* Highlight color for active workspace */
+    color: #2e3440;       /* Text color for active workspace */
+    font-weight: bold;    /* Bold text to make it stand out */
+    border: 1px solid #5e81ac; /* Optional border to emphasize it */
+}
+
+/* Sway mode module */
+#mode {
+  background: #4c566a;
+}
+
+/* Clock module */
+#clock {
+  background: #81a1c1;
+  border: none;
+  border-radius: 4px;
+}
+
+/* CPU module */
+#cpu {
+  background: #88c0d0;
+  border: none;
+  border-radius: 4px 0px 0px 4px;
+}
+
+/* Memory module */
+#memory {
+  background: #a3be8c;
+}
+
+/* Battery module */
+#battery {
+  background: #ebcb8b;
+}
+
+/* Network module */
+#network {
+  background: #d08770;
+}
+
+/* PulseAudio module */
+#wireplumber {
+  background: #b48ead;
+  border: none;
+  border-radius: 0px 4px 4px 0px;
+}

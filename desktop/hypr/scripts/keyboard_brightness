@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+iDIR="$HOME/.config/mako/icons"
+
+# Get brightness
+get_backlight() {
+    qmk_hid --vid 32ac --pid 0012 via --backlight  | awk '{ print $2; }' | tr -d "%"
+}
+
+# Get icons
+get_icon() {
+    BRIGHTNESS=$(get_backlight)
+
+    if [[ ("$BRIGHTNESS" -ge "0") && ("$BRIGHTNESS" -le "33") ]]; then
+        icon="$iDIR/brightness-20.png"
+    elif [[ ("$BRIGHTNESS" -ge "34") && ("$BRIGHTNESS" -le "67") ]]; then
+        icon="$iDIR/brightness-60.png"
+    elif [[ ("$BRIGHTNESS" -ge "68") && ("$BRIGHTNESS" -le "100") ]]; then
+        icon="$iDIR/brightness-100.png"
+    fi
+}
+
+# Notify
+notify_user() {
+    get_icon
+    BRIGHTNESS=$2
+    notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon" "Brightness: $BRIGHTNESS"
+}
+
+# Increase brightness
+inc_backlight() {
+    BRIGHTNESS=$(get_backlight)
+    NEW_BRIGHTNESS=$(( $BRIGHTNESS + 34 ))
+    NEW_BRIGHTNESS_CHECK=$(( NEW_BRIGHTNESS < 100 ? NEW_BRIGHTNESS : 100 ))
+    qmk_hid --vid 32ac --pid 0012 via --backlight $NEW_BRIGHTNESS_CHECK
+}
+
+# Decrease brightness
+dec_backlight() {
+    BRIGHTNESS=$(get_backlight)
+    NEW_BRIGHTNESS=$(( BRIGHTNESS - 33 > 0 ? BRIGHTNESS - 33 : 0 ))
+    qmk_hid --vid 32ac --pid 0012 via --backlight $NEW_BRIGHTNESS
+}
+
+# Execute accordingly
+if [[ "$1" == "--get" ]]; then
+    get_backlight
+elif [[ "$1" == "--inc" ]]; then
+    VAL=$(inc_backlight)
+    echo $VAL
+    notify_user $VAL
+elif [[ "$1" == "--dec" ]]; then
+    VAL=$(dec_backlight)
+    notify_user $VAL
+else
+    get_backlight
+fi

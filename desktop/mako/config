@@ -1,0 +1,19 @@
+font=Hack 12
+
+background-color=#1E1E2E
+text-color=#E0DEF4
+
+width=300
+height=80
+margin=10
+
+border-size=2
+border-color=#585B70
+padding=10
+
+anchor=top-right
+
+default-timeout=5000
+ignore-timeout=1
+
+max-visible=5

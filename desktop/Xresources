@@ -1,5 +1,0 @@
-#include ".Xresources.d/urxvt"
-#include ".Xresources.d/tomorrownight"
-
-Xcursor.theme: Premium
-Xcursor.size: 12

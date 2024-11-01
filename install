@@ -36,44 +36,19 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 debug "OS: $OS"
 debug "DIR: $DIR"
 
-if [[ "$OS" = "darwin" ]]; then
-    if [ ! -d "/opt/homebrew" ]; then
-        echo "Please install Homebrew first."
-        exit 1
-    fi
-
-    if [ ! -x "/opt/homebrew/bin/gfind" ]; then
-        brew install findutils
-    fi
-
-    if [ ! -x "/opt/homebrew/bin/gtr" ]; then
-        brew install coreutils
-    fi
-
-    if [ ! -x "/opt/homebrew/bin/ggrep" ]; then
-        brew install grep
-    fi
-
-    FIND="/opt/homebrew/bin/gfind"
-    GREP="/opt/homebrew/bin/ggrep"
-    TR="/opt/homebrew/bin/gtr"
-else
-    FIND="/usr/bin/find"
-    GREP="/usr/bin/grep"
-    TR="/usr/bin/tr"
-fi
+FIND="/usr/bin/find"
+GREP="/usr/bin/grep"
+TR="/usr/bin/tr"
 
 CORE_FILES="files/zsh files/zprofile files/zshenv files/zshrc"
 DEFAULT_FILES=$($FIND files -mindepth 1 -maxdepth 1 -not -wholename files/z\* | $GREP -P '^(?!.*-gen).*$' | $TR '\n' ' ')
 
 DEFAULT_SCRIPTS=$($FIND scripts -mindepth 1 -maxdepth 1 -printf "%p ")
-DESKTOP_CONFIG=$($FIND desktop/config -mindepth 1 -maxdepth 1 -printf "%p ")
 DESKTOP_FILES=$($FIND desktop -mindepth 1 -maxdepth 1 -path desktop/config -prune -o -printf "%p ")
 
 debug "DEFAULT_FILES = ${DEFAULT_FILES}"
 debug "GEN_FILES = ${GEN_FILES}"
 debug "DEFAULT_SCRIPTS = ${DEFAULT_SCRIPTS}"
-debug "DESKTOP_CONFIG = ${DESKTOP_CONFIG}"
 debug "DESKTOP_FILES = ${DESKTOP_FILES}"
 
 link_to() {
@@ -150,6 +125,9 @@ while [[ -n $1 ]]; do
         -f|--files)
             INSTALL_FILES="T"
         ;;
+        -s|--scripts)
+            INSTALL_SCRIPTS="T"
+        ;;
         -F|--force)
             FORCE="T"
         ;;
@@ -169,9 +147,13 @@ if [[ "$INSTALL_FILES" = "T" ]]; then
     copy_to "$DEFAULT_FILES" "$HOME"
 fi
 
-copy_to "$DEFAULT_SCRIPTS" "$HOME/bin"
+if [[ "$INSTALL_SCRIPTS" = "T" ]]; then
+    copy_to "$DEFAULT_SCRIPTS" "$HOME/bin"
+fi
 
-[[ "$INSTALL_DESKTOP" = "T" ]] && copy_to "$DESKTOP_FILES" "$HOME"
-[[ "$INSTALL_DESKTOP" = "T" ]] && copy_to "$DESKTOP_CONFIG" "$HOME/.config"
+if [[ "$INSTALL_DESKTOP" = "T" ]]; then
+    mkdir -p "$HOME/.config"
+    copy_to "$DESKTOP_FILES" "$HOME/.config"
+fi
 
 # vim: ai et nu ts=4 sw=4 sts=4 ft=sh :
