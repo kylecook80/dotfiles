@@ -130,7 +130,7 @@ if [ "$CONFIG_ITERM2" = "T" ]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-if [ "$AUTOJUMP" = "T" ]; then
+if [ "$ENABLE_AUTOJUMP" = "T" ]; then
     [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
 fi
 
