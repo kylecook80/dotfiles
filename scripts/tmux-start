@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+SESSION="main"
+
+# If session already exists, attach to it, otherwise create a new one
+tmux has-session -t $SESSION 2>/dev/null
+if [ $? != 0 ]; then
+  # Create a new session, window 0
+  tmux new-session -d -s $SESSION -n editor
+  tmux split-window -h -t $SESSION:0
+fi
+
+# Attach to the session
+tmux attach-session -t $SESSION
+

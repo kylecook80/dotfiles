@@ -36,8 +36,8 @@ pushd dists/$RELEASE
 rm Release InRelease Release.gpg
 
 cat << EOF > Release
-Origin: Rivian Hackathon Repository
-Label: Rivian
+Origin: My Repo
+Label: Repo
 Suite: stable
 Codename: $RELEASE
 Version: 1.0
@@ -49,8 +49,8 @@ apt-ftparchive release . >> Release
 
 popd
 
-cat dists/$RELEASE/Release | gpg --default-key kcook@rivian.com -abs > dists/$RELEASE/Release.gpg
-cat dists/$RELEASE/Release | gpg --default-key kcook@rivian.com -abs --clearsign > dists/$RELEASE/InRelease
+cat dists/$RELEASE/Release | gpg --default-key kylecook80@gmail.com -abs > dists/$RELEASE/Release.gpg
+cat dists/$RELEASE/Release | gpg --default-key kylecook80@gmail.com -abs --clearsign > dists/$RELEASE/InRelease
 
 popd # ${PREFIX}/
 
